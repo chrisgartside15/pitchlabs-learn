@@ -1,0 +1,257 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+body {
+  background: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color: #e0e0e0;
+    background: #0f0f0f;
+  }
+  body {
+    background: #0f0f0f;
+  }
+}
+
+header.header {
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+@media (prefers-color-scheme: dark) {
+  header.header {
+    border-bottom-color: #2a2a2a;
+    background: #0f0f0f;
+  }
+}
+
+nav.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    color: #e0e0e0;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #666;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-links a {
+    color: #aaa;
+  }
+  .nav-links a:hover {
+    color: #e0e0e0;
+  }
+}
+
+main.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+article {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+article h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+article h2 {
+  font-size: 1.6rem;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.3;
+}
+
+article h3 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+article p {
+  margin-bottom: 1rem;
+}
+
+article ul,
+article ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+article li {
+  margin-bottom: 0.5rem;
+}
+
+article blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #666;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: dark) {
+  article blockquote {
+    border-left-color: #444;
+    color: #aaa;
+  }
+}
+
+article code {
+  background: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+@media (prefers-color-scheme: dark) {
+  article code {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+}
+
+.article-meta {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .article-meta {
+    color: #aaa;
+    border-bottom-color: #2a2a2a;
+  }
+}
+
+.articles-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.article-card {
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.article-card:hover {
+  border-color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .article-card {
+    border-color: #2a2a2a;
+  }
+  .article-card:hover {
+    border-color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+}
+
+.article-card h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.article-card .date {
+  color: #999;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+footer.footer {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 4rem;
+  font-size: 0.95rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  footer.footer {
+    color: #aaa;
+    border-top-color: #2a2a2a;
+  }
+}
+
+.cta-button {
+  display: inline-block;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 2rem;
+  transition: background 0.2s;
+}
+
+.cta-button:hover {
+  background: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cta-button {
+    background: #e0e0e0;
+    color: #0f0f0f;
+  }
+  .cta-button:hover {
+    background: #fff;
+  }
+}
