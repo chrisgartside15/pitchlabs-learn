@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "^14.0.0",
+    "next-mdx-remote": "^6.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "next-mdx-remote": "^4.4.1",
-    "gray-matter": "^4.0.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
