@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: 'PitchLabs Learn',
     description: 'Soccer coaching guides and training session planning.',
-    url: 'https://pitchlabs.com/learn',
+    url: 'https://usepitchlabs.com/learn',
     siteName: 'PitchLabs Learn',
   },
 }
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             <div className="nav-links">
               <a href="/">Home</a>
               <a href="/articles">Articles</a>
-              <a href="https://app.pitchlabs.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://usepitchlabs.com" target="_blank" rel="noopener noreferrer">
                 Build Sessions
               </a>
             </div>

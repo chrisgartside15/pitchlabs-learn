@@ -91,7 +91,7 @@ export default function ArticlePage({ params }) {
         {article.meta.cta && (
           <div className="article-cta">
             <p>{article.meta.cta}</p>
-            <a href="https://app.pitchlabs.com" className="cta-button" target="_blank" rel="noopener noreferrer">
+            <a href="https://usepitchlabs.com" className="cta-button" target="_blank" rel="noopener noreferrer">
               Build in PitchLabs
             </a>
           </div>

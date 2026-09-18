@@ -56,17 +56,17 @@ cta: "Optional call-to-action text"
 
 6. Once deployed, you'll get a live URL (something like `pitchlabs-learn-chi.vercel.app`).
 
-### Connect to pitchlabs.com
+### Connect to usepitchlabs.com
 
-To make it live at `pitchlabs.com/learn`:
+To make it live at `usepitchlabs.com/learn`:
 
 1. In your domain registrar (wherever your DNS is), add a subdomain redirect or DNS record pointing to Vercel.
 
-2. In Vercel project settings → "Domains", add `learn.pitchlabs.com` or configure the DNS records.
+2. In Vercel project settings → "Domains", add `learn.usepitchlabs.com` or configure the DNS records.
 
 3. Vercel will provide specific DNS records to add to your domain.
 
-(Alternative: If you want `pitchlabs.com/learn` instead of a subdomain, that requires more complex routing—easiest path is just a subdomain for now.)
+(Alternative: If you want `usepitchlabs.com/learn` instead of a subdomain, that requires more complex routing—easiest path is just a subdomain for now.)
 
 ### Deploy Updates
 
