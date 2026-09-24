@@ -6,7 +6,7 @@ The original 5-cluster plan (Session Planning, Coaching Principles, Age-Specific
 
 **Cadence is deliberately not fixed.** Chris's review bandwidth is variable/bursty. This roadmap sets an order of priority, not a locked calendar — PUBLISHING_CALENDAR.md gets updated to reflect actual pace as it becomes clear, rather than this doc assuming a pace that gets missed every month.
 
-**Verified state (2026-09-18):** Site is live at a temporary Vercel URL. The pillar article is deployed and confirmed rendering correctly. Custom domain (`learn.usepitchlabs.com`, likely) not yet connected. See PUBLISHING_CALENDAR.md for remaining launch items.
+**Verified state (2026-09-24):** Site is live at a temporary Vercel URL. Two articles drafted/approved (the pillar and its direct sequel). Domain approach decided: `usepitchlabs.com/learn`, a reverse-proxied subpath (not `learn.usepitchlabs.com` — that subdomain idea from earlier is superseded). Target launch date 2026-09-29; the code for the subpath wiring is committed locally in both repos, not yet pushed. See PUBLISHING_CALENDAR.md for the full remaining launch checklist.
 
 ## The Clusters
 
