@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { withBasePath } from '@/lib/site'
 
 /**
  * Click-to-expand lightbox for an article diagram — same idea as the main PitchLabs app's
@@ -11,6 +12,10 @@ import { useEffect, useState } from 'react'
  */
 export function ImageLightbox({ src, alt, width, height }) {
   const [open, setOpen] = useState(false)
+  // `src` comes from an article's plain `/images/...` path — basePath rewrites next/link and
+  // next/image automatically, but not an arbitrary string handed to a plain <img>, so it needs
+  // the /learn prefix added back on by hand once this is actually served through the proxy.
+  const resolvedSrc = withBasePath(src)
 
   useEffect(() => {
     if (!open) return
@@ -33,7 +38,7 @@ export function ImageLightbox({ src, alt, width, height }) {
         aria-label={`View full size: ${alt}`}
         className="lightbox-trigger"
       >
-        <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+        <img src={resolvedSrc} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
         <span aria-hidden="true" className="lightbox-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8" />
@@ -57,7 +62,7 @@ export function ImageLightbox({ src, alt, width, height }) {
             </svg>
           </button>
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             className="lightbox-image"
             onClick={(e) => e.stopPropagation()}

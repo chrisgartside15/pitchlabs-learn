@@ -1,10 +1,10 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { getArticleBySlug, getAllArticles, formatArticleDate } from '@/lib/articles'
+import { getArticleBySlug, getAllArticles, formatArticleDate, getReadingTimeMinutes } from '@/lib/articles'
 import Link from 'next/link'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 import { APP_URL } from '@/lib/analytics'
 import { PitchDivider } from '@/components/atmosphere'
-import { ClusterBadge, AuthorBio, GraphicCaption, DefinitionBox } from '@/components/content'
+import { ClusterBadge, AuthorBio, GraphicCaption, DefinitionBox, MdxLink } from '@/components/content'
 import { ImageLightbox } from '@/components/ImageLightbox'
 import { StepTool } from '@/components/StepTool'
 import { InterventionWheelTool } from '@/components/InterventionWheelTool'
@@ -15,7 +15,7 @@ import { SITE_URL } from '@/lib/site'
 // etc.) so the article reads with the same brand tokens as the rest of the site — no need to
 // duplicate that here per-element the way the original template did. GraphicCaption lets an
 // article drop `<GraphicCaption />` right under a graphic placeholder in its .mdx source.
-const components = { GraphicCaption, DefinitionBox, ImageLightbox, StepTool, InterventionWheelTool }
+const components = { GraphicCaption, DefinitionBox, ImageLightbox, StepTool, InterventionWheelTool, a: MdxLink }
 
 export async function generateStaticParams() {
   const articles = getAllArticles()
@@ -60,6 +60,7 @@ export default function ArticlePage({ params }) {
   const nextArticle = allArticles[currentIndex - 1]
   const prevArticle = allArticles[currentIndex + 1]
   const cluster = article.meta.cluster ? getCluster(article.meta.cluster) : null
+  const readingTime = getReadingTimeMinutes(article.content)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -99,6 +100,7 @@ export default function ArticlePage({ params }) {
           <div className="article-meta">
             <span>{formatArticleDate(article.meta.date)}</span>
             {article.meta.author && <span>· {article.meta.author}</span>}
+            <span>· {readingTime} min read</span>
           </div>
         </div>
 

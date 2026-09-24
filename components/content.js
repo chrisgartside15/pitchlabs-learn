@@ -3,6 +3,27 @@ import { getCluster } from '@/lib/clusters'
 import { APP_URL } from '@/lib/analytics'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 
+/** Registered as the `a` override for every markdown-syntax link inside article .mdx content
+ *  (research citations, the cross-article series links). Without this, MDXRemote renders a plain
+ *  `<a>`, which — unlike next/link — doesn't pick up basePath automatically, so an internal link
+ *  like `[next piece](/articles/...)` would point at the un-prefixed path once this app is
+ *  actually served under the /learn proxy in production. External links (the citations) stay as
+ *  plain anchors that open in a new tab, same as before. */
+export function MdxLink({ href = '', children, ...rest }) {
+  if (href.startsWith('/')) {
+    return (
+      <Link href={href} {...rest}>
+        {children}
+      </Link>
+    )
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+      {children}
+    </a>
+  )
+}
+
 /** Category pill linking to the article's cluster landing page (/topics/<cluster>) — the
  *  Ahrefs/Canva-style "this belongs to a pillar, not a random post" signal. */
 export function ClusterBadge({ clusterSlug }) {
