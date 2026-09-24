@@ -2,10 +2,12 @@ import Link from 'next/link'
 import { getAllArticles, getArticlesByCluster, formatArticleDate } from '@/lib/articles'
 import { CLUSTERS } from '@/lib/clusters'
 import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
   title: 'PitchLabs Learn - Coaching Education',
   description: 'Practical, research-backed articles on soccer coaching. From session planning to tactical development, we help coaches build better training and better teams.',
+  alternates: { canonical: SITE_URL },
   openGraph: {
     title: 'PitchLabs Learn',
     description: 'Practical, research-backed articles on soccer coaching.',

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { CLUSTERS, getCluster } from '@/lib/clusters'
 import { getArticlesByCluster, getArticleBySlug, formatArticleDate } from '@/lib/articles'
 import { PitchDivider } from '@/components/atmosphere'
+import { SITE_URL } from '@/lib/site'
 
 export async function generateStaticParams() {
   return CLUSTERS.map((cluster) => ({ cluster: cluster.slug }))
@@ -14,6 +15,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${cluster.title} - PitchLabs Learn`,
     description: cluster.goal,
+    alternates: { canonical: `${SITE_URL}/topics/${cluster.slug}` },
   }
 }
 

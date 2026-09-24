@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { getAllArticles, formatArticleDate } from '@/lib/articles'
 import { TechEyebrow } from '@/components/atmosphere'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
   title: 'Articles - PitchLabs Learn',
   description: 'All coaching guides and training articles from PitchLabs Learn.',
+  alternates: { canonical: `${SITE_URL}/articles` },
 }
 
 export default function ArticlesIndex() {

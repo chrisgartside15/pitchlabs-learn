@@ -9,6 +9,7 @@ import { ImageLightbox } from '@/components/ImageLightbox'
 import { StepTool } from '@/components/StepTool'
 import { InterventionWheelTool } from '@/components/InterventionWheelTool'
 import { getCluster } from '@/lib/clusters'
+import { SITE_URL } from '@/lib/site'
 
 // Spacing/typography/color for these all now live in globals.css (`article h1`, `article a`,
 // etc.) so the article reads with the same brand tokens as the rest of the site — no need to
@@ -25,9 +26,26 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const article = getArticleBySlug(params.slug)
+  const url = `${SITE_URL}/articles/${params.slug}`
   return {
     title: article.meta.title,
     description: article.meta.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      title: article.meta.title,
+      description: article.meta.excerpt,
+      url,
+      type: 'article',
+      publishedTime: article.meta.date,
+      authors: article.meta.author ? [article.meta.author] : undefined,
+      images: article.meta.image ? [article.meta.image] : undefined,
+    },
+    twitter: {
+      card: article.meta.image ? 'summary_large_image' : 'summary',
+      title: article.meta.title,
+      description: article.meta.excerpt,
+      images: article.meta.image ? [article.meta.image] : undefined,
+    },
   }
 }
 
@@ -35,12 +53,36 @@ export default function ArticlePage({ params }) {
   const article = getArticleBySlug(params.slug)
   const allArticles = getAllArticles()
   const currentIndex = allArticles.findIndex((a) => a.slug === params.slug)
-  const nextArticle = allArticles[currentIndex + 1]
-  const prevArticle = allArticles[currentIndex - 1]
+  // getAllArticles() sorts newest-first, so a lower index is newer. "Next" (chronologically
+  // forward, and forward through a numbered series like this one) is therefore the previous
+  // index, not the next one — the reverse of what array position would suggest. Getting this
+  // backwards previously showed a newer part 2 labelled "← " as if it came before part 1.
+  const nextArticle = allArticles[currentIndex - 1]
+  const prevArticle = allArticles[currentIndex + 1]
   const cluster = article.meta.cluster ? getCluster(article.meta.cluster) : null
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.meta.title,
+    description: article.meta.excerpt,
+    datePublished: article.meta.date,
+    dateModified: article.meta.date,
+    url: `${SITE_URL}/articles/${params.slug}`,
+    mainEntityOfPage: `${SITE_URL}/articles/${params.slug}`,
+    ...(article.meta.image && { image: `${SITE_URL}${article.meta.image}` }),
+    ...(article.meta.author && { author: { '@type': 'Person', name: article.meta.author } }),
+    publisher: { '@type': 'Organization', name: 'PitchLabs Learn' },
+  }
 
   return (
     <>
+      {/* Article structured data — the search-result rich card (author, date, headline) reads
+          this, not the page's visible HTML. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article>
         <div className="article-header">
           {cluster ? (

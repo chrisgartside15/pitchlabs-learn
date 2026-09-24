@@ -965,6 +965,55 @@ footer.footer {
   transform: translateY(-1px);
 }
 
+/* === 404 page === */
+.not-found-page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 64px 0 96px 0;
+  text-align: center;
+}
+
+.not-found-code {
+  font-family: var(--font-mono-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--brand-text);
+  margin-bottom: 0.75rem;
+}
+
+.not-found-page h1 {
+  font-family: var(--font-display-family);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 0.75rem;
+}
+
+.not-found-page p {
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+.not-found-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.not-found-secondary {
+  color: var(--brand-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.not-found-secondary:hover {
+  text-decoration: underline;
+}
+
 /* === Home page ===
    No max-width here on purpose — the parent main.container (globals.css, top of file) already
    caps this at 900px, matching the nav bar's own width above it. A wider value here would be

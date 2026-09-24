@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { GA_MEASUREMENT_ID, APP_URL } from '@/lib/analytics'
+import { SITE_URL } from '@/lib/site'
 import { GoogleAnalyticsPageTracker } from '@/components/GoogleAnalyticsPageTracker'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 
@@ -31,12 +32,16 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata = {
+  // Lets every page's relative OG/Twitter image and canonical URLs resolve to a real absolute
+  // URL instead of silently resolving against whatever host actually served the request (wrong
+  // in preview deployments, and a documented Next.js warning without this set at all).
+  metadataBase: new URL(SITE_URL),
   title: 'PitchLabs Learn',
   description: 'Soccer coaching guides and training session planning.',
   openGraph: {
     title: 'PitchLabs Learn',
     description: 'Soccer coaching guides and training session planning.',
-    url: 'https://usepitchlabs.com/learn',
+    url: SITE_URL,
     siteName: 'PitchLabs Learn',
   },
 }

@@ -2,10 +2,12 @@ import Link from 'next/link'
 import { CLUSTERS } from '@/lib/clusters'
 import { getArticlesByCluster } from '@/lib/articles'
 import { TechEyebrow } from '@/components/atmosphere'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
   title: 'Topics - PitchLabs Learn',
   description: 'Coaching education organized by topic: session planning, coaching principles, age-specific training, and more.',
+  alternates: { canonical: `${SITE_URL}/topics` },
 }
 
 export default function TopicsIndex() {
