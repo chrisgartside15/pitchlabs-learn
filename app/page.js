@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import { getAllArticles } from '@/lib/articles'
+import { getAllArticles, getArticlesByCluster, formatArticleDate } from '@/lib/articles'
+import { CLUSTERS } from '@/lib/clusters'
+import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
 
 export const metadata = {
   title: 'PitchLabs Learn - Coaching Education',
@@ -26,11 +28,32 @@ export default function Home() {
     <div className="home-page">
 
       <section className="hero">
-        <h1>Coaching Education, Done Right</h1>
+        <TechEyebrow>Coaching Education</TechEyebrow>
+        <h1>Practical Coaching, Explained</h1>
         <p>
-          Practical, research-backed articles on soccer coaching. From session planning to tactical development, we help coaches build better training and better teams.
+          Research-backed articles on soccer coaching — session planning, tactical development, and the reasoning behind both.
         </p>
       </section>
+
+      <section className="topics-section">
+        <h2 className="section-title">Browse by Topic</h2>
+        <div className="topics-grid">
+          {CLUSTERS.map((cluster) => {
+            const count = getArticlesByCluster(cluster.slug).length
+            return (
+              <Link key={cluster.slug} href={`/topics/${cluster.slug}`} className="topic-card">
+                <h3>{cluster.title}</h3>
+                <p className="topic-card-goal">{cluster.goal}</p>
+                <span className="topic-card-count">
+                  {count === 0 ? 'Coming soon' : `${count} article${count === 1 ? '' : 's'}`}
+                </span>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
+
+      <PitchDivider className="section-divider" />
 
       {featuredArticle && (
         <section className="featured-section">
@@ -39,7 +62,7 @@ export default function Home() {
             <div className="featured-content">
               <h2>{featuredArticle.meta.title}</h2>
               <div className="featured-meta">
-                <span>{new Date(featuredArticle.meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span>{formatArticleDate(featuredArticle.meta.date)}</span>
                 <span>•</span>
                 <span>{featuredArticle.meta.author}</span>
               </div>
@@ -54,6 +77,7 @@ export default function Home() {
 
       {otherArticles.length > 0 && (
         <section>
+          <PitchDivider className="section-divider" />
           <h2 className="section-title">All Articles</h2>
           <div className="articles-grid">
             {otherArticles.map((article) => (
@@ -65,7 +89,7 @@ export default function Home() {
                 <h3>{article.meta.title}</h3>
                 <p className="excerpt">{article.meta.excerpt}</p>
                 <div className="article-meta">
-                  <span>{new Date(article.meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>{formatArticleDate(article.meta.date)}</span>
                   <span>{article.meta.author}</span>
                 </div>
               </Link>

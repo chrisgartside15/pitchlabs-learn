@@ -1,52 +1,20 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { getArticleBySlug, getAllArticles } from '@/lib/articles'
+import { getArticleBySlug, getAllArticles, formatArticleDate } from '@/lib/articles'
 import Link from 'next/link'
+import { TrackedCtaLink } from '@/components/TrackedCtaLink'
+import { APP_URL } from '@/lib/analytics'
+import { PitchDivider } from '@/components/atmosphere'
+import { ClusterBadge, AuthorBio, GraphicCaption, DefinitionBox } from '@/components/content'
+import { ImageLightbox } from '@/components/ImageLightbox'
+import { StepTool } from '@/components/StepTool'
+import { InterventionWheelTool } from '@/components/InterventionWheelTool'
+import { getCluster } from '@/lib/clusters'
 
-const components = {
-  h1: (props) => <h1 style={{ marginTop: '2rem', marginBottom: '1rem' }} {...props} />,
-  h2: (props) => <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }} {...props} />,
-  h3: (props) => <h3 style={{ marginTop: '1.5rem', marginBottom: '0.75rem' }} {...props} />,
-  p: (props) => <p style={{ marginBottom: '1rem' }} {...props} />,
-  ul: (props) => <ul style={{ marginLeft: '1.5rem', marginBottom: '1rem' }} {...props} />,
-  ol: (props) => <ol style={{ marginLeft: '1.5rem', marginBottom: '1rem' }} {...props} />,
-  li: (props) => <li style={{ marginBottom: '0.5rem' }} {...props} />,
-  blockquote: (props) => (
-    <blockquote
-      style={{
-        borderLeft: '4px solid #ddd',
-        paddingLeft: '1rem',
-        marginLeft: 0,
-        marginRight: 0,
-        marginTop: '1.5rem',
-        marginBottom: '1.5rem',
-        color: '#666',
-        fontStyle: 'italic',
-      }}
-      {...props}
-    />
-  ),
-  code: (props) => (
-    <code
-      style={{
-        background: '#f4f4f4',
-        padding: '0.2rem 0.4rem',
-        borderRadius: '3px',
-        fontFamily: "'Monaco', 'Menlo', 'Ubuntu Mono', monospace",
-        fontSize: '0.9em',
-      }}
-      {...props}
-    />
-  ),
-  a: (props) => (
-    <a
-      style={{
-        color: '#1a1a1a',
-        textDecoration: 'underline',
-      }}
-      {...props}
-    />
-  ),
-}
+// Spacing/typography/color for these all now live in globals.css (`article h1`, `article a`,
+// etc.) so the article reads with the same brand tokens as the rest of the site — no need to
+// duplicate that here per-element the way the original template did. GraphicCaption lets an
+// article drop `<GraphicCaption />` right under a graphic placeholder in its .mdx source.
+const components = { GraphicCaption, DefinitionBox, ImageLightbox, StepTool, InterventionWheelTool }
 
 export async function generateStaticParams() {
   const articles = getAllArticles()
@@ -69,18 +37,26 @@ export default function ArticlePage({ params }) {
   const currentIndex = allArticles.findIndex((a) => a.slug === params.slug)
   const nextArticle = allArticles[currentIndex + 1]
   const prevArticle = allArticles[currentIndex - 1]
+  const cluster = article.meta.cluster ? getCluster(article.meta.cluster) : null
 
   return (
     <>
       <article>
         <div className="article-header">
-          <Link href="/" className="back-link">
-            ← Back to all articles
-          </Link>
+          {cluster ? (
+            <Link href={`/topics/${cluster.slug}`} className="back-link">
+              ← Back to {cluster.title}
+            </Link>
+          ) : (
+            <Link href="/articles" className="back-link">
+              ← Back to all articles
+            </Link>
+          )}
+          {cluster && <ClusterBadge clusterSlug={cluster.slug} />}
           <h1>{article.meta.title}</h1>
           <div className="article-meta">
-            <span>{new Date(article.meta.date).toLocaleDateString()}</span>
-            {article.meta.author && <span> · {article.meta.author}</span>}
+            <span>{formatArticleDate(article.meta.date)}</span>
+            {article.meta.author && <span>· {article.meta.author}</span>}
           </div>
         </div>
 
@@ -91,15 +67,30 @@ export default function ArticlePage({ params }) {
         {article.meta.cta && (
           <div className="article-cta">
             <p>{article.meta.cta}</p>
-            <a href="https://usepitchlabs.com" className="cta-button" target="_blank" rel="noopener noreferrer">
+            <TrackedCtaLink
+              href={APP_URL}
+              location="article_cta"
+              articleSlug={params.slug}
+              className="cta-button"
+            >
               Build in PitchLabs
-            </a>
+            </TrackedCtaLink>
           </div>
+        )}
+
+        <AuthorBio author={article.meta.author} />
+
+        {cluster && (
+          <Link href={`/topics/${cluster.slug}`} className="more-in-topic">
+            More in {cluster.title} →
+          </Link>
         )}
       </article>
 
       {(nextArticle || prevArticle) && (
-        <nav className="article-nav">
+        <>
+          <PitchDivider className="article-nav-divider" />
+          <nav className="article-nav">
           {prevArticle ? (
             <Link href={`/articles/${prevArticle.slug}`} className="nav-link prev">
               ← {prevArticle.meta.title}
@@ -114,7 +105,8 @@ export default function ArticlePage({ params }) {
           ) : (
             <div />
           )}
-        </nav>
+          </nav>
+        </>
       )}
     </>
   )

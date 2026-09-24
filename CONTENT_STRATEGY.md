@@ -81,32 +81,44 @@ Each cluster has a pillar article (broad, foundational) that links to supporting
   - Why the coach's job changes by age group
 
 **Supporting Articles:**
-1. Scanning and Receiving: Why Information Comes Before Decisions
+
+**"Environment design" series (3 parts) — Part 1 published:**
+1. Why Your U8 Soccer Practice Feels Like Chaos (And How to Fix It) — **PUBLISHED**
+   (`content/articles/why-your-u8-practice-feels-like-chaos.mdx`)
+   - Constraints-led coaching / environment design over instruction; the STEP framework
+   - Part 1 of 3 — its own "Where this goes next" section commits to Parts 2 and 3 below
+2. [Part 2, planned, no slug/file yet] — what to do once the session is running: when to step
+   in, how to say it, whether you need to say anything at all
+3. [Part 3, planned, no slug/file yet] — progressing a session without stopping the game every
+   two minutes
+
+**Other supporting articles (planned):**
+4. Scanning and Receiving: Why Information Comes Before Decisions
    - What scanning is and why it matters
    - How to create practices that force scanning
    - Age-appropriate expectations
 
-2. Body Position and First Touch: Why Context Matters More Than Technique
+5. Body Position and First Touch: Why Context Matters More Than Technique
    - Technical vs. tactical first touch
    - How positioning changes what's possible
    - Common mistakes in isolation training
 
-3. Support and Movement: Creating Options for the Player on the Ball
+6. Support and Movement: Creating Options for the Player on the Ball
    - The geometry of support
    - Where teammates need to be (and why)
    - Developing shape awareness
 
-4. Decision-Making Under Pressure
+7. Decision-Making Under Pressure
    - How pressure changes decision-making
    - Why isolation training doesn't teach decision-making
    - Building pressure gradually
 
-5. Possession vs. Purpose
+8. Possession vs. Purpose
    - When possession is the objective (and when it's not)
    - How direction changes possession games
    - Distinguishing "keep possession" from "build from the back"
 
-6. Pressing: What It Is and What It Isn't
+9. Pressing: What It Is and What It Isn't
    - Pressing as coordinated recovery, not individual aggression
    - When teams should press (and when they shouldn't)
    - Age-appropriate pressing

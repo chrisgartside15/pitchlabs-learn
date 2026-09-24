@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coaching Intervention Wheel — PitchLabs Learn</title>
+
+<!--
+=====================================================================
+  PITCHLABS LEARN — COACHING INTERVENTION WHEEL
+  Single file. No frameworks, no build step, no external JS.
+  One screen, above the fold at desktop widths.
+
+  Reworked from a tool originally built by Chris Gartside for
+  Colorado Storm SC's internal coach education (Chris's own IP,
+  confirmed 2026-09-24). Club branding (crest, name, teal/gold/black
+  identity) stripped and restyled to PitchLabs Learn's own brand
+  tokens (dark surface, brand green, Sora/Inter/JetBrains Mono) to
+  match components/StepTool.js and the rest of the site.
+
+  Age-band phases, technical focus and "Me & my…" anchors come from
+  Chris's own coaching frameworks and are unchanged.
+
+  The pairings encoded here are SUGGESTED starting points, not rules —
+  the interface says so explicitly. Coaches should experiment and
+  reflect on what worked for their group.
+=====================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* PitchLabs Learn brand tokens — matches app/globals.css and components/StepTool.js */
+  --teal:  #4fae6a;   /* PitchLabs brand green, was Storm's Electric Teal */
+  --black: #1c2128;   /* PitchLabs surface-2 (dark), was Storm Black — kept as the
+                          "ink / dark element" role the original file already used it
+                          for, just recolored to a PitchLabs-neutral dark instead of
+                          Storm's near-black */
+  --gold:  #4fae6a;   /* second accent collapsed onto the single PitchLabs brand
+                          green (no second accent colour in the PitchLabs palette),
+                          was Volt Gold */
+  --grey:  #737373;   /* PitchLabs fg-subtle, was Cloud Grey */
+  --white: #ffffff;   /* unchanged — still the light page background */
+
+  --ink-muted: #63666a;
+  --line: #e2e3e4;
+  --tint: #f4f6f5;
+  --dim: 0.28;
+  --display: 'Sora', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:var(--white);
+  color:var(--black);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;             /* one screen, no page scroll */
+}
+@media (max-width:939px){
+  body{overflow:auto;height:auto}   /* small screens fall back to scrolling */
+}
+
+.eyebrow{
+  font-family:var(--display);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  font-weight:600;
+  font-size:.68rem;
+  color:var(--ink-muted);
+}
+
+/* ---------- masthead: title + band selector on one slim bar ---------- */
+.masthead{
+  background:var(--black);
+  border-bottom:4px solid var(--gold);
+  padding:10px 22px;
+  flex:0 0 auto;
+}
+.masthead-inner{
+  max-width:1500px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.crest{height:42px;width:42px;display:block;flex:0 0 auto}
+.mast-title h1{
+  font-family:var(--display);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  font-weight:700;
+  font-size:1.45rem;
+  line-height:1;
+  margin:0;
+  color:var(--white);
+}
+.mast-title .sub{
+  font-family:var(--display);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:.64rem;
+  font-weight:500;
+  color:var(--teal);
+  margin-top:4px;
+}
+.band-row{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.band-label{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.15em;
+  font-size:.64rem;font-weight:600;color:var(--grey);margin-right:4px;
+}
+.band-btn{
+  font-family:var(--display);
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-weight:600;
+  font-size:.8rem;
+  padding:5px 11px;
+  border:1.5px solid var(--grey);
+  background:transparent;
+  color:var(--white);
+  cursor:pointer;
+  border-radius:2px;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.band-btn:hover{border-color:var(--teal);color:var(--teal)}
+.band-btn[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--black)}
+.band-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ---------- band context: one compact strip ---------- */
+.context{
+  border-bottom:1px solid var(--line);
+  background:var(--tint);
+  padding:8px 22px;
+  flex:0 0 auto;
+}
+.context-inner{
+  max-width:1500px;margin:0 auto;
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+}
+.ctx-id{white-space:nowrap}
+.ctx-id .phase{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.13em;
+  font-size:.68rem;font-weight:600;color:var(--ink-muted);display:block;
+}
+.ctx-id .band{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;
+  font-size:1.25rem;font-weight:700;line-height:1;
+}
+.ctx-id .fmt{color:var(--ink-muted);font-size:.85rem;font-weight:600;margin-left:6px;letter-spacing:.08em}
+.ctx-focus{
+  flex:1 1 300px;min-width:220px;
+  font-size:.86rem;line-height:1.35;color:var(--black);
+  margin:0;
+  /* Fixed three-line box so switching bands never changes the strip
+     height — the wheel below keeps a constant size. */
+  min-height:calc(3 * 1.35em);
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.anchors{display:flex;gap:6px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.anchors li{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.07em;
+  font-size:.66rem;font-weight:600;
+  background:var(--black);color:var(--white);
+  padding:3px 8px;border-radius:2px;white-space:nowrap;
+}
+
+/* ---------- main: wheel left, card right, fills the rest ---------- */
+.main{
+  flex:1 1 auto;
+  min-height:0;
+  max-width:1500px;
+  width:100%;
+  margin:0 auto;
+  padding:14px 22px 12px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 390px;
+  gap:28px;
+  align-items:stretch;
+}
+@media (max-width:939px){
+  .main{display:block;padding-bottom:40px}
+}
+
+.wheel-col{
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+svg.wheel{
+  flex:1 1 auto;
+  min-height:0;
+  width:auto;
+  max-width:100%;
+  display:block;
+}
+@media (max-width:939px){
+  svg.wheel{width:100%;height:auto;flex:none}
+}
+.wheel-caption{
+  flex:0 0 auto;
+  text-align:center;
+  font-size:.8rem;
+  color:var(--ink-muted);
+  margin:6px 0 0;
+  max-width:620px;
+}
+.wheel-caption strong{color:var(--black)}
+.clear-btn{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-weight:600;
+  font-size:.72rem;background:none;border:1.5px solid var(--line);
+  padding:4px 10px;cursor:pointer;margin-left:8px;border-radius:2px;color:var(--black);
+  transition:border-color .18s ease;
+}
+.clear-btn:hover{border-color:var(--black)}
+.clear-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ---------- wheel segments + micro-interactions ---------- */
+.seg{cursor:pointer}
+.seg .hit{
+  transition:opacity .25s ease, fill .2s ease, filter .18s ease;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+.seg text{pointer-events:none;transition:opacity .25s ease, fill .2s ease}
+.seg:focus{outline:none}
+.seg:focus-visible .hit{stroke:var(--gold);stroke-width:4px;paint-order:stroke}
+.seg.dimmed{opacity:var(--dim)}
+.seg:hover .hit{filter:brightness(1.09)}
+/* Selection feedback is the colour inversion plus dimming only —
+   segments never change size or position. */
+svg.wheel{animation:wheelIn .55s ease-out}
+@keyframes wheelIn{
+  from{opacity:0;transform:scale(.975)}
+  to{opacity:1;transform:none}
+}
+.ring-label{font-family:var(--display);text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+
+/* ---------- detail panel ---------- */
+.panel-col{min-height:0;display:flex}
+.panel{
+  border:1px solid var(--line);
+  background:var(--white);
+  display:flex;flex-direction:column;
+  width:100%;
+  min-height:0;
+}
+.panel-head{
+  background:var(--black);color:var(--white);padding:11px 16px;flex:0 0 auto;
+  min-height:62px;   /* fixed head height — the card never shifts when the selection changes */
+  display:flex;flex-direction:column;justify-content:center;
+}
+.panel-head .kind{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.17em;
+  font-size:.64rem;font-weight:600;color:var(--teal);
+}
+.panel-head h3{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;
+  font-size:1.45rem;line-height:1.05;margin:2px 0 0;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.panel-body{
+  padding:13px 16px 15px;
+  overflow-y:auto;           /* safety valve; content is sized to fit */
+  min-height:0;
+  flex:1 1 auto;             /* fixed box — content changes inside it, the card never resizes */
+}
+.panel-body > *{animation:rise .28s ease-out both}
+.panel-body > *:nth-child(2){animation-delay:.03s}
+.panel-body > *:nth-child(3){animation-delay:.06s}
+.panel-body > *:nth-child(4){animation-delay:.09s}
+.panel-body > *:nth-child(5){animation-delay:.12s}
+.panel-body > *:nth-child(6){animation-delay:.15s}
+@keyframes rise{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+.cost{
+  display:flex;align-items:baseline;gap:10px;
+  background:var(--gold);color:var(--black);
+  padding:7px 12px;margin:0 0 12px;
+}
+.cost .n{font-family:var(--display);font-size:1.4rem;font-weight:700;line-height:1}
+.cost .l{font-family:var(--display);text-transform:uppercase;letter-spacing:.13em;font-size:.62rem;font-weight:600}
+.field{margin:0 0 11px}
+.field:last-child{margin-bottom:0}
+.field .eyebrow{display:block;margin-bottom:3px}
+.field p{margin:0;font-size:.92rem}
+.quote{
+  border-left:3px solid var(--teal);
+  padding:5px 0 5px 11px;
+  margin:0;
+  font-size:.95rem;
+  font-style:italic;
+}
+.example{
+  background:var(--tint);
+  border-left:3px solid var(--black);
+  padding:8px 11px;
+  margin:0;
+  font-size:.95rem;
+}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.chips li{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.07em;
+  font-size:.68rem;font-weight:600;
+  border:1.5px solid var(--black);padding:3px 8px;border-radius:2px;
+}
+.chips li.none{border-style:dashed;border-color:var(--grey);color:var(--ink-muted)}
+.empty{color:var(--ink-muted);font-size:.9rem;margin:0}
+.note{
+  margin-top:11px;padding-top:9px;border-top:1px solid var(--line);
+  font-size:.8rem;color:var(--ink-muted);line-height:1.4;
+}
+.note strong{color:var(--black)}
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
+/* ---------- print: one clean coach card ---------- */
+@media print{
+  @page{margin:14mm}
+  body{font-size:11.5pt;overflow:visible;height:auto;display:block}
+  .band-row,.wheel-col,.no-print{display:none !important}
+  .masthead{background:none;border-bottom:3px solid var(--black);padding:0 0 8px}
+  .mast-title h1{color:var(--black);font-size:1.5rem}
+  .mast-title .sub{color:var(--black)}
+  .context{background:none;border-bottom:none;padding:10px 0 0}
+  .context-inner{display:block}
+  .ctx-id .phase{color:var(--black)}
+  .ctx-focus{margin:6px 0}
+  .main{display:block;padding:10px 0 0;max-width:none}
+  .panel-col{display:block}
+  .panel{border:1px solid #999;break-inside:avoid;display:block}
+  .panel-head{background:none;color:var(--black);border-bottom:2px solid var(--black);padding:10px 0 8px}
+  .panel-head .kind{color:var(--black)}
+  .panel-body{padding:12px 0 0;overflow:visible}
+  .cost{background:none;border:2px solid var(--black)}
+  .anchors li{background:none;color:var(--black);border:1px solid var(--black)}
+  .example{background:none;border-left:3px solid var(--black)}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="mast-title">
+      <h1>Coaching Intervention Wheel</h1>
+      <div class="sub">PitchLabs Learn &middot; Coach Interaction Tool</div>
+    </div>
+    <div class="band-row" id="bandRow" role="group" aria-label="Select age band">
+      <span class="band-label">Age band</span>
+    </div>
+  </div>
+</header>
+
+<div class="context" id="context">
+  <div class="context-inner">
+    <div class="ctx-id">
+      <span class="phase" id="ctxPhase">Phase</span>
+      <span class="band" id="ctxBand">Band</span><span class="fmt" id="ctxFmt"></span>
+    </div>
+    <p class="ctx-focus" id="ctxFocus"></p>
+    <ul class="anchors" id="ctxAnchors"></ul>
+  </div>
+</div>
+
+<main class="main">
+  <div class="wheel-col">
+    <svg class="wheel" id="wheel" viewBox="0 0 680 680" role="group" aria-label="Coaching intervention wheel. Three rings: interventions, interactions and targets."></svg>
+    <p class="wheel-caption no-print">
+      <strong>Suggested pairings, not rules.</strong> Select a segment to see what commonly works together
+      &mdash; then experiment and reflect on what worked for your group.
+      <button class="clear-btn" id="clearBtn" type="button">Clear</button>
+    </p>
+  </div>
+
+  <div class="panel-col">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="kind" id="pKind">Start here</span>
+        <h3 id="pName">Pick a segment</h3>
+      </div>
+      <div class="panel-body" id="pBody" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+"use strict";
+
+/* ================= DATA ================= */
+
+var INTERVENTIONS = [
+  {id:"huddle",      name:"Huddle",       cost:"60–90 sec",  costShort:"60–90 SEC",  free:false, fit:"Team",                      targets:["team"],
+   def:"Bring them in, balls down, everyone listening."},
+  {id:"walkthrough", name:"Walkthrough",  cost:"60–120 sec", costShort:"60–120 SEC", free:false, fit:"Team, unit or group",       targets:["team","unit","group"],
+   def:"Rehearse the movement at walking pace with no pressure."},
+  {id:"drinks",      name:"Drinks break", cost:"Free",            costShort:"FREE",            free:true,  fit:"Any target",                targets:["group","team","unit","individual"],
+   def:"Coach inside a pause you were going to take anyway."},
+  {id:"pullaside",   name:"Pull aside",   cost:"20–30 sec",  costShort:"20–30 SEC",  free:false, fit:"Group, unit or individual", targets:["group","unit","individual"],
+   def:"Take one or two players out while everyone else keeps playing."},
+  {id:"driveby",     name:"Drive by",     cost:"Free",            costShort:"FREE",            free:true,  fit:"Individual",         targets:["individual"],
+   def:"One sentence to one player. Nothing stops."},
+  {id:"freeze",      name:"Freeze frame", cost:"30–45 sec",  costShort:"30–45 SEC",  free:false, fit:"Team",               targets:["team"],
+   def:"Stop everything. Players hold exactly where they are."}
+];
+
+/* Pairings below are SUGGESTED starting points, not rules. */
+var INTERACTIONS = [
+  {id:"reframe",   name:"Reframe",             lines:["REFRAME"],
+   def:"Change how the player sees the moment, not what they do.",
+   sounds:"That wasn’t a bad pass — that was the right idea a second late.",
+   pairs:["driveby","pullaside","drinks","huddle"]},
+
+  {id:"feedback",  name:"Feedback",            lines:["FEEDBACK"],
+   def:"Tell the player what happened and what it caused.",
+   sounds:"Your first touch went across you, so the defender got there first.",
+   pairs:["driveby","pullaside","drinks"]},
+
+  {id:"check",     name:"Check understanding", lines:["CHECK","UNDERSTANDING"],
+   def:"Ask the player to tell you back what they have taken from it.",
+   sounds:"Tell me what you’re looking for before the ball arrives.",
+   pairs:["huddle","walkthrough","drinks"]},
+
+  {id:"reinforce", name:"Reinforce",           lines:["REINFORCE"],
+   def:"Name what was good, precisely, so it happens again.",
+   sounds:"That’s it — that’s exactly the picture I want.",
+   pairs:["driveby","pullaside"]},
+
+  {id:"challenge", name:"Challenge",           lines:["CHALLENGE"],
+   def:"Raise the demand on a player who is comfortable.",
+   sounds:"Can you do that again with your other foot?",
+   pairs:["driveby","pullaside","drinks"]},
+
+  {id:"demo",      name:"Demonstrate",         lines:["DEMONSTRATE"],
+   def:"Show the action rather than describe it.",
+   sounds:"Watch my hips — I’m opening before it arrives.",
+   pairs:["walkthrough","freeze","huddle"]},
+
+  {id:"observe",   name:"Observe",             lines:["OBSERVE"],
+   def:"Deliberately gather information before you decide to act.",
+   sounds:null,
+   agnostic:true,
+   anyTarget:true,
+   universal:"Say nothing yet. Watch, and decide what this group actually needs before you spend time on it.",
+   pairs:[]},
+
+  {id:"silence",   name:"Silence",             lines:["SILENCE"],
+   def:"Deliberately withhold input so the player has to solve it.",
+   sounds:null,
+   agnostic:true,
+   anyTarget:true,
+   universal:"Say nothing at all. Let them wrestle with the problem — the learning is in the solving.",
+   pairs:[]},
+
+  {id:"cocreate",  name:"Co-create",           lines:["CO-CREATE"],
+   def:"Build the solution with the players rather than handing it over.",
+   sounds:"What do we want to try in the next three minutes?",
+   pairs:["huddle","drinks"]},
+
+  {id:"guide",     name:"Guide and discovery", lines:["GUIDE &","DISCOVERY"],
+   def:"Steer with a nudge and let them find the answer themselves.",
+   sounds:"What did you see over your left shoulder?",
+   pairs:["driveby","pullaside","freeze"]},
+
+  {id:"instruct",  name:"Instruct",            lines:["INSTRUCT"],
+   def:"Give a direct, unambiguous command.",
+   sounds:"Body between the ball and the defender. Now.",
+   pairs:["freeze","huddle","walkthrough","driveby"]},
+
+  {id:"question",  name:"Question",            lines:["QUESTION"],
+   def:"Ask an open question that makes them think for themselves.",
+   sounds:"Who was free?",
+   pairs:["freeze","huddle","drinks","pullaside"]}
+];
+
+var TARGETS = [
+  {id:"group",      name:"Group",      def:"Players across units who share an area of the field — the left back and left winger, for example.", def_int:"pullaside"},
+  {id:"team",       name:"Team",       def:"Everyone.",                                                                                          def_int:"freeze"},
+  {id:"unit",       name:"Unit",       def:"A line of the team — the defensive, midfield or attacking unit.",                                    def_int:"pullaside"},
+  {id:"individual", name:"Individual", def:"One player.",                                                                                        def_int:"driveby"}
+];
+
+/* Phases, focus and anchors from the Learning Plans (Master), v2.0. */
+var BANDS = [
+  {id:"u5", label:"U5", phase:"Discovery Phase I", fmt:"",
+   focus:"Movement exploration and ball discovery — exploring how the body works, building comfort with the ball using hands and feet, and basic actions like running, kicking and stopping the ball.",
+   anchors:["Me & My Movement Skills","Me & My Ball","Me & My Friends"]},
+
+  {id:"u6", label:"U6", phase:"Discovery Phase II", fmt:"",
+   focus:"Dribbling and shooting — building comfort and confidence with the ball, beginning to dribble, pass and shoot, and starting to play with and alongside teammates.",
+   anchors:["Me & My Movement Skills","Me & My Ball","Me & My Teammate"]},
+
+  {id:"u78", label:"U7–U8", phase:"Foundation Phase I", fmt:"3v3 / 4v4",
+   focus:"Scanning, receiving, dribbling, short passing and shooting — developing awareness of surroundings, building confidence using the ball in different ways, and connecting with teammates in simple ways.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates"]},
+
+  {id:"u910", label:"U9–U10", phase:"Foundation Phase II", fmt:"7v7",
+   focus:"Scanning, receiving, dribbling, short combination play and finishing — scanning to make decisions, effectiveness with the ball under increasing pressure, and first roles in attacking and defending.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates"]},
+
+  {id:"u1112", label:"U11–U12", phase:"Foundation Phase III", fmt:"9v9",
+   focus:"Scanning &amp; positioning, receiving, dribbling, short combination play and finishing — consistent scanning, technical skills at higher pressure and speed, and first positioning, roles and responsibilities.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates"]},
+
+  {id:"u1314", label:"U13–U14", phase:"Progression Phase I", fmt:"11v11",
+   focus:"Scanning &amp; positioning, receiving, dribbling, quick combination play and finishing — executing under pressure in limited space, collective problem solving, and increasing ownership of development.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates"]},
+
+  {id:"u1516", label:"U15–U16", phase:"Progression Phase II", fmt:"11v11",
+   focus:"Scanning &amp; positioning, receiving, dribbling, quick combination play and finishing — fast, effective decisions; speed, precision and consistency under pressure; positional roles across all moments.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates"]},
+
+  {id:"u17", label:"U17+", phase:"Progression Phase III", fmt:"11v11",
+   focus:"Scanning &amp; positioning, receiving, dribbling, quick combination play and finishing — high-level decisions in match conditions, performing within a defined game model, and full ownership of the pathway.",
+   anchors:["Me & My Scanning Skills","Me & My Movement Skills","Me & The Ball","Me & My Teammates","Me & My Career"]}
+];
+
+/* 10 band-specific interactions × 8 bands, anchored to each band's
+   focus from the plan. Observe and silence are band-agnostic and use
+   the universal lines above. U15–U16 and U17+ are deliberately close —
+   interventions barely differentiate across late adolescence. */
+var EXAMPLES = {
+  u5:{
+    reframe:"Your ball didn’t run away because you were bad — it ran because you kicked it hard. Try a soft touch.",
+    feedback:"You stopped it with the bottom of your foot — that’s why it stayed with you.",
+    check:"Show me how you stop your ball.",
+    reinforce:"You kept your ball really close that time!",
+    challenge:"Can you stop it with your other foot?",
+    demo:"Watch me squash the ball to stop it. Your turn.",
+    cocreate:"What animal shall we dribble like next?",
+    guide:"What could you use to stop the ball?",
+    instruct:"Keep your ball close to you.",
+    question:"Which part of your foot stopped the ball?"
+  },
+  u6:{
+    reframe:"That wasn’t a miss — that was a shot. Shooters shoot.",
+    feedback:"You looked up before you shot, so you found the corner.",
+    check:"Show me which parts of your foot you can dribble with.",
+    reinforce:"Little touches, little touches, then a big shot — that’s it.",
+    challenge:"Can you score one with your other foot?",
+    demo:"Watch my feet — tap, tap, tap, then shoot.",
+    cocreate:"Should our goals be big or small this game?",
+    guide:"Where is there space to dribble into?",
+    instruct:"Take a touch out of your feet, then shoot.",
+    question:"When is the best time to shoot?"
+  },
+  u78:{
+    reframe:"Losing the ball while trying something new isn’t a mistake here. Try it again.",
+    feedback:"Your touch went behind you, so you couldn’t see the goal anymore.",
+    check:"Before the ball comes to you, what should you look for?",
+    reinforce:"You looked before you received — that’s why you had time.",
+    challenge:"Can you look over your shoulder before every pass this game?",
+    demo:"Watch my first touch — away from the defender, towards the goal.",
+    cocreate:"How could we make it easier to pass to each other?",
+    guide:"What did you see when you looked up?",
+    instruct:"First touch out of your feet, then look up.",
+    question:"Where was the space?"
+  },
+  u910:{
+    reframe:"You picked the right pass — it just needed more weight on it.",
+    feedback:"You passed and stood still, so the one-two was never on.",
+    check:"Who are your two options before you receive?",
+    reinforce:"Pass and move — that wall pass took two defenders out of the game.",
+    challenge:"Can you finish it first time when the ball comes across?",
+    demo:"Watch — I pass, then I move for the return.",
+    cocreate:"What rule would make us pass and move more?",
+    guide:"Who was free when you got the ball?",
+    instruct:"Pass and move. Don’t watch it.",
+    question:"Who was free?"
+  },
+  u1112:{
+    reframe:"That wasn’t a bad decision — you made it after the ball arrived instead of before. Scan earlier.",
+    feedback:"You received square-on, so your only option was backwards.",
+    check:"When you scan, what are you actually looking for?",
+    reinforce:"Two looks before it arrived — that’s why you could play forward.",
+    challenge:"Two scans before every touch this half.",
+    demo:"Watch my shoulders — I check, then I open up to receive.",
+    cocreate:"Where should our width come from in this shape?",
+    guide:"What did you see over your left shoulder?",
+    instruct:"Open your body. Receive on the half turn.",
+    question:"When did you last look?"
+  },
+  u1314:{
+    reframe:"You’re not slow — your run started too early. Time it off the pass, not the hope.",
+    feedback:"You held it two seconds too long, so the third-man run died.",
+    check:"Talk me through your job the moment we lose it.",
+    reinforce:"That’s the picture — bounce pass, third man through.",
+    challenge:"Break a line with your first pass, not your third.",
+    demo:"Watch the timing — the run starts as the pass leaves the foot.",
+    cocreate:"As a unit, when do we press and when do we hold?",
+    guide:"Where was the space when they pressed you?",
+    instruct:"Shift across together. Now.",
+    question:"Why did that combination break down?"
+  },
+  u1516:{
+    reframe:"That’s not a work-rate problem — our shape gave you two jobs at once.",
+    feedback:"Our first two passes were slow, so they were set before we crossed halfway.",
+    check:"What’s our trigger to press their back line?",
+    reinforce:"Right decision to slow it down — that was a moment to manage, not force.",
+    challenge:"Same pattern, one touch quicker.",
+    demo:"Watch the pressing angle — inside shoulder, show them wide.",
+    cocreate:"If this press isn’t working in ten minutes, what do we change?",
+    guide:"What made playing out so hard in that spell?",
+    instruct:"Squeeze up. Compact, now.",
+    question:"What is the game asking for right now?"
+  },
+  u17:{
+    reframe:"You didn’t get overrun — you were covering someone else’s job. Hold yours.",
+    feedback:"The rushed first pass cost us the platform to build from.",
+    check:"What are we changing at half time — your words, not mine.",
+    reinforce:"You saw it and fixed it before I could say a word.",
+    challenge:"Solve it on the pitch before it needs a stoppage.",
+    demo:"Same situation, different body shape — watch it again.",
+    cocreate:"How do you want to set up against their back three?",
+    guide:"What was that ten-minute spell telling you?",
+    instruct:"Drop in and build from the keeper.",
+    question:"Who is managing this out there?"
+  }
+};
+
+/* ============ DERIVED MAPS ============ */
+
+var INT_BY_ID = {}, IXN_BY_ID = {}, TGT_BY_ID = {};
+INTERVENTIONS.forEach(function(d){INT_BY_ID[d.id]=d;});
+INTERACTIONS.forEach(function(d){IXN_BY_ID[d.id]=d;});
+TARGETS.forEach(function(d){TGT_BY_ID[d.id]=d;});
+
+var INT_TO_IXN = {};
+INTERVENTIONS.forEach(function(v){INT_TO_IXN[v.id]=[];});
+INTERACTIONS.forEach(function(x){
+  x.pairs.forEach(function(v){ INT_TO_IXN[v].push(x.id); });
+});
+
+function targetsForInteraction(x){
+  /* Observe and silence are non-interventions: they pair with no
+     intervention but apply to any who. */
+  if(x.anyTarget) return TARGETS.map(function(t){return t.id;});
+  var out={};
+  x.pairs.forEach(function(vid){
+    INT_BY_ID[vid].targets.forEach(function(t){ out[t]=1; });
+  });
+  return Object.keys(out);
+}
+var IXN_TO_TGT={};
+INTERACTIONS.forEach(function(x){ IXN_TO_TGT[x.id]=targetsForInteraction(x); });
+
+var TGT_TO_INT={};
+TARGETS.forEach(function(t){
+  TGT_TO_INT[t.id]=INTERVENTIONS.filter(function(v){
+    return v.targets.indexOf(t.id)>-1;
+  }).map(function(v){return v.id;});
+});
+var TGT_TO_IXN={};
+TARGETS.forEach(function(t){
+  var set={};
+  TGT_TO_INT[t.id].forEach(function(vid){
+    INT_TO_IXN[vid].forEach(function(xid){ set[xid]=1; });
+  });
+  /* Any-who interactions stay lit whichever target is selected. */
+  INTERACTIONS.forEach(function(x){ if(x.anyTarget) set[x.id]=1; });
+  TGT_TO_IXN[t.id]=Object.keys(set);
+});
+
+/* ============ GEOMETRY ============ */
+/* Segments start at 12 o'clock and run clockwise, matching the
+   original wheel layout. */
+
+var CX=340, CY=340;
+var R_OUT_O=320, R_OUT_I=224;
+var R_IN_O=224,  R_IN_I=132;
+var R_CENTRE=132, R_HUB=36;
+
+function polar(r,deg){
+  var a=(deg-90)*Math.PI/180;
+  return [CX+r*Math.cos(a), CY+r*Math.sin(a)];
+}
+function ringPath(rO,rI,a0,a1){
+  var p1=polar(rO,a0), p2=polar(rO,a1), p3=polar(rI,a1), p4=polar(rI,a0);
+  var large=(a1-a0)>180?1:0;
+  return "M"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+
+         " A"+rO+" "+rO+" 0 "+large+" 1 "+p2[0].toFixed(2)+" "+p2[1].toFixed(2)+
+         " L"+p3[0].toFixed(2)+" "+p3[1].toFixed(2)+
+         " A"+rI+" "+rI+" 0 "+large+" 0 "+p4[0].toFixed(2)+" "+p4[1].toFixed(2)+" Z";
+}
+function wedgePath(r,a0,a1){
+  var p1=polar(r,a0), p2=polar(r,a1);
+  var large=(a1-a0)>180?1:0;
+  return "M"+CX+" "+CY+" L"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+
+         " A"+r+" "+r+" 0 "+large+" 1 "+p2[0].toFixed(2)+" "+p2[1].toFixed(2)+" Z";
+}
+
+var SVGNS="http://www.w3.org/2000/svg";
+function el(n,attrs){
+  var e=document.createElementNS(SVGNS,n);
+  if(attrs){for(var k in attrs){e.setAttribute(k,attrs[k]);}}
+  return e;
+}
+
+/* Multi-line ring labels are stacked in SCREEN SPACE at a single
+   radius (fixed vertical dy), never by offsetting the radius — radial
+   offsets stack lines sideways on the left and right segments. */
+function stackedLabel(x,y,lines,opts){
+  var lh=opts.lh, size=opts.size, fill=opts.fill;
+  var t=el("text",{
+    x:x.toFixed(2), y:y.toFixed(2),
+    "text-anchor":"middle",
+    "dominant-baseline":"middle",
+    "font-size":size,
+    fill:fill,
+    "class":"ring-label"
+  });
+  var start=-((lines.length-1)*lh)/2;
+  lines.forEach(function(ln,i){
+    var ts=el("tspan",{x:x.toFixed(2), dy:(i===0?start:lh)});
+    if(opts.weights && opts.weights[i]) ts.setAttribute("font-weight",opts.weights[i]);
+    if(opts.sizes && opts.sizes[i]) ts.setAttribute("font-size",opts.sizes[i]);
+    if(opts.max) ts.setAttribute("data-max",opts.max);
+    ts.textContent=ln;
+    t.appendChild(ts);
+  });
+  return t;
+}
+
+/* If a label renders wider than its ring is thick (e.g. a wide fallback
+   font before/without the webfont), compress it with textLength so it
+   never bleeds onto the neighbouring ring. Re-run when fonts load. */
+function fitLabels(){
+  var spans=svg.querySelectorAll("tspan[data-max]");
+  for(var i=0;i<spans.length;i++){
+    var ts=spans[i];
+    ts.removeAttribute("textLength");
+    ts.removeAttribute("lengthAdjust");
+    var max=parseFloat(ts.getAttribute("data-max"));
+    var w=ts.getComputedTextLength();
+    if(w>max){
+      ts.setAttribute("textLength",max);
+      ts.setAttribute("lengthAdjust","spacingAndGlyphs");
+    }
+  }
+}
+
+var svg=document.getElementById("wheel");
+var segNodes={};
+
+function makeSeg(kind,id,d,fill,stroke,labelNode,aria){
+  var g=el("g",{"class":"seg",tabindex:"0",role:"button","aria-label":aria,"data-kind":kind,"data-id":id});
+  var p=el("path",{d:d,fill:fill,"class":"hit"});
+  if(stroke){p.setAttribute("stroke",stroke);p.setAttribute("stroke-width","1.25");}
+  g.appendChild(p);
+  g.appendChild(labelNode);
+  g.addEventListener("click",function(){toggle(kind,id);});
+  g.addEventListener("keydown",function(ev){
+    if(ev.key==="Enter"||ev.key===" "||ev.key==="Spacebar"){ev.preventDefault();toggle(kind,id);}
+  });
+  svg.appendChild(g);
+  segNodes[kind+":"+id]=g;
+  return g;
+}
+
+function buildWheel(){
+  var step,i,a0,a1,mid,pt;
+
+  /* Draw order is inside-out: centre, hub, inner ring, outer ring, so
+     any label overflowing inward paints over the ring beneath it. */
+
+  step=360/TARGETS.length;
+  var rMidC=(R_HUB+R_CENTRE)/2+8;
+  for(i=0;i<TARGETS.length;i++){
+    var t=TARGETS[i];
+    a0=i*step; a1=a0+step; mid=a0+step/2;
+    pt=polar(rMidC,mid);
+    var lbl3=stackedLabel(pt[0],pt[1],[t.name.toUpperCase()],{lh:14,size:13.5,fill:"var(--black)"});
+    makeSeg("target",t.id,wedgePath(R_CENTRE,a0,a1),
+      "var(--gold)","var(--white)",lbl3,
+      "Target: "+t.name+". Suggested default intervention: "+INT_BY_ID[t.def_int].name+".");
+  }
+
+  svg.appendChild(el("circle",{cx:CX,cy:CY,r:R_HUB,fill:"var(--black)"}));
+  var hub=el("text",{x:CX,y:CY,"text-anchor":"middle","dominant-baseline":"middle",
+    "font-size":13,fill:"var(--teal)","class":"ring-label","font-weight":700});
+  hub.textContent="WHO";
+  svg.appendChild(hub);
+
+  step=360/INTERACTIONS.length;
+  var rMidIn=(R_IN_O+R_IN_I)/2;
+  for(i=0;i<INTERACTIONS.length;i++){
+    var x=INTERACTIONS[i];
+    a0=i*step; a1=a0+step; mid=a0+step/2;
+    pt=polar(rMidIn,mid);
+    var lbl2=stackedLabel(pt[0],pt[1],x.lines,{lh:13.5,size:11.5,fill:"var(--white)",max:88});
+    makeSeg("interaction",x.id,ringPath(R_IN_O,R_IN_I,a0,a1),
+      "var(--black)","var(--teal)",lbl2,
+      "Interaction: "+x.name+".");
+  }
+
+  step=360/INTERVENTIONS.length;
+  var rMidOut=(R_OUT_O+R_OUT_I)/2;
+  for(i=0;i<INTERVENTIONS.length;i++){
+    var v=INTERVENTIONS[i];
+    a0=i*step; a1=a0+step; mid=a0+step/2;
+    pt=polar(rMidOut,mid);
+    var lbl=stackedLabel(pt[0],pt[1],[v.name.toUpperCase(),v.costShort],{
+      lh:17.5, size:15.5, fill:"var(--black)",
+      weights:[700,600], sizes:[15.5,12.5], max:92
+    });
+    makeSeg("intervention",v.id,ringPath(R_OUT_O,R_OUT_I,a0,a1),
+      "var(--teal)","var(--white)",lbl,
+      "Intervention: "+v.name+". Time cost "+v.cost+". Suggested fit: "+v.fit+".");
+  }
+}
+
+/* ============ SELECTION ============ */
+
+var sel=null;
+var band=BANDS[3].id;   // default U9–U10
+
+function toggle(kind,id){
+  if(sel && sel.kind===kind && sel.id===id){ sel=null; }
+  else { sel={kind:kind,id:id}; }
+  render();
+}
+
+function activeSets(){
+  if(!sel) return null;
+  var iv={},ix={},tg={};
+  function on(o,arr){arr.forEach(function(k){o[k]=1;});}
+  if(sel.kind==="intervention"){
+    iv[sel.id]=1;
+    on(ix, INT_TO_IXN[sel.id]);
+    on(tg, INT_BY_ID[sel.id].targets);
+  } else if(sel.kind==="interaction"){
+    ix[sel.id]=1;
+    on(iv, IXN_BY_ID[sel.id].pairs);
+    on(tg, IXN_TO_TGT[sel.id]);
+  } else {
+    tg[sel.id]=1;
+    on(iv, TGT_TO_INT[sel.id]);
+    on(ix, TGT_TO_IXN[sel.id]);
+  }
+  return {intervention:iv,interaction:ix,target:tg};
+}
+
+function paint(){
+  var sets=activeSets();
+  Object.keys(segNodes).forEach(function(key){
+    var parts=key.split(":"), kind=parts[0], id=parts[1];
+    var g=segNodes[key];
+    var isSel = sel && sel.kind===kind && sel.id===id;
+    var path=g.querySelector(".hit");
+    var texts=g.querySelectorAll("text, tspan");
+
+    var baseFill = kind==="intervention" ? "var(--teal)"
+                 : kind==="interaction"  ? "var(--black)"
+                 : "var(--gold)";
+    var baseText = kind==="interaction" ? "var(--white)" : "var(--black)";
+
+    /* Selection state is an inversion of teal and black — no new colour. */
+    if(isSel){
+      if(kind==="intervention"){ path.setAttribute("fill","var(--black)"); }
+      else if(kind==="interaction"){ path.setAttribute("fill","var(--teal)"); }
+      else { path.setAttribute("fill","var(--black)"); }
+    } else {
+      path.setAttribute("fill",baseFill);
+    }
+    var txtFill = isSel
+      ? (kind==="intervention" ? "var(--white)" : kind==="interaction" ? "var(--black)" : "var(--gold)")
+      : baseText;
+    for(var i=0;i<texts.length;i++){ texts[i].setAttribute("fill",txtFill); }
+
+    var dim = sets ? !sets[kind][id] : false;
+    g.classList.toggle("dimmed", dim);
+    g.classList.toggle("selected", isSel);
+    g.setAttribute("aria-pressed", isSel ? "true" : "false");
+  });
+}
+
+/* ============ PANEL ============ */
+
+function chipList(ids,lookup,emptyText){
+  if(!ids.length) return '<ul class="chips"><li class="none">'+emptyText+'</li></ul>';
+  return '<ul class="chips">'+ids.map(function(i){
+    return "<li>"+lookup[i].name+"</li>";
+  }).join("")+"</ul>";
+}
+function field(label,html){
+  return '<div class="field"><span class="eyebrow">'+label+'</span>'+html+'</div>';
+}
+
+function renderPanel(){
+  var kindEl=document.getElementById("pKind"),
+      nameEl=document.getElementById("pName"),
+      body=document.getElementById("pBody");
+  var b=BANDS.filter(function(x){return x.id===band;})[0];
+
+  if(!sel){
+    kindEl.textContent="Start here";
+    nameEl.textContent="Pick a segment";
+    body.innerHTML=
+      '<p class="empty">Outer ring is how you stop. Inner ring is how you interact. '+
+      'Centre is who you’re coaching. Select anything — the wheel dims what doesn’t '+
+      'commonly pair with it, and this card shows the detail plus a '+b.label+' example.</p>'+
+      '<div class="field" style="margin-top:11px"><span class="eyebrow">Time is the constraint</span>'+
+      '<p>Two free interventions — drive by and drinks break — cost no playing time. '+
+      'Everything else spends time you don’t get back. The common foundation-phase '+
+      'failure is stopping the game too often.</p></div>'+
+      '<p class="note"><strong>Pairings are suggestions, not rules.</strong> They’re a starting point. '+
+      'Experiment, and reflect on what worked — and what didn’t — for your group.</p>';
+    return;
+  }
+
+  if(sel.kind==="intervention"){
+    var v=INT_BY_ID[sel.id];
+    kindEl.textContent="Intervention · how you stop";
+    nameEl.textContent=v.name;
+    body.innerHTML=
+      '<div class="cost"><span class="n">'+v.cost+'</span><span class="l">time cost</span></div>'+
+      field("What it is",'<p>'+v.def+'</p>')+
+      field("Suggested fit",'<p>'+v.fit+'</p>')+
+      field("Interactions it commonly pairs with", chipList(INT_TO_IXN[v.id],IXN_BY_ID,"None")) +
+      (v.id==="drinks"
+        ? '<p class="note"><strong>Free in playing time — not free in attention.</strong> The players are '+
+          'resting, so factor the break into your session plan and expect them to retain less. '+
+          'Keep the message short and light; one idea, not three.</p>'
+        : v.free
+          ? '<p class="note"><strong>Free.</strong> Costs no playing time. Reach for these first.</p>'
+          : '<p class="note">Spends '+v.cost+' of playing time. Ask whether a free intervention would do the same job.</p>')+
+      '<p class="note">These pairings are suggestions — experiment and reflect on what works for your group.</p>';
+
+  } else if(sel.kind==="interaction"){
+    var x=IXN_BY_ID[sel.id];
+    kindEl.textContent="Interaction · how you engage";
+    nameEl.textContent=x.name;
+    var soundsHtml = x.sounds
+      ? field("Sounds like",'<p class="quote">“'+x.sounds+'”</p>')
+      : field("Sounds like",'<p class="empty">Nothing. That is the whole point.</p>');
+    var exHtml = x.agnostic
+      ? field("Every band — band-agnostic",'<p class="example">'+x.universal+'</p>')
+      : field(b.label+" · "+b.phase,'<p class="example">'+EXAMPLES[band][x.id]+'</p>');
+    body.innerHTML=
+      field("What it is",'<p>'+x.def+'</p>')+
+      soundsHtml+
+      exHtml+
+      field("Suggested interventions",
+        chipList(x.pairs,INT_BY_ID,"None — by design"))+
+      (x.id==="silence"
+        ? '<p class="note"><strong>Every intervention dims.</strong> Silence is the absence of an '+
+          'intervention — if the wheel has gone quiet, that is the message. It applies to any who, '+
+          'and works the same at U5 as at U17+.</p>'
+        : x.id==="observe"
+          ? '<p class="note"><strong>No intervention, any who.</strong> You observe during live play — '+
+            'it costs nothing because nothing stops. What you see decides your next intervention; '+
+            'a pause like a drinks break is where you act on it, not where you see it.</p>'
+          : '<p class="note">Suggested pairings, not rules — try others and reflect on what landed with your group.</p>');
+
+  } else {
+    var t=TGT_BY_ID[sel.id];
+    kindEl.textContent="Target · who you are coaching";
+    nameEl.textContent=t.name;
+    body.innerHTML=
+      field("What it is",'<p>'+t.def+'</p>')+
+      field("Suggested default",'<p><strong>'+INT_BY_ID[t.def_int].name+
+        '</strong> — '+INT_BY_ID[t.def_int].cost+'</p>')+
+      field("Interventions that reach it", chipList(TGT_TO_INT[t.id],INT_BY_ID,"None"))+
+      field("Interactions available", chipList(TGT_TO_IXN[t.id],IXN_BY_ID,"None"))+
+      '<p class="note">The default is a suggested starting point when you have no reason to choose '+
+      'otherwise — not a rule. Experiment and reflect on what works for your group.</p>';
+  }
+}
+
+function renderContext(){
+  var b=BANDS.filter(function(x){return x.id===band;})[0];
+  document.getElementById("ctxPhase").textContent=b.phase;
+  document.getElementById("ctxBand").textContent=b.label;
+  document.getElementById("ctxFmt").textContent=b.fmt;
+  document.getElementById("ctxFocus").innerHTML=b.focus;
+  document.getElementById("ctxAnchors").innerHTML=
+    b.anchors.map(function(a){return "<li>"+a.replace("&","&amp;")+"</li>";}).join("");
+}
+
+function render(){ paint(); renderPanel(); renderContext(); }
+
+/* ============ BAND SELECTOR ============ */
+
+function buildBands(){
+  var row=document.getElementById("bandRow");
+  BANDS.forEach(function(b){
+    var btn=document.createElement("button");
+    btn.type="button";
+    btn.className="band-btn";
+    btn.textContent=b.label;
+    btn.setAttribute("aria-pressed", b.id===band ? "true":"false");
+    btn.addEventListener("click",function(){
+      band=b.id;
+      Array.prototype.forEach.call(row.querySelectorAll(".band-btn"),function(c){
+        c.setAttribute("aria-pressed", c===btn ? "true":"false");
+      });
+      render();
+    });
+    row.appendChild(btn);
+  });
+}
+
+document.getElementById("clearBtn").addEventListener("click",function(){
+  sel=null; render();
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape" && sel){ sel=null; render(); }
+});
+
+buildWheel();
+buildBands();
+render();
+fitLabels();
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(fitLabels);
+}
+</script>
+</body>
+</html>
