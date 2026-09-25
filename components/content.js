@@ -87,7 +87,7 @@ export function AuthorBio({ author }) {
       <div className="author-bio-avatar" aria-hidden="true">
         {name.charAt(0)}
       </div>
-      <div>
+      <div className="author-bio-text">
         <p className="author-bio-name">{name}</p>
         {credentials && <p className="author-bio-credentials">{credentials}</p>}
       </div>

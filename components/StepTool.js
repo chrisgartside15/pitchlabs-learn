@@ -112,7 +112,7 @@ export function StepTool() {
           <span aria-hidden="true" className="tech-eyebrow-tick" />
           Interactive · Pick a problem
         </span>
-        <p className="step-tool-desc">
+        <p key={selected ?? 'default'} className="step-tool-desc panel-swap">
           {active ? active.stripDesc : 'Is the activity too easy, too difficult, too slow, or not producing the behavior you want? Diagnose first, then adjust without losing the original objective.'}
         </p>
         <div className="step-tool-chips">
@@ -130,7 +130,7 @@ export function StepTool() {
       </div>
 
       <div className="step-tool-body">
-        <div className="step-tool-panels">
+        <div key={selected ?? 'default'} className="step-tool-panels panel-swap">
           {Object.keys(STEP_META).map((letter) => (
             <div key={letter} className="step-tool-panel">
               <div className="step-tool-panel-head">
@@ -156,7 +156,7 @@ export function StepTool() {
           ))}
         </div>
 
-        <aside className="step-tool-card">
+        <aside key={selected ?? 'default'} className="step-tool-card panel-swap">
           <p className="step-tool-card-kicker">{active ? 'Diagnosis' : 'Start here'}</p>
           <p className="step-tool-card-title">{active ? active.title : 'Pick a problem'}</p>
           {active ? (

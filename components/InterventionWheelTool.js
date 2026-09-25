@@ -185,7 +185,7 @@ export function InterventionWheelTool() {
           <span aria-hidden="true" className="tech-eyebrow-tick" />
           Interactive · Pick an interaction
         </span>
-        <p className="step-tool-desc">
+        <p key={selected ?? 'default'} className="step-tool-desc panel-swap">
           {active
             ? active.def
             : "Once you've decided to say something, how do you say it? Twelve ways to interact once you've stepped in — from saying nothing at all to a direct instruction. Select a segment of the wheel."}
@@ -255,7 +255,7 @@ export function InterventionWheelTool() {
           </svg>
         </div>
 
-        <aside className="step-tool-card wheel-tool-card">
+        <aside key={selected ?? 'default'} className="step-tool-card wheel-tool-card panel-swap">
           <p className="step-tool-card-kicker">{active ? 'Sounds like' : 'Start here'}</p>
           <p className="step-tool-card-title">{active ? active.name : 'Pick an interaction'}</p>
           {active ? (

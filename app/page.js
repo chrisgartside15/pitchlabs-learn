@@ -24,7 +24,6 @@ export const metadata = {
 export default function Home() {
   const articles = getAllArticles()
   const featuredArticle = articles[0]
-  const otherArticles = articles.slice(1)
 
   return (
     <div className="home-page">
@@ -77,12 +76,12 @@ export default function Home() {
         </section>
       )}
 
-      {otherArticles.length > 0 && (
+      {articles.length > 0 && (
         <section>
           <PitchDivider className="section-divider" />
           <h2 className="section-title">All Articles</h2>
           <div className="articles-grid">
-            {otherArticles.map((article) => (
+            {articles.map((article) => (
               <Link
                 key={article.slug}
                 href={`/articles/${article.slug}`}

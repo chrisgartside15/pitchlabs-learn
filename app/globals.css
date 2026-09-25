@@ -31,6 +31,12 @@
   --font-display-family: var(--font-display), 'Sora', system-ui, sans-serif;
   --font-body-family: var(--font-body), 'Inter', system-ui, sans-serif;
   --font-mono-family: var(--font-mono), 'JetBrains Mono', monospace;
+
+  /* Shared decelerate curve for anything that lifts, scales, or slides in — used instead of the
+     plain `ease` keyword wherever a hover/press/entrance move should feel like it's settling into
+     place rather than coasting at a constant rate. Keeps that feel consistent site-wide instead of
+     each component picking its own easing by hand. */
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -122,7 +128,7 @@ nav.nav {
   font-weight: 600;
   font-size: 0.85rem;
   white-space: nowrap;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.15s var(--ease-snap);
 }
 
 @media (max-width: 480px) {
@@ -141,6 +147,10 @@ nav.nav {
 .nav-links a.nav-cta:hover {
   background: var(--cta-bg-hover);
   color: var(--cta-text);
+}
+
+.nav-links a.nav-cta:active {
+  transform: scale(0.96);
 }
 
 main.container {
@@ -290,16 +300,39 @@ main.container {
   font-size: 1.1rem;
 }
 
+/* .author-bio's flexbox already centers this wrapper's geometric box against the avatar exactly
+   (verified: identical center points). Left at that, the block still reads as sitting a touch
+   high — the bold, larger name line carries more visual weight than the lighter credentials line
+   below it, so an eye centered on the box reads as centered slightly above the true optical
+   middle. `transform` (not `margin-top`) on purpose: .author-bio uses `align-items: center`,
+   which centers a flex item's margin box — a `margin-top` here would get half-absorbed by that
+   recentering instead of shifting the visible text the full distance. `transform` runs after
+   layout, so flexbox never sees it and the full nudge actually lands. Manual optical tweak, not a
+   layout fix — re-check by eye if the name/credentials type scale changes later. */
+.author-bio-text {
+  transform: translateY(6px);
+}
+
 .author-bio-name {
+  /* Reset — both lines are `<p>` tags inside `article`, so without this the global `article p`
+     rule's 1rem margin-bottom leaks in here and wins (nothing else sets one), collapsing against
+     .author-bio-credentials' own small margin-top into a much bigger gap than either intends. */
+  margin-bottom: 0;
   color: var(--fg);
   font-weight: 600;
   font-size: 0.95rem;
+  /* The two lines' wrapper is already flex-centered against the avatar (.author-bio), but both
+     were inheriting the site's 1.6 body line-height — loose enough on a two-line label that the
+     wrapper's box height included a lot of phantom leading not tied to the visible glyphs.
+     Tightened so the box height tracks the visible ink instead. */
+  line-height: 1.25;
 }
 
 .author-bio-credentials {
   color: var(--fg-subtle);
   font-size: 0.85rem;
   margin-top: 0.15rem;
+  line-height: 1.25;
 }
 
 .more-in-topic {
@@ -336,13 +369,18 @@ main.container {
   background: var(--surface-1);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.25s var(--ease-snap), box-shadow 0.25s var(--ease-snap);
 }
 
 .topic-card:hover {
   border-color: var(--brand-a35);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
+}
+
+.topic-card:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
 }
 
 .topic-card h3 {
@@ -534,12 +572,17 @@ article code {
   border-radius: 999px;
   padding: 0.5rem 0.9rem;
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s var(--ease-snap);
 }
 
 .step-tool-chip:hover {
   border-color: var(--brand-a35);
   color: var(--fg);
+}
+
+.step-tool-chip:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
 }
 
 .step-tool-chip.active {
@@ -786,9 +829,12 @@ article code {
   stroke-width: 3px;
 }
 
+/* 7.5 SVG-user-units here renders at ~9px on screen once the wheel's own scale-up (380px display
+   width over its 320-unit viewBox, ~1.19x) is applied — sized down from a prior 9-unit pass that
+   read as too large/crowded across twelve tightly-packed wedges. */
 .wheel-tool-seg-label {
   font-family: var(--font-mono-family);
-  font-size: 9px;
+  font-size: 7.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
   pointer-events: none;
@@ -893,6 +939,7 @@ article .article-figure img {
   background: rgba(5, 7, 10, 0.9);
   backdrop-filter: blur(4px);
   cursor: zoom-out;
+  animation: lightboxOverlayIn 0.2s ease-out;
 }
 
 .lightbox-image {
@@ -903,6 +950,27 @@ article .article-figure img {
   border-radius: 10px;
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
   cursor: default;
+  animation: lightboxImageIn 0.3s var(--ease-snap);
+}
+
+@keyframes lightboxOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lightboxImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .lightbox-close {
@@ -968,12 +1036,17 @@ footer.footer {
   border-radius: 999px;
   text-decoration: none;
   margin-top: 1.5rem;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease, transform 0.2s var(--ease-snap);
 }
 
 .cta-button:hover {
   background: var(--cta-bg-hover);
   transform: translateY(-1px);
+}
+
+.cta-button:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 0.1s;
 }
 
 /* === 404 page === */
@@ -1102,13 +1175,18 @@ footer.footer {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.25s var(--ease-snap), border-color 0.2s ease, box-shadow 0.25s var(--ease-snap);
 }
 
 .home-page .featured-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   border-color: var(--brand-a25);
   box-shadow: var(--shadow-card-hover);
+}
+
+.home-page .featured-card:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
 }
 
 .home-page .featured-content h2 {
@@ -1146,12 +1224,17 @@ footer.footer {
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.9rem;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease, transform 0.2s var(--ease-snap);
 }
 
 .home-page .read-link:hover {
   background: var(--cta-bg-hover);
   transform: translateY(-1px);
+}
+
+.home-page .read-link:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 0.1s;
 }
 
 .articles-grid {
@@ -1168,15 +1251,20 @@ footer.footer {
   padding: 22px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.25s var(--ease-snap), border-color 0.2s ease, box-shadow 0.25s var(--ease-snap);
   text-decoration: none;
   color: inherit;
 }
 
 .article-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--brand-a25);
   box-shadow: var(--shadow-card-hover);
+}
+
+.article-card:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
 }
 
 .article-card h3 {
@@ -1257,6 +1345,24 @@ footer.footer {
   }
 }
 
+/* Quicker, smaller-throw sibling of fadeIn — for content that replaces itself in place (a tool
+   panel swapping to a new diagnosis) rather than a section arriving on page load. The distinction
+   matters: this needs to read as "the same spot updated," not "a new block flew in." */
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-swap {
+  animation: panelIn 0.25s var(--ease-snap);
+}
+
 /* Site-wide: every hover lift/transition and the hero's fadeIn above become instant state
    changes for anyone who has asked their OS for reduced motion, rather than being skipped. */
 @media (prefers-reduced-motion: reduce) {
@@ -1280,6 +1386,7 @@ footer.footer {
 
 .article-header {
   margin-bottom: 2.5rem;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .article-header .back-link {
@@ -1384,12 +1491,17 @@ footer.footer {
   text-decoration: none;
   color: var(--fg);
   font-size: 0.9rem;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.2s var(--ease-snap);
 }
 
 .article-nav .nav-link:hover {
   border-color: var(--brand-a35);
   transform: translateY(-1px);
+}
+
+.article-nav .nav-link:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
 }
 
 .article-nav .nav-link.prev {
