@@ -25,6 +25,16 @@ No fixed weekly cadence — Chris's review bandwidth is bursty. This is a **prio
 - [ ] Produce a real graphic/diagram for article #2 (currently text + interactive tool only, no static diagram — lower priority since the interactive tool covers the same ground)
 - [ ] Favicon (currently none — falls back to browser default)
 
+## Content, Design & SEO Polish (done, 2026-09-24, non-blocking)
+
+Everything below is already committed locally (not pushed) — recorded here so it doesn't need re-deriving later.
+
+- **Navigation bugs fixed:** prev/next article arrows were inverted (a newer part 2 showed as "← " before part 1 — index math assumed oldest-first sort, the array is actually newest-first); a dead cross-article link used a URL pattern that was never built.
+- **SEO/infra baseline added:** `sitemap.xml`, `robots.txt`, `metadataBase`, canonical URLs on every page, JSON-LD `Article` structured data per article, a branded 404 page (was Next's unstyled default), `loading="lazy"` on in-article images.
+- **Reading time is now computed, not typed.** Both articles claimed "7 min read" by hand; actual word count put them at 7–9 min depending on the rate assumed. `getReadingTimeMinutes()` in `lib/articles.js` computes it from the real word count (225 wpm) and will stay correct as articles change.
+- **Voice-consistency pass**, checked against Chris's stated voice spec (warm, thinking-alongside, not authoritative; credentialed but not lecturing; problem → direct answer, not a slow build; jargon defined, never dumbed down): article 1's opening now leads with the direct answer instead of two rhetorical hook questions; the "17 coaches / 22 teams" line reads as observation rather than an explicit credential statement; "ecological dynamics" now gets a plain-language gloss; article 1 gained a matching "part one of a series" closing footer (article 2 already had one, article 1 didn't). `lib/clusters.js`'s five topic blurbs were rewritten — they'd been shipped as internal content-strategy notes ("own the search space...") instead of reader-facing copy.
+- **Design polish:** consistent site-wide spacing rhythm and card hover states, `prefers-reduced-motion` support, `next/link`-based nav (was plain `<a>`, full page reloads), the Intervention Wheel rebuilt as a proper circular SVG (was a chip-row grid), and the article footer sequence (closing `---`, the italic series note, the CTA box, author bio) given consistent spacing — the `<hr>` was falling back to the browser's tiny default margin instead of the site's own spacing scale.
+
 ## Live
 
 *(empty — nothing published yet)*

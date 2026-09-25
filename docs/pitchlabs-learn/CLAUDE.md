@@ -60,11 +60,13 @@ Established from a direct interview (2026-09-18), refined afterward by draft/edi
 
 Track ongoing refinement concretely as real drafts get edited: sentence length/rhythm, how technical vs. plain-language, humor level, how PitchLabs gets mentioned (should stay a natural, non-forced CTA per the Editorial Principles above). Update this section directly as the voice solidifies — don't let it go stale after the first interview.
 
+**Refinement pass, 2026-09-24 (articles 1 and 2 checked against the spec above):** Structure and tone held up well on both drafts. Two real deviations found and fixed: article 1's opening used a slow rhetorical-question build instead of leading with the direct answer (fixed — now states the thesis in sentence one, the rhetorical color comes after); a credential line ("I oversee 17 coaches across 22 teams...") stated authority explicitly in prose rather than staying implicit via the byline (fixed — reframed as observation, kept the real numbers since they're genuinely differentiating evidence, dropped the "I oversee" framing). Also caught: jargon ("ecological dynamics") left undefined where everything else got a plain-language gloss — same fix pattern, define inline, don't cut the word.
+
 ## Technical Guidelines
 
 - Articles live in `content/articles/[slug].mdx`
 - Images in `public/images/articles/`
-- URL structure: `/learn/[cluster]/[article-slug]`
+- URL structure: articles are `/articles/[article-slug]` (not nested under cluster) and topics are `/topics/[cluster-slug]`, both prefixed with `/learn` only in production (see `next.config.js`'s `basePath`, added 2026-09-24) — not part of the app's own internal route pattern
 - No frontmatter changes after publication (breaks SEO)
 - All articles use MDX format — supports Markdown and React components
 

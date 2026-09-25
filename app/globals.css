@@ -268,7 +268,9 @@ main.container {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin-top: 2.5rem;
+  /* Matches .article-cta's own margin-top (3rem) so the rhythm above and below the CTA box is
+     the same, rather than 3rem going in and 2.5rem coming out. */
+  margin-top: 3rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--border-subtle);
 }
@@ -466,6 +468,15 @@ article blockquote {
   margin: 1.5rem 0;
   color: var(--fg-subtle);
   font-style: italic;
+}
+
+/* A markdown `---` (used for the closing "this is part N of a series" note) otherwise falls back
+   to the browser's own tiny default <hr> margin — visibly tighter than every other spacing value
+   in the article, which is why the italic note right under it read as cramped. */
+article hr {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 2.5rem 0 1.5rem 0;
 }
 
 article code {
