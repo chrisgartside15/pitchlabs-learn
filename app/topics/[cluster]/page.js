@@ -27,8 +27,23 @@ export default function ClusterPage({ params }) {
   const pillar = cluster.pillarSlug ? getArticleBySlug(cluster.pillarSlug) : null
   const supporting = articles.filter((a) => a.slug !== cluster.pillarSlug)
 
+  // Matches the "← All topics" back-link a reader actually sees above the h1.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'PitchLabs Learn', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Topics', item: `${SITE_URL}/topics` },
+      { '@type': 'ListItem', position: 3, name: cluster.title, item: `${SITE_URL}/topics/${cluster.slug}` },
+    ],
+  }
+
   return (
     <div className="articles-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="page-header">
         <Link href="/topics" className="back-link">
           ← All topics
@@ -44,9 +59,15 @@ export default function ClusterPage({ params }) {
             <h3>{pillar.meta.title}</h3>
             <p className="excerpt">{pillar.meta.excerpt}</p>
           </Link>
-        ) : (
+        ) : articles.length > 0 ? (
           <p className="pillar-slot-empty">
             The foundational guide for this topic hasn&rsquo;t been published yet.
+          </p>
+        ) : (
+          // Cluster has nothing at all yet — one message covering both the pillar and
+          // supporting slots, rather than stacking this with the "no articles" message below.
+          <p className="pillar-slot-empty">
+            No articles published in this topic yet — check back soon.
           </p>
         )}
       </section>
@@ -68,12 +89,6 @@ export default function ClusterPage({ params }) {
             ))}
           </div>
         </>
-      )}
-
-      {!pillar && supporting.length === 0 && (
-        <p className="pillar-slot-empty" style={{ marginTop: '1rem' }}>
-          No articles published in this topic yet — check back soon.
-        </p>
       )}
     </div>
   )

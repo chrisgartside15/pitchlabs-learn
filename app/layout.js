@@ -46,14 +46,49 @@ export const metadata = {
   },
 }
 
+// Matches --surface-0 in globals.css — the always-dark page background — so the mobile browser
+// chrome (address bar, task switcher) doesn't flash a mismatched light color around the page.
+export const viewport = {
+  themeColor: '#0d1117',
+}
+
+// Sitewide entity schema — read once per page, not per-article the way Article JSON-LD is.
+// Gives Google a stable Organization/WebSite entity to anchor knowledge-panel and brand-search
+// results to, independent of whichever article someone lands on first.
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}#organization`,
+      name: 'PitchLabs',
+      url: SITE_URL,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}#website`,
+      name: 'PitchLabs Learn',
+      url: SITE_URL,
+      publisher: { '@id': `${SITE_URL}#organization` },
+    },
+  ],
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
+        />
       </head>
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <header className="header">
           <nav className="nav">
             <Link href="/" className="logo">
@@ -68,7 +103,7 @@ export default function RootLayout({ children }) {
             </div>
           </nav>
         </header>
-        <main className="container">
+        <main id="main-content" className="container">
           {children}
         </main>
         <footer className="footer">

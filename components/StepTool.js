@@ -130,7 +130,7 @@ export function StepTool() {
       </div>
 
       <div className="step-tool-body">
-        <div key={selected ?? 'default'} className="step-tool-panels panel-swap">
+        <div key={`panels-${selected ?? 'default'}`} className="step-tool-panels panel-swap">
           {Object.keys(STEP_META).map((letter) => (
             <div key={letter} className="step-tool-panel">
               <div className="step-tool-panel-head">
@@ -156,7 +156,7 @@ export function StepTool() {
           ))}
         </div>
 
-        <aside key={selected ?? 'default'} className="step-tool-card panel-swap">
+        <aside key={`card-${selected ?? 'default'}`} className="step-tool-card panel-swap">
           <p className="step-tool-card-kicker">{active ? 'Diagnosis' : 'Start here'}</p>
           <p className="step-tool-card-title">{active ? active.title : 'Pick a problem'}</p>
           {active ? (

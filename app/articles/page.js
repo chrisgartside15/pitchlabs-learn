@@ -39,7 +39,7 @@ export default function ArticlesIndex() {
       {articles.length < 3 && (
         <p className="articles-page-note">
           More coaching guides are in progress — check back soon, or browse{' '}
-          <Link href="/topics">topics</Link> to see what's planned.
+          <Link href="/topics">topics</Link> to see what&apos;s planned.
         </p>
       )}
     </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { withBasePath } from '@/lib/site'
 
 /**
@@ -12,6 +12,8 @@ import { withBasePath } from '@/lib/site'
  */
 export function ImageLightbox({ src, alt, width, height }) {
   const [open, setOpen] = useState(false)
+  const triggerRef = useRef(null)
+  const closeRef = useRef(null)
   // `src` comes from an article's plain `/images/...` path — basePath rewrites next/link and
   // next/image automatically, but not an arbitrary string handed to a plain <img>, so it needs
   // the /learn prefix added back on by hand once this is actually served through the proxy.
@@ -19,14 +21,26 @@ export function ImageLightbox({ src, alt, width, height }) {
 
   useEffect(() => {
     if (!open) return
+    // Close is the dialog's only focusable element, so moving focus there on open and keeping
+    // it there on Tab (there's nowhere else inside to go) is a full trap without extra plumbing;
+    // focus returns to the trigger on close so keyboard/screen-reader users land back where they
+    // started instead of at the top of the page.
+    const trigger = triggerRef.current
+    closeRef.current?.focus()
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === 'Escape') {
+        setOpen(false)
+      } else if (e.key === 'Tab') {
+        e.preventDefault()
+        closeRef.current?.focus()
+      }
     }
     document.addEventListener('keydown', onKeyDown)
     document.body.style.overflow = 'hidden'
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = ''
+      trigger?.focus()
     }
   }, [open])
 
@@ -34,6 +48,7 @@ export function ImageLightbox({ src, alt, width, height }) {
     <>
       <button
         type="button"
+        ref={triggerRef}
         onClick={() => setOpen(true)}
         aria-label={`View full size: ${alt}`}
         className="lightbox-trigger"
@@ -50,9 +65,16 @@ export function ImageLightbox({ src, alt, width, height }) {
       </button>
 
       {open && (
-        <div className="lightbox-overlay" onClick={() => setOpen(false)}>
+        <div
+          className="lightbox-overlay"
+          onClick={() => setOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt}
+        >
           <button
             type="button"
+            ref={closeRef}
             onClick={() => setOpen(false)}
             aria-label="Close"
             className="lightbox-close"
@@ -64,6 +86,8 @@ export function ImageLightbox({ src, alt, width, height }) {
           <img
             src={resolvedSrc}
             alt={alt}
+            width={width}
+            height={height}
             className="lightbox-image"
             onClick={(e) => e.stopPropagation()}
           />

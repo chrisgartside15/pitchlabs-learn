@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllArticles, getArticlesByCluster, formatArticleDate } from '@/lib/articles'
 import { CLUSTERS } from '@/lib/clusters'
 import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
+import { SeriesRecap } from '@/components/SeriesRecap'
 import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
@@ -56,12 +57,19 @@ export default function Home() {
 
       <PitchDivider className="section-divider" />
 
+      <section className="series-section">
+        <h2 className="section-title">Explore a Series</h2>
+        <SeriesRecap variant="compact" />
+      </section>
+
+      <PitchDivider className="section-divider" />
+
       {featuredArticle && (
         <section className="featured-section">
           <h2 className="section-title">Featured</h2>
           <div className="featured-card">
             <div className="featured-content">
-              <h2>{featuredArticle.meta.title}</h2>
+              <h3>{featuredArticle.meta.title}</h3>
               <div className="featured-meta">
                 <span>{formatArticleDate(featuredArticle.meta.date)}</span>
                 <span>•</span>

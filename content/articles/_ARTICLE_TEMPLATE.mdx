@@ -5,7 +5,13 @@ date: "2026-09-17"
 author: "Chris Gartside"
 cta: "Ready to build this in PitchLabs?"
 cluster: "session-planning"
-pillar: false
+# metaTitle / metaDescription: optional. Only add these if `title` runs past ~60 characters or
+# `excerpt` past ~160 — both get truncated in Google's search snippet at those lengths. They
+# override just the <title> tag and meta description; the on-page H1 and excerpt shown in
+# article-listing cards keep using `title`/`excerpt` untouched. Leave both unset by default —
+# most titles/excerpts don't need a separate SEO-only version.
+# metaTitle: "A shorter version of the title, under ~60 characters"
+# metaDescription: "A shorter version of the excerpt, under ~160 characters"
 ---
 
 ## Start with the Problem
@@ -70,7 +76,8 @@ And mention PitchLabs naturally, not forced:
 - **author:** Your name
 - **cta:** Optional. The call-to-action button text before the CTA link.
 - **cluster:** Which topic cluster this belongs to — see `lib/clusters.js` for the valid slugs (session-planning, coaching-principles, age-groups, activities, session-objectives) and CONTENT_STRATEGY.md for what each one covers. Powers the category badge and the `/topics/<cluster>` landing page.
-- **pillar:** `true` for a cluster's one foundational/broad article, `false` (or omit) for a supporting article. Only one article per cluster should be `true` — see CONTENT_STRATEGY.md's "Pillar Article" for that cluster.
+
+A cluster's pillar article is set separately, in `lib/clusters.js`'s `pillarSlug` for that cluster — not in this file's frontmatter.
 
 ---
 

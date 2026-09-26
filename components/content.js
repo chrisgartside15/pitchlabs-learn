@@ -36,6 +36,39 @@ export function ClusterBadge({ clusterSlug }) {
   )
 }
 
+/** Plain (non-link) label for an article's place in a numbered series — deliberately styled
+ *  differently from ClusterBadge (a clickable pill) rather than just placed next to it, so the
+ *  two read as two different kinds of information at a glance: cluster = what this piece is
+ *  about, series = where it sits in a sequence. A series can span multiple clusters (see
+ *  articles 1 and 3 vs. article 2 in "What Actually Shapes a Youth Practice") without the two
+ *  badges implying they should match. */
+export function SeriesBadge({ series, seriesPart, seriesTotal }) {
+  if (!series || !seriesPart || !seriesTotal) return null
+  return (
+    <span className="series-badge">
+      <span aria-hidden="true" className="series-badge-tick" />
+      Part {seriesPart} of {seriesTotal} · {series}
+    </span>
+  )
+}
+
+/** A short "read this if nothing else" summary, placed at the top of an article before the
+ *  narrative opening — for a skimmer who wants the point in the time it takes to read four or
+ *  five bullets, not the full piece. Deliberately styled differently from DefinitionBox (a top
+ *  border instead of a left one, a plain box instead of an accent-colored one) so the two don't
+ *  read as the same kind of callout — this one's a summary, not a definition. If the article is
+ *  part of a series, the "catch up" line pointing at earlier parts goes here too, as the last
+ *  line inside the box, rather than as a separate element — keeps the top of the article to one
+ *  callout instead of two. */
+export function TLDR({ children }) {
+  return (
+    <div className="tldr-box">
+      <p className="tldr-label">30-Second Version</p>
+      <div className="tldr-body">{children}</div>
+    </div>
+  )
+}
+
 /** A highlighted "what this term means" callout — the Coaches' Voice pattern of stating a clear
  *  definition before building on it, rather than assuming the reader already knows the jargon.
  *  Usage in an article: wrap it around the term's own explanation, right where it's introduced. */

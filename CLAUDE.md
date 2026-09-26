@@ -33,7 +33,7 @@ Claude drafts; Chris reviews and approves before anything publishes. Nothing goe
 
 1. **Plan:** Article gets added to the publishing calendar with cluster, target keyword, and angle before drafting starts.
 2. **Draft:** Claude writes a full first draft — structure, argument, examples — grounded in Chris's stated coaching experience. Claude does not invent specific anecdotes, statistics, or claims of expertise Chris hasn't stated.
-3. **Review:** Chris reads for factual/coaching accuracy, voice, and anything that doesn't reflect how he'd actually say it. This is also where the "voice profile" gets refined — see below.
+3. **Review:** Chris reads for factual/coaching accuracy, voice, and anything that doesn't reflect how he'd actually say it. This is also where `docs/pitchlabs-learn/PITCHLABS_VOICE.md` gets refined — see "Chris's Voice" below.
 4. **Optimize:** SEO pass (headers, meta, internal links) happens after the writing is right, never before.
 5. **Publish:** `.mdx` file in `content/articles/` with required frontmatter, commit to GitHub, Vercel auto-deploys.
 
@@ -50,21 +50,17 @@ cta: "Optional call-to-action linking to app.pitchlabs.com"
 
 ## Chris's Voice
 
-Established from a direct interview (2026-09-18), refined afterward by draft/edit cycles. This is the working baseline — Chris's edits to actual drafts are still the higher-priority signal when they conflict with anything written here.
+**For any PitchLabs Learn editorial writing, article drafting, rewriting, editing, research integration, FAQ writing, or related long-form content: read `docs/pitchlabs-learn/PITCHLABS_VOICE.md` before drafting and follow it as the canonical author voice.** That file governs prose style — it does not override factual accuracy, source material, explicit user instructions, or article-specific requirements.
 
-- **Tone:** Warm and encouraging, thought-provoking. Explicitly NOT authoritative or arrogant — credentialed but not lecturing. The reader should feel like Chris is thinking alongside them, not handing down verdicts from on high.
-- **Anecdotes:** Light — principles first. Chris's coaching experience is implicit authority (it's in the byline, it's why the article exists) rather than something woven into every paragraph as "when I was coaching at Storm..." Use a concrete example when it clarifies a point, not as a storytelling device.
-- **Structure:** Modern, scannable blog format — not a dense essay, not an academic paper. Default pattern: **Problem → Solution → Further Explanation** (open the article with the actual coaching problem, give the direct answer, then unpack the reasoning/nuance after). This isn't rigid — deviate when a different structure genuinely serves the topic better, but it's the default.
-- **Audience:** Mixed — write for both a volunteer parent-coach with zero background and an experienced club coach. Plain language, defined jargon, but never dumbed down or condescending to the experienced reader.
-- **No ad-supported blog clutter** — no fake urgency, no "10 tips" listicle padding, no keyword-stuffed intros before getting to the point.
+Quick summary (see the voice file for the full profile, examples, and the list of AI-style patterns to actively avoid): warm, thinking-alongside, not authoritative or lecturing; problem → solution → further explanation as the default shape, not a rigid template; anecdotes light and only ever real (never invented); ordinary coaching language over business/consultant language; research used to sharpen an observation, not performed as a literature review.
 
-Track ongoing refinement concretely as real drafts get edited: sentence length/rhythm, how technical vs. plain-language, humor level, how PitchLabs gets mentioned (should stay a natural, non-forced CTA per the Editorial Principles above). Update this section directly as the voice solidifies — don't let it go stale after the first interview.
+Rewritten and re-derived 2026-09-26 from the three-article "What Actually Shapes a Youth Practice" series, specifically to strip out AI-polish patterns that had crept into earlier drafts (over-caveated research paragraphs, duplicated hook formulas across articles, a "worth sitting with" tic, heavy em-dash density). Chris's edits to actual drafts remain the higher-priority signal when they conflict with the voice file — update that file directly as the voice keeps solidifying, don't let it go stale.
 
 ## Technical Guidelines
 
 - Articles live in `content/articles/[slug].mdx`
 - Images in `public/images/articles/`
-- URL structure: `/learn/[cluster]/[article-slug]`
+- URL structure: articles are `/articles/[article-slug]` (not nested under cluster) and topics are `/topics/[cluster-slug]`, both prefixed with `/learn` only in production (see `next.config.js`'s `basePath`) — not part of the app's own internal route pattern
 - No frontmatter changes after publication (breaks SEO)
 - All articles use MDX format — supports Markdown and React components
 
@@ -94,6 +90,9 @@ Track ongoing refinement concretely as real drafts get edited: sentence length/r
 
 ## Related Docs
 
+(all under `docs/pitchlabs-learn/` unless noted)
+
+- **PITCHLABS_VOICE.md** — canonical author voice for all PitchLabs Learn writing; read before drafting or editing any article
 - **PUBLISHING_CALENDAR.md** — near-term article queue
 - **PERFORMANCE_FRAMEWORK.md** — what to track and how to read it
 - **ROADMAP_6MONTH.md** — cluster sequencing and 6-month goals
