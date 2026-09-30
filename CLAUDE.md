@@ -43,6 +43,8 @@ Writing outside that experience is fine when it is framed as source-based, not e
 3. **Topical authority through linking.** Every article links back to its cluster pillar and to 2–3 related articles. An isolated article doesn't build site authority.
 4. **Connection without contamination.** CTAs link to the PitchLabs builder when relevant to the article — never forced, never mid-argument.
 5. **Byline with real credentials.** Author bio includes Chris's actual licenses and current role. This is the trust signal that generic content can't fake — use it.
+6. **Provoke with a finding, not a finger.** Every article should provoke, and it does that by leading with one clear, true, surprising finding from a named source (e.g. "drills didn't beat games even on technique"), never by pointing at the reader ("why are you still talking?"). Where research conflicts, explain the other side plainly instead of hiding it, and address known weaknesses head on. Gather caveats in one place rather than after every sentence, because stacked caveats flatten the piece. Don't open two articles in a series with the same statistic or hook, and don't frame titles around a single age group (use age-specific examples inside broader framing). (Chris, 2026-09-29: "sound, not preachy", and "each article needs to provoke".)
+7. **One way, not the only way.** Nothing should read as THE way to do something. Tools, session shapes, fixes, examples and templates are framed as one way, the way Chris uses them, or one option among several, and the reader is invited to adapt. Avoid "the fix is", "you should", "must", "the right way" as rules; prefer "one way", "what I'd try", "what works for me". Keep research findings stated plainly and soften only prescriptions about method, so this doesn't turn into hedging every sentence. (Chris, 2026-09-29.)
 
 ## Content Workflow
 
@@ -81,6 +83,7 @@ Rewritten and re-derived 2026-09-26 from the three-article "What Actually Shapes
 - No frontmatter changes after publication (breaks SEO)
 - Every live article is locked (a `{/* LOCKED … */}` note under its frontmatter, plus a section in `PUBLISHING_CALENDAR.md`). Don't edit a locked article, or the tools and downloads inside it, unless Chris asks for a change to that specific article. Site-wide sweeps skip locked pages or ask first
 - All articles use MDX format — supports Markdown and React components
+- Printable downloads (`public/downloads/`) are built by `scripts/pdf/` from the main PitchLabs app's react-pdf components. See `scripts/pdf/README.md` before changing or adding one
 
 ## Decision-Making Framework
 
