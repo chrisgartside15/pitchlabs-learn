@@ -4,21 +4,21 @@
 
 No fixed weekly cadence — Chris's review bandwidth is bursty. This is a **priority queue**, not a locked schedule: articles are listed in the order they should get drafted and reviewed, and dates get filled in as each one is actually approved and published, not planned in advance. Update this file after every publish rather than trying to predict 60 days out in one sitting.
 
-**Verified current state (2026-09-24):** Site is live on Vercel at the temporary domain (`pitchlabs-learn-lime.vercel.app`). **Target launch date: 2026-09-29.** Domain approach is decided as `usepitchlabs.com/learn` (a reverse-proxied subpath — Next.js "multi-zone" rewrite in the main app — not a subdomain; `learn.usepitchlabs.com` from earlier notes in this doc and ROADMAP_6MONTH.md is superseded). Articles #1 and #2 are both fully drafted, researched, and approved on content, with real PitchLabs graphics and interactive components (STEP tool, Intervention Wheel) live — not placeholders anymore. Article #3 not started.
+**Launched 2026-09-29.** Live at `https://www.usepitchlabs.com/learn`, reverse-proxied by the main PitchLabs app (`next.config.ts` rewrite, shipped in PitchLabs 2.0 / PR #2, merge `cf3d034`). The Learn Vercel project's own production build serves under `basePath: '/learn'`, so `pitchlabs-learn-lime.vercel.app/` now 404s by design (`/learn` there still works). Earlier pre-launch state (2026-09-24, temp domain only) superseded.
 
-**Everything below is committed locally in both repos, not pushed — holding for the Sept 29 launch date.**
+**Both repos pushed and deployed 2026-09-29.** Learn `main` at `0ba2169`; PitchLabs `main` at `6b7cdbb` (tag `v2.0.0`).
 
-## Remaining Launch Items (Blocking Sept 29)
+## Launch Items (Blocking Sept 29) — all done 2026-09-29
 
 - [x] Domain architecture decided: `/learn` subpath, not subdomain
 - [x] `basePath: '/learn'` added to this app (production-only) — Learn repo commit `2e1f98d`
 - [x] Reverse-proxy rewrite added to the main app's `next.config.ts` — App-Studio/Projects/PitchLabs commit `4955e2d` (on branch `phase3/builder-v2` — needs merging to whatever branch that repo deploys from before launch)
 - [x] Fixed the two things `basePath` doesn't handle automatically: plain `<img>` src paths and markdown-syntax links inside article `.mdx` content (both would have silently 404'd under the proxy)
-- [ ] **Push both repos** (this triggers real Vercel deploys on both — do this deliberately, not as a side effect of something else)
-- [ ] Set `NEXT_PUBLIC_GA_ID` on the Learn Vercel project to the **same** value as the main app's, so Learn traffic lands in the existing GA4 property instead of a separate one
-- [ ] Confirm `NEXT_PUBLIC_APP_URL` on Learn's Vercel project is unset or `https://usepitchlabs.com` (so "Build Sessions" CTAs don't point at localhost)
-- [ ] After both are deployed: verify `usepitchlabs.com/learn` loads the homepage, an article page loads with working images/nav/interactive tools, `sitemap.xml`/`robots.txt` resolve, and GA4 Realtime shows events landing in the right property
-- [ ] Set up Google Search Console + submit the sitemap (do this once the real domain is live, not before)
+- [x] **Push both repos** — done 2026-09-29 (Learn first, then PitchLabs PR #2 merged)
+- [x] Set `NEXT_PUBLIC_GA_ID` on the Learn Vercel project (done 2026-09-29, Production only, `G-YFDWB5CGGG`) to the **same** value as the main app's, so Learn traffic lands in the existing GA4 property instead of a separate one
+- [x] Confirm `NEXT_PUBLIC_APP_URL` on Learn's Vercel project is unset (confirmed 2026-09-29; code default is now `https://www.usepitchlabs.com`)
+- [x] After both are deployed: verify `usepitchlabs.com/learn` loads the homepage, an article page loads with working images/nav/interactive tools, `sitemap.xml`/`robots.txt` resolve, and GA4 Realtime shows events landing in the right property
+- [x] Set up Google Search Console + submit the sitemap — done 2026-09-29 in the `usepitchlabs.com` Domain property: `/learn/sitemap.xml` (18 pages) and `/sitemap.xml` resubmitted after the www fix; indexing requested for `/learn` and the three pillars
 
 ## Remaining Launch Items (Not Blocking, Can Follow Sept 29)
 
@@ -87,9 +87,9 @@ Changes approved by Chris: Step 4's table brought in line with its own summary l
 
 ## Sign-off 2026-09-29
 
-All five articles approved by Chris after the consistency and soundness passes (see COACHING_FRAMEWORK.md). The "17 coaches across 22 teams" line in article #1 confirmed by Chris for public use. Changes are deliberately left uncommitted until Chris says otherwise.
+All five articles approved by Chris after the consistency and soundness passes (see COACHING_FRAMEWORK.md). The "17 coaches across 22 teams" line in article #1 confirmed by Chris for public use. Changes are deliberately left uncommitted until Chris says otherwise. **[2026-09-29] Committed (`563c218`) and launched.**
 
-## Batch 2 — drafted 2026-09-29, pending Chris's review
+## Batch 2 — drafted 2026-09-29; reviewed by Chris and launched 2026-09-29
 
 Six articles written to support the first five and fill the empty topics. All uncommitted. Research for each is logged in COACHING_FRAMEWORK.md ("Batch 2 sources").
 
@@ -112,7 +112,7 @@ Six articles written to support the first five and fill the empty topics. All un
 
 **Series 2, "Before the Decision" (added 2026-09-29):** Scanning and Receiving (part 1, Jul 7) → Teach It or Let the Game Teach It? (part 2, Jul 21) → First Touch and Receiving (part 3, Aug 4). Each has `series` / `seriesPart` / `seriesTotal` frontmatter, parts 2–3 have the TL;DR catch-up line, all three have series footers, and part 3 ends with `<SeriesRecap />`. `components/SeriesRecap.js` now holds a `SERIES` list (it previously hardcoded series 1 only); the homepage's "Explore a Series" renders every series in it. "How to See Your Own Coaching" was considered as a part 4 of series 1 and deliberately left standalone.
 
-**Mock publish dates (set 2026-09-29, before launch):** every two weeks from May 12 (Why Your Practice Feels Like Chaos) to Sep 29 (How to Plan a Soccer Training Session), ordered so in-text references ("the first few articles", "the first three articles") stay accurate. Decide before launch whether to keep these or use real dates — frontmatter shouldn't change after publication.
+**Mock publish dates (set 2026-09-29, before launch):** every two weeks from May 12 (Why Your Practice Feels Like Chaos) to Sep 29 (How to Plan a Soccer Training Session), ordered so in-text references ("the first few articles", "the first three articles") stay accurate. Decide before launch whether to keep these or use real dates — frontmatter shouldn't change after publication. **Decided 2026-09-29 (Chris): keep the staggered dates.** All articles actually went live on 2026-09-29.
 
 **Article #2 additions (2026-09-29):** a "One moment, three ways to respond" section running the Switch of Play game (article #1) through Silence / Question / Instruct, using the question from the game's activity sheet; the Buszard and Kirschner recaps cut to one-line references (full versions live in article #1 and Teach It). New download: `public/downloads/coaching-interaction-menu-{letter,a4}.pdf` (+ preview), the twelve interactions with definitions, example phrases (from components/InterventionWheelTool.js) and suggested stoppage pairings; GA4 resource `coaching_interaction_menu`. Also in article #1: `switch-of-play-to-four-goals-{letter,a4}.pdf` (Chris's PitchLabs export, re-rendered without doubled quote marks, tagged U8–U10), resource `switch_of_play_to_four_goals`.
 
@@ -132,7 +132,24 @@ Six articles written to support the first five and fill the empty topics. All un
 
 ## Live
 
-*(empty — nothing published yet)*
+All went live 2026-09-29 under `https://www.usepitchlabs.com/learn/articles/<slug>` (frontmatter dates are the staggered ones above, not the go-live date).
+
+- `why-your-practice-feels-like-chaos`
+- `how-much-should-you-actually-say`
+- `coach-without-stopping-the-game`
+- `fundamentals-of-soccer-coaching` (pillar)
+- `scanning-and-receiving`
+- `teach-it-or-let-the-game-teach-it`
+- `first-touch-and-receiving`
+- `small-sided-games`
+- `see-your-own-coaching`
+- `coaching-u6-to-u10` (pillar)
+- `how-to-plan-a-soccer-training-session` (pillar)
+
+**Launch-day notes (2026-09-29):**
+- Canonicals/sitemap/CTA links switched to `www.usepitchlabs.com` (`0ba2169`) — the bare domain 307-redirects to www, so the originals pointed at a redirecting URL.
+- GA4 (`G-YFDWB5CGGG`, property shared with the app): event-scoped custom dimensions registered for `resource`, `paper`, `location`, `tool`, `action`, `result`, `players`, `link_location`, `article_slug`. `/learn` page views confirmed in Realtime. **Still to do:** star `blog_cta_click` as a key event once the first one arrives (Events → Recent events).
+- 2-week check due ~2026-10-13 (indexed? impressions? — see PERFORMANCE_FRAMEWORK.md).
 
 ## Queue (Priority Order) — Series 1: "What Actually Shapes a Youth Practice"
 

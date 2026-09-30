@@ -6,7 +6,7 @@ The blog's job is qualified signups to usepitchlabs.com, not raw traffic. A vira
 
 Given Chris's bandwidth is variable/bursty, this framework is deliberately lightweight to start — it should not require a dashboard build before the first article can be measured.
 
-**Analytics status (2026-09-18): GA4 is linked on the main site.** Not yet confirmed: whether it also covers the `/learn` blog section specifically, and whether conversion to usepitchlabs.com is tracked as a distinct event (vs. just pageviews). Until both are confirmed, treat Tier 1 as "available, not yet verified end-to-end" rather than "fully instrumented" — see Setup Required below.
+**Analytics status (updated 2026-09-29, at launch):** `/learn` is covered — it reports into the same GA4 property as the app (`G-YFDWB5CGGG`), and `/learn` page views were confirmed in Realtime on launch day. The CTA fires a distinct `blog_cta_click` event (`link_location`, `article_slug`), with event-scoped custom dimensions registered for it and for downloads/tools; not yet seen firing from a real visitor, and not yet starred as a key event. *Original 2026-09-18 note, kept for history:* **GA4 is linked on the main site.** Not yet confirmed: whether it also covers the `/learn` blog section specifically, and whether conversion to usepitchlabs.com is tracked as a distinct event (vs. just pageviews). Until both are confirmed, treat Tier 1 as "available, not yet verified end-to-end" rather than "fully instrumented" — see Setup Required below.
 
 ## Metrics, by Priority
 
@@ -52,9 +52,9 @@ Given bursty bandwidth, this is built around checkpoints, not a fixed weekly rit
 ## Setup Required (Partially Done)
 
 - [x] GA4 linked — confirmed live on the main site (2026-09-18)
-- [ ] Confirm GA4 is capturing the `/learn` blog section specifically, not just the main marketing site
-- [ ] Verify the site in Google Search Console (if not already done)
-- [ ] Add a distinguishable GA4 event (or at minimum a UTM) on the CTA link(s) to usepitchlabs.com — pageviews alone won't show conversion intent
+- [x] Confirm GA4 is capturing the `/learn` blog section specifically, not just the main marketing site (2026-09-29, Realtime)
+- [x] Verify the site in Google Search Console (already verified as the `usepitchlabs.com` Domain property; Learn sitemap submitted 2026-09-29)
+- [x] Add a distinguishable GA4 event (or at minimum a UTM) on the CTA link(s) to usepitchlabs.com — pageviews alone won't show conversion intent (`blog_cta_click`, live 2026-09-29; star it as a key event once the first real one arrives)
 - [ ] Decide where numbers get reviewed — this doc can hold a running log, or a future project doc/dashboard can
 
 Until the blog-specific coverage and the CTA event are both confirmed, "performance" for early articles is honestly: is it live, is it indexed, does it read well, and are there any organic clicks at all — the deeper funnel metrics (time on page, bounce, conversion) shouldn't be reported as real numbers until verified.
