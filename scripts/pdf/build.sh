@@ -11,7 +11,7 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
-APP="${PITCHLABS_APP:-$REPO/../App-Studio/Projects/PitchLabs}"
+APP="${PITCHLABS_APP:-$REPO/../app}"
 APP="$(cd "$APP" && pwd)"
 ALL=(activity-sheet session-plan switch-of-play interaction-menu six-ways-to-step-in tally-sheet)
 NAMES=("${@:-${ALL[@]}}")

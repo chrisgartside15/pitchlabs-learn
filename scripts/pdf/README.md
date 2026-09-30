@@ -11,7 +11,7 @@ scripts/pdf/build.sh tally-sheet    # just one
 
 This writes `public/downloads/<file>-{letter,a4}.pdf` and a 1275×1650 Letter preview to `public/images/articles/<file>-preview.png`. It needs:
 
-- the PitchLabs app checked out with `node_modules` installed, by default at `../App-Studio/Projects/PitchLabs` relative to this repo (override with `PITCHLABS_APP=/path/to/app`)
+- the PitchLabs app checked out with `node_modules` installed, by default at `../app` relative to this repo (the two repos sit side by side in `PitchLabs/`) (override with `PITCHLABS_APP=/path/to/app`)
 - poppler's `pdftoppm` for previews (`brew install poppler`)
 
 `build.sh` bundles each `.tsx` with the app's esbuild and tsconfig (so `@/` imports resolve into the app), runs it from a temp folder whose `node_modules` points at the app's, and cleans up afterwards. Nothing from the app is copied into this repo.
