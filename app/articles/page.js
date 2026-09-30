@@ -35,7 +35,7 @@ export default function ArticlesIndex() {
 
       {/* A one- or two-article grid otherwise trails off into a lot of empty page with no
           signal that's expected — this reads as "more guides are coming," not "this page is
-          broken," the way the "Coming soon" labels on /topics already do for empty clusters. */}
+          broken." */}
       {articles.length < 3 && (
         <p className="articles-page-note">
           More coaching guides are in progress — check back soon, or browse{' '}

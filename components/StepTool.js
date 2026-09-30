@@ -74,7 +74,7 @@ const PROBLEMS = {
       "Low intensity, poor ball-rolling time, players switching off. Speed the environment up — young players engage when the game keeps moving and they're always involved.",
     card: [
       'The game has lost its tempo. Low intensity usually means too much standing, too few touches, or restarts that kill momentum — not lazy players.',
-      'Watch for: queues, dead time after every goal or out-of-bounds, one game with too many players in it. The fastest fix is usually Players: smaller teams, more games, nobody waiting.',
+      'Watch for: queues, dead time after every goal or out-of-bounds, one game with too many players in it. The fastest fix is usually adjusting Players: smaller teams, more games, nobody waiting.',
     ],
     steps: {
       S: ['Shrink the area. Tighter space forces quicker play, more actions per minute.', 'Bring goals closer together. Shorter transitions, more scoring moments.', 'Reshape it. Long and narrow creates direct, end-to-end play.'],

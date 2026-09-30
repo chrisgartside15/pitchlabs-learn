@@ -6,7 +6,7 @@ import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
   title: 'Topics - PitchLabs Learn',
-  description: 'Coaching education organized by topic: session planning, coaching principles, age-specific training, and more.',
+  description: 'Coaching education organized by topic: coaching principles, session design, age and development, futsal, and coach development.',
   alternates: { canonical: `${SITE_URL}/topics` },
 }
 
@@ -20,14 +20,15 @@ export default function TopicsIndex() {
       </div>
 
       <div className="topics-grid">
-        {CLUSTERS.map((cluster) => {
+        {/* Same rule as the homepage grid: only topics that have at least one article. */}
+        {CLUSTERS.filter((cluster) => getArticlesByCluster(cluster.slug).length > 0).map((cluster) => {
           const count = getArticlesByCluster(cluster.slug).length
           return (
             <Link key={cluster.slug} href={`/topics/${cluster.slug}`} className="topic-card">
               <h3>{cluster.title}</h3>
               <p className="topic-card-goal">{cluster.goal}</p>
               <span className="topic-card-count">
-                {count === 0 ? 'Coming soon' : `${count} article${count === 1 ? '' : 's'}`}
+                {`${count} article${count === 1 ? '' : 's'}`}
               </span>
             </Link>
           )

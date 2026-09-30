@@ -11,6 +11,11 @@ import { StepTool } from '@/components/StepTool'
 import { InterventionWheelTool } from '@/components/InterventionWheelTool'
 import { CoachingInterventionWheel } from '@/components/CoachingInterventionWheel'
 import { SeriesRecap } from '@/components/SeriesRecap'
+import { DownloadCard } from '@/components/DownloadCard'
+import { SessionAudit } from '@/components/SessionAudit'
+import { CouldntOrDidnt } from '@/components/CouldntOrDidnt'
+import { InvolvementChart } from '@/components/InvolvementChart'
+import { GameSplitter } from '@/components/GameSplitter'
 import { getCluster } from '@/lib/clusters'
 import { SITE_URL } from '@/lib/site'
 
@@ -27,6 +32,11 @@ const components = {
   InterventionWheelTool,
   CoachingInterventionWheel,
   SeriesRecap,
+  DownloadCard,
+  SessionAudit,
+  CouldntOrDidnt,
+  InvolvementChart,
+  GameSplitter,
   a: MdxLink,
 }
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { getAllArticles, getArticlesByCluster, formatArticleDate } from '@/lib/articles'
 import { CLUSTERS } from '@/lib/clusters'
 import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
-import { SeriesRecap } from '@/components/SeriesRecap'
+import { SeriesRecap, SERIES } from '@/components/SeriesRecap'
 import { SITE_URL } from '@/lib/site'
 
 export const metadata = {
@@ -40,14 +40,17 @@ export default function Home() {
       <section className="topics-section">
         <h2 className="section-title">Browse by Topic</h2>
         <div className="topics-grid">
-          {CLUSTERS.map((cluster) => {
+          {/* Topics with no articles yet are left off the grid rather than shown as "Coming soon" —
+              a row of empty cards reads as an unfinished site. Each topic appears here once its
+              first article exists; its /topics/<slug> page stays reachable either way. */}
+          {CLUSTERS.filter((cluster) => getArticlesByCluster(cluster.slug).length > 0).map((cluster) => {
             const count = getArticlesByCluster(cluster.slug).length
             return (
               <Link key={cluster.slug} href={`/topics/${cluster.slug}`} className="topic-card">
                 <h3>{cluster.title}</h3>
                 <p className="topic-card-goal">{cluster.goal}</p>
                 <span className="topic-card-count">
-                  {count === 0 ? 'Coming soon' : `${count} article${count === 1 ? '' : 's'}`}
+                  {`${count} article${count === 1 ? '' : 's'}`}
                 </span>
               </Link>
             )
@@ -59,7 +62,9 @@ export default function Home() {
 
       <section className="series-section">
         <h2 className="section-title">Explore a Series</h2>
-        <SeriesRecap variant="compact" />
+        {SERIES.map((series) => (
+          <SeriesRecap key={series.id} variant="compact" seriesId={series.id} />
+        ))}
       </section>
 
       <PitchDivider className="section-divider" />

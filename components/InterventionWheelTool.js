@@ -1,125 +1,31 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { INTERACTIONS as SHARED_INTERACTIONS, STOPPAGE_NAMES } from '@/lib/coachingInteractions'
 
 /**
- * Interactive STEP-framework diagnostic tool — reworked from an HTML/CSS/JS tool built for
+ * Interactive Coaching Intervention Wheel (inner ring only) — reworked from an HTML/CSS/JS tool built for
  * Colorado Storm SC's internal coach education. Two things changed on the way in, deliberately:
  *
  * 1. Club branding stripped. The pasted source had a Colorado Storm crest, club name, Barlow
- *    Condensed type, and its own teal/black/gold identity (confirmed as Chris's own IP, not
- *    Storm's — same call already made for STEP/StepTool.js).
+ *    Condensed type, and its own teal/black/gold identity. Per Chris, Storm's claim covers its
+ *    Learning Plans document, not this tool; the tool itself isn't claimed as his own either —
+ *    it's the version of a common coaching-interaction idea he's assembled and uses.
  * 2. Restyled to this site's own brand tokens (dark surface, brand green, Sora/Inter/JetBrains
  *    Mono), reusing the .step-tool-* detail-card classes from globals.css.
  *
  * Deliberately scoped to the INTERACTION ring only (see COACHING_FRAMEWORK.md, "Deliberate
- * scoping decision, 2026-09-24") — the source tool's outer "intervention" ring (Huddle / Drive
- * by / Freeze frame — HOW you stop play, with its time-cost data) and its centre "target" ring
+ * scoping decision, 2026-09-24") — the source tool's outer "intervention" ring (Huddle / In-flow
+ * / Freeze frame — HOW you stop play, with its time-cost data) and its centre "target" ring
  * (Group / Team / Unit / Individual) are article #3's own content, not #2's, and are not built
  * here. This renders as a single circular ring of the twelve interactions, not the source's
  * three-ring wheel.
  */
 
-const INTERACTIONS = [
-  {
-    id: 'observe',
-    lines: ['OBSERVE'],
-    name: 'Observe',
-    def: 'Deliberately gather information before you decide to act.',
-    sounds: null,
-    universal: 'Say nothing yet. Watch, and decide what this group actually needs before you spend time on it.',
-    pairs: [],
-  },
-  {
-    id: 'silence',
-    lines: ['SILENCE'],
-    name: 'Silence',
-    def: 'Deliberately withhold input so the player has to solve it themselves.',
-    sounds: null,
-    universal: 'Say nothing at all. Let them wrestle with the problem — the learning is in the solving.',
-    pairs: [],
-  },
-  {
-    id: 'question',
-    lines: ['QUESTION'],
-    name: 'Question',
-    def: 'Ask an open question that makes them think for themselves.',
-    sounds: 'Who was free?',
-    pairs: ['Freeze frame', 'Huddle', 'Drinks break', 'Pull aside'],
-  },
-  {
-    id: 'guide',
-    lines: ['GUIDE &', 'DISCOVERY'],
-    name: 'Guide and discovery',
-    def: 'Steer with a nudge and let them find the answer themselves.',
-    sounds: 'What did you see over your left shoulder?',
-    pairs: ['Drive by', 'Pull aside', 'Freeze frame'],
-  },
-  {
-    id: 'cocreate',
-    lines: ['CO-CREATE'],
-    name: 'Co-create',
-    def: 'Build the solution with the players rather than handing it over.',
-    sounds: 'What do we want to try in the next three minutes?',
-    pairs: ['Huddle', 'Drinks break'],
-  },
-  {
-    id: 'check',
-    lines: ['CHECK', 'UNDERSTANDING'],
-    name: 'Check understanding',
-    def: 'Ask the player to tell you back what they have taken from it.',
-    sounds: "Tell me what you're looking for before the ball arrives.",
-    pairs: ['Huddle', 'Walkthrough', 'Drinks break'],
-  },
-  {
-    id: 'demo',
-    lines: ['DEMONSTRATE'],
-    name: 'Demonstrate',
-    def: 'Show the action rather than describe it.',
-    sounds: "Watch my hips — I'm opening before it arrives.",
-    pairs: ['Walkthrough', 'Freeze frame', 'Huddle'],
-  },
-  {
-    id: 'reframe',
-    lines: ['REFRAME'],
-    name: 'Reframe',
-    def: 'Change how the player sees the moment, not what they do.',
-    sounds: "That wasn't a bad pass — that was the right idea a second late.",
-    pairs: ['Drive by', 'Pull aside', 'Drinks break', 'Huddle'],
-  },
-  {
-    id: 'feedback',
-    lines: ['FEEDBACK'],
-    name: 'Feedback',
-    def: 'Tell the player what happened and what it caused.',
-    sounds: 'Your first touch went across you, so the defender got there first.',
-    pairs: ['Drive by', 'Pull aside', 'Drinks break'],
-  },
-  {
-    id: 'reinforce',
-    lines: ['REINFORCE'],
-    name: 'Reinforce',
-    def: 'Name what was good, precisely, so it happens again.',
-    sounds: "That's it — that's exactly the picture I want.",
-    pairs: ['Drive by', 'Pull aside'],
-  },
-  {
-    id: 'challenge',
-    lines: ['CHALLENGE'],
-    name: 'Challenge',
-    def: 'Raise the demand on a player who is comfortable.',
-    sounds: 'Can you do that again with your other foot?',
-    pairs: ['Drive by', 'Pull aside', 'Drinks break'],
-  },
-  {
-    id: 'instruct',
-    lines: ['INSTRUCT'],
-    name: 'Instruct',
-    def: 'Give a direct, unambiguous command.',
-    sounds: 'Body between the ball and the defender. Now.',
-    pairs: ['Freeze frame', 'Huddle', 'Walkthrough', 'Drive by'],
-  },
-]
+// Inner-ring data is shared with CoachingInterventionWheel.js (lib/coachingInteractions.js) so the
+// wording can't drift between the two tools. This tool shows pairings as labels, so the stoppage ids
+// are mapped to their names here.
+const INTERACTIONS = SHARED_INTERACTIONS.map((it) => ({ ...it, pairs: it.pairs.map((id) => STOPPAGE_NAMES[id]) }))
 
 // ---- Wheel geometry: a single 12-segment ring, viewBox 0 0 320 320. ----
 const CX = 160

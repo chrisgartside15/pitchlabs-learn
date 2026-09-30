@@ -1,18 +1,17 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { INTERACTIONS } from '@/lib/coachingInteractions'
 
 /**
  * The full, three-ring Coaching Intervention Wheel — reworked from the same Colorado Storm SC
  * coach-education tool as components/InterventionWheelTool.js (club branding stripped, restyled
- * to this site's own brand tokens; both tools confirmed as Chris's own IP, cleared 2026-09-24 —
- * see COACHING_FRAMEWORK.md).
+ * to this site's own brand tokens). Not claimed as Chris's own: it's the version of a common
+ * coaching-interaction idea that he's assembled and uses (see COACHING_FRAMEWORK.md).
  *
- * Deliberately self-contained rather than sharing data with InterventionWheelTool.js: that
- * component ships live on article #2 and is treated as approved, already-reviewed content, so
- * this file carries its own copy of the interaction data instead of refactoring a shared module
- * out from under it. Same reasoning StepTool.js and InterventionWheelTool.js already follow —
- * each tool component in this codebase is independent, not sharing geometry or data helpers.
+ * The inner-ring interaction wording lives in lib/coachingInteractions.js and is shared with
+ * InterventionWheelTool.js (consolidated 2026-09-29, when the example phrases were revised, so the
+ * two tools can't drift apart). Geometry and the outer-ring stoppage data stay local to this file.
  *
  * Center ring: who you're coaching (Individual/Group/Unit/Team). Inner ring: how you interact,
  * once you've stepped in (the same twelve interactions as article #2's tool). Outer ring: how you
@@ -33,114 +32,13 @@ const TARGETS = [
   { id: 'team', name: 'Team', def: 'Everyone.', defIntervention: 'freeze' },
 ]
 
-const INTERACTIONS = [
-  {
-    id: 'observe',
-    lines: ['OBSERVE'],
-    name: 'Observe',
-    def: 'Deliberately gather information before you decide to act.',
-    sounds: null,
-    universal: 'Say nothing yet. Watch, and decide what this group actually needs before you spend time on it.',
-    pairs: [],
-    anyTarget: true,
-  },
-  {
-    id: 'silence',
-    lines: ['SILENCE'],
-    name: 'Silence',
-    def: 'Deliberately withhold input so the player has to solve it themselves.',
-    sounds: null,
-    universal: 'Say nothing at all. Let them wrestle with the problem — the learning is in the solving.',
-    pairs: [],
-    anyTarget: true,
-  },
-  {
-    id: 'question',
-    lines: ['QUESTION'],
-    name: 'Question',
-    def: 'Ask an open question that makes them think for themselves.',
-    sounds: 'Who was free?',
-    pairs: ['freeze', 'huddle', 'drinks', 'pullaside'],
-  },
-  {
-    id: 'guide',
-    lines: ['GUIDE &', 'DISCOVERY'],
-    name: 'Guide and discovery',
-    def: 'Steer with a nudge and let them find the answer themselves.',
-    sounds: 'What did you see over your left shoulder?',
-    pairs: ['driveby', 'pullaside', 'freeze'],
-  },
-  {
-    id: 'cocreate',
-    lines: ['CO-CREATE'],
-    name: 'Co-create',
-    def: 'Build the solution with the players rather than handing it over.',
-    sounds: 'What do we want to try in the next three minutes?',
-    pairs: ['huddle', 'drinks'],
-  },
-  {
-    id: 'check',
-    lines: ['CHECK', 'UNDERSTANDING'],
-    name: 'Check understanding',
-    def: 'Ask the player to tell you back what they have taken from it.',
-    sounds: "Tell me what you're looking for before the ball arrives.",
-    pairs: ['huddle', 'walkthrough', 'drinks'],
-  },
-  {
-    id: 'demo',
-    lines: ['DEMONSTRATE'],
-    name: 'Demonstrate',
-    def: 'Show the action rather than describe it.',
-    sounds: "Watch my hips — I'm opening before it arrives.",
-    pairs: ['walkthrough', 'freeze', 'huddle'],
-  },
-  {
-    id: 'reframe',
-    lines: ['REFRAME'],
-    name: 'Reframe',
-    def: 'Change how the player sees the moment, not what they do.',
-    sounds: "That wasn't a bad pass — that was the right idea a second late.",
-    pairs: ['driveby', 'pullaside', 'drinks', 'huddle'],
-  },
-  {
-    id: 'feedback',
-    lines: ['FEEDBACK'],
-    name: 'Feedback',
-    def: 'Tell the player what happened and what it caused.',
-    sounds: 'Your first touch went across you, so the defender got there first.',
-    pairs: ['driveby', 'pullaside', 'drinks'],
-  },
-  {
-    id: 'reinforce',
-    lines: ['REINFORCE'],
-    name: 'Reinforce',
-    def: 'Name what was good, precisely, so it happens again.',
-    sounds: "That's it — that's exactly the picture I want.",
-    pairs: ['driveby', 'pullaside'],
-  },
-  {
-    id: 'challenge',
-    lines: ['CHALLENGE'],
-    name: 'Challenge',
-    def: 'Raise the demand on a player who is comfortable.',
-    sounds: 'Can you do that again with your other foot?',
-    pairs: ['driveby', 'pullaside', 'drinks'],
-  },
-  {
-    id: 'instruct',
-    lines: ['INSTRUCT'],
-    name: 'Instruct',
-    def: 'Give a direct, unambiguous command.',
-    sounds: 'Body between the ball and the defender. Now.',
-    pairs: ['freeze', 'huddle', 'walkthrough', 'driveby'],
-  },
-]
+// Inner ring: shared with InterventionWheelTool.js — see lib/coachingInteractions.js.
 
 const INTERVENTIONS = [
   {
     id: 'driveby',
-    lines: ['DRIVE BY'],
-    name: 'Drive by',
+    lines: ['IN-FLOW'],
+    name: 'In-flow',
     cost: 'Free',
     free: true,
     def: 'One sentence, to one player, while everything else keeps moving.',
@@ -265,6 +163,20 @@ const R_HUB = 24
 function polar(r, deg) {
   const a = ((deg - 90) * Math.PI) / 180
   return [CX + r * Math.cos(a), CY + r * Math.sin(a)]
+}
+
+// Center-ring labels are wide horizontal words in quarter-circle segments. Placing them on each
+// quadrant's diagonal left them off-center (the segment narrows toward its outer edge) and let the
+// longest ("INDIVIDUAL") run into the curve. Instead, each label sits at a fixed height from the
+// horizontal divider and is centered in the horizontal chord available at that height.
+const CENTER_LABEL_DY = R_INNER_BOUND * 0.4
+const CENTER_LABEL_HALF_HEIGHT = 7 // half the label's line box at 11px — its outer corner is what meets the curve
+const CENTER_LABEL_CHORD = Math.sqrt(R_INNER_BOUND ** 2 - (CENTER_LABEL_DY + CENTER_LABEL_HALF_HEIGHT) ** 2)
+function centerLabelPos(midDeg) {
+  const [px, py] = polar(1, midDeg)
+  const sx = Math.sign(px - CX)
+  const sy = Math.sign(py - CY)
+  return [CX + (sx * CENTER_LABEL_CHORD) / 2, CY + sy * CENTER_LABEL_DY]
 }
 
 function ringSegmentPath(rOuter, rInner, a0, a1) {
@@ -455,7 +367,7 @@ export function CoachingInterventionWheel() {
               const a0 = i * centerStep
               const a1 = a0 + centerStep
               const mid = a0 + centerStep / 2
-              const labelPos = polar((R_HUB + R_INNER_BOUND) / 2 + 6, mid)
+              const labelPos = centerLabelPos(mid)
               const isSelected = sel?.kind === 'target' && sel.id === t.id
               const isPaired = sets ? sets.target.has(t.id) : false
               return (
@@ -466,7 +378,7 @@ export function CoachingInterventionWheel() {
                   d={wedgePath(R_INNER_BOUND, a0, a1)}
                   lines={[t.name.toUpperCase()]}
                   labelPos={labelPos}
-                  fitWidth={74}
+                  fitWidth={Math.floor(CENTER_LABEL_CHORD - 10)}
                   lineHeight={13}
                   isSelected={isSelected}
                   isPaired={isPaired}

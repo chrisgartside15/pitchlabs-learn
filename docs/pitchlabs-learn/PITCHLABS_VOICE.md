@@ -46,6 +46,8 @@ Never overstate what a study shows. Never invent a study, a statistic, or a find
 
 Use it where Chris's own coaching experience is genuinely the source: "I see this a lot," "I've done this myself," "I still catch myself doing it," "an old mentor of mine used to say." Only when it's something Chris has actually told Claude, or that's already established in a prior approved draft.
 
+Personal lines are welcome across the articles, but keep them general rather than specific (confirmed by Chris, 2026-09-29): "I watch a lot of other coaches' sessions" rather than headcounts, schedules or program details; "the age range I know best" rather than a job description. The byline already carries the credentials.
+
 Never invent an anecdote, a player, a specific session, a conversation, or an event to make a passage feel more human. If the material doesn't contain a real observation to use, don't manufacture one — write the point plainly instead.
 
 ## Structural preferences
@@ -119,7 +121,9 @@ Same caveat, same honesty about the limitation, half the length, no separate "re
 This is structurally identical to article 1's opening line ("the problem usually isn't your coaching. It's the environment you built") — the same series using the same hook formula twice.
 
 **After:**
-> Coaches stop the game more than they realize. Research that's tracked youth soccer coaching at every level, grassroots through academy, finds instruction happening more than once a minute during practice, and coaches' own guesses at their number run lower than what's actually recorded.
+> Coaches step into the game more than they realize. Research that's tracked youth soccer coaching at every level, grassroots through academy, finds instruction happening more than once a minute during practice, and coaches' own ratings of their behavior match what an observer records less well than their players' ratings do.
+
+(Wording corrected 2026-09-29: an earlier version said coaches' guesses "run lower" than the real number, which claims a direction the source doesn't establish. See COACHING_FRAMEWORK.md.)
 
 Leads with the finding instead of the rhetorical inversion — differentiates the article's opening from article 1's without changing what it's actually claiming.
 
