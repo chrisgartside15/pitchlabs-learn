@@ -79,6 +79,7 @@ Rewritten and re-derived 2026-09-26 from the three-article "What Actually Shapes
 - Images in `public/images/articles/`
 - URL structure: articles are `/articles/[article-slug]` (not nested under cluster) and topics are `/topics/[cluster-slug]`, both prefixed with `/learn` only in production (see `next.config.js`'s `basePath`, added 2026-09-24) — not part of the app's own internal route pattern
 - No frontmatter changes after publication (breaks SEO)
+- Every live article is locked (a `{/* LOCKED … */}` note under its frontmatter, plus a section in `PUBLISHING_CALENDAR.md`). Don't edit a locked article, or the tools and downloads inside it, unless Chris asks for a change to that specific article. Site-wide sweeps skip locked pages or ask first
 - All articles use MDX format — supports Markdown and React components
 
 ## Decision-Making Framework

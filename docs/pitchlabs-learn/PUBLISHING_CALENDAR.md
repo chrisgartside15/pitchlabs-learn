@@ -35,6 +35,10 @@ Everything below is already committed locally (not pushed) — recorded here so 
 - **Voice-consistency pass**, checked against Chris's stated voice spec (warm, thinking-alongside, not authoritative; credentialed but not lecturing; problem → direct answer, not a slow build; jargon defined, never dumbed down): article 1's opening now leads with the direct answer instead of two rhetorical hook questions; the "17 coaches / 22 teams" line reads as observation rather than an explicit credential statement; "ecological dynamics" now gets a plain-language gloss; article 1 gained a matching "part one of a series" closing footer (article 2 already had one, article 1 didn't). `lib/clusters.js`'s five topic blurbs were rewritten — they'd been shipped as internal content-strategy notes ("own the search space...") instead of reader-facing copy.
 - **Design polish:** consistent site-wide spacing rhythm and card hover states, `prefers-reduced-motion` support, `next/link`-based nav (was plain `<a>`, full page reloads), the Intervention Wheel rebuilt as a proper circular SVG (was a chip-row grid), and the article footer sequence (closing `---`, the italic series note, the CTA box, author bio) given consistent spacing — the `<hr>` was falling back to the browser's tiny default margin instead of the site's own spacing scale.
 
+## All 11 articles locked (2026-09-29)
+
+Every live article was reviewed one by one with Chris and locked; each carries a `{/* LOCKED 2026-09-29 … */}` note under its frontmatter, and each has its own section below. Locks cover the tools and downloads that render inside the article. Don't edit a locked article, its tools or its downloads unless Chris explicitly asks for a change to that article; a site-wide sweep (renaming a term, restyling a shared component) should skip locked pages or ask first. Pages added after the review: `components/InvolvementChart.js` and `components/GameSplitter.js` (small-sided-games) and the Coaching Tally Sheet download (see-your-own-coaching).
+
 ## LOCKED: Series 1, articles 1–3 (2026-09-29)
 
 "Why Your Soccer Practice Feels Like Chaos (And How to Fix It)", "How Much Should You Actually Say?" and "How to Coach Without Stopping the Game Every Two Minutes" are approved as final by Chris after a full review pass. Each file carries a LOCKED note under its frontmatter. Don't change their text, frontmatter (title, slug, date, excerpt), examples or downloads unless Chris explicitly asks for a change to that article.
@@ -91,7 +95,7 @@ All five articles approved by Chris after the consistency and soundness passes (
 
 ## Batch 2 — drafted 2026-09-29; reviewed by Chris and launched 2026-09-29
 
-Six articles written to support the first five and fill the empty topics. All uncommitted. Research for each is logged in COACHING_FRAMEWORK.md ("Batch 2 sources").
+Six articles written to support the first five and fill the empty topics. Committed in `563c218` and live since 2026-09-29. Research for each is logged in COACHING_FRAMEWORK.md ("Batch 2 sources").
 
 | Article | Slug | Topic | Role |
 |---|---|---|---|
@@ -99,7 +103,7 @@ Six articles written to support the first five and fill the empty topics. All un
 | First Touch and Receiving | `first-touch-and-receiving` | coaching-principles | The execution skill scanning depends on; linked from scanning |
 | Small-Sided Games for Young Players | `small-sided-games` | session-design | Backs article #1's "too slow" fix; Hintermann 4v4/7v7 lead |
 | How to See Your Own Coaching | `see-your-own-coaching` | coach-development | First coach-development article; backs #2/#3's self-awareness research |
-| Coaching U6–U10: What Actually Matters at This Age | `coaching-u6-to-u10` | age-development | **Pillar** for Age & Development (set in lib/clusters.js); catches "u8 soccer coaching" intent |
+| Coaching U6–U10: What Matters Most at This Age | `coaching-u6-to-u10` | age-development | **Pillar** for Age & Development (set in lib/clusters.js); catches "u8 soccer coaching" intent |
 | How to Plan a Soccer Training Session | `how-to-plan-a-soccer-training-session` | session-design | **Pillar** for Session & Curriculum Design (set in lib/clusters.js) |
 
 **Site changes the same day:** article #3 renamed `coach-without-stopping-the-game` ("How to Coach Without Stopping the Game Every Two Minutes") and moved to coaching-principles (it's about coaching behavior, not session planning); topics with no articles are now hidden from the homepage and /topics grids instead of showing "Coming soon" (Futsal is the only one hidden right now); topic-card blurbs shortened and the clamp raised to 4 lines so they stop truncating mid-word.
@@ -128,7 +132,7 @@ Six articles written to support the first five and fill the empty topics. All un
 
 **First Touch pass (2026-09-29):** accuracy fix (the U13 study measured head turns on the ball, not body turns); a Switch of Play bullet in the "reward where the touch goes" list; the Bernstein explanation cut to a reference back to part 2; "actually" dropped from a heading and the excerpt. No new interactive or download (deliberately).
 
-**For Chris to check in review:** first-person lines in the new pieces — "Watching other coaches' sessions is a big part of my week" (see-your-own-coaching), "U6–U10 is where I coach and where I run a program" and the "What I see in U6–U10 sessions" list (coaching-u6-to-u10), "I'd pick one thing" (coaching-u6-to-u10). The choosing-vs-can't-do split in teach-it is framed as a practical rule of thumb, not Chris's named method.
+**First-person lines, resolved in the 2026-09-29 article-by-article review:** see-your-own-coaching now says "I watch a lot of other coaches' sessions"; coaching-u6-to-u10 says "U6–U10 is the age range I know best", keeps the "What I see" list (labelled as observation, not research), and frames coaching points as Chris's rule of thumb ("one coaching point, two at most"). The choosing-vs-can't-do split in teach-it stays labelled as a practical rule of thumb.
 
 ## Live
 

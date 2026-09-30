@@ -59,6 +59,25 @@ Given bursty bandwidth, this is built around checkpoints, not a fixed weekly rit
 
 Until the blog-specific coverage and the CTA event are both confirmed, "performance" for early articles is honestly: is it live, is it indexed, does it read well, and are there any organic clicks at all — the deeper funnel metrics (time on page, bounce, conversion) shouldn't be reported as real numbers until verified.
 
+## What's Instrumented (as of 2026-09-30)
+
+All events go through `trackEvent` in `lib/analytics.js` into GA4 `G-YFDWB5CGGG`. The event-scoped custom dimensions listed in PUBLISHING_CALENDAR.md's launch-day notes are registered, so these can be split in reports.
+
+| Event | Fired by | Parameters |
+|---|---|---|
+| `blog_cta_click` | `TrackedCtaLink` | `link_location` (article_cta / graphic_caption / nav / footer), `article_slug` when on an article |
+| `resource_preview` | `DownloadCard`, when the preview lightbox opens | `resource` |
+| `resource_download` | `DownloadCard`, each download button | `resource`, `paper` (US Letter / A4), `location` (card / lightbox) |
+| `tool_use` | `SessionAudit` (fundamentals) | `tool: session_audit`, `action: result_shown` / `reset` |
+| `tool_use` | `CouldntOrDidnt` (teach-it) | `tool: couldnt_or_didnt`, `action: result`, `result` (choosing / teaching) |
+| `tool_use` | `GameSplitter` (small-sided-games) | `tool: game_splitter`, `action: players`, `players` (sent once the count settles) |
+
+`resource` values: `blank_activity_sheet`, `blank_session_plan`, `switch_of_play_to_four_goals`, `coaching_interaction_menu`, `six_ways_to_step_in`, `coaching_tally_sheet`.
+
+Verified end to end on 2026-09-29 for the tally sheet and the splitter, by running dev with a dummy GA ID and reading `window.dataLayer`. That's a quick way to re-check any event without sending real hits.
+
+**Not instrumented:** `StepTool` (chaos article), `InterventionWheelTool` (how-much) and `CoachingInterventionWheel` (coach-without-stopping). All three are inside locked articles, so adding tracking needs Chris's go-ahead.
+
 ## Related Docs
 
 - **CLAUDE.md** — editorial rules and the wedge this content is built on
