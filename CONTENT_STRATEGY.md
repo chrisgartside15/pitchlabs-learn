@@ -190,7 +190,7 @@ Track:
 - Time on page
 - Bounce rate (low bounce = good content)
 - Links from external sources
-- Conversion to app.pitchlabs.com
+- Conversion to usepitchlabs.com
 
 Early indicator of success:
 - 10k+ monthly organic search visits within 6 months

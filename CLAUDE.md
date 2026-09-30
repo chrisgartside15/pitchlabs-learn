@@ -4,7 +4,7 @@
 
 PitchLabs Learn is a working coach's notebook: how Chris uses established coaching tools, where each one comes from, where it holds up, and how other coaches can adapt it to build their own way of thinking about coaching, at any age.
 
-It is also an owned acquisition channel for PitchLabs, a session-planning tool for individual soccer coaches. Reputation and SEO traffic are the mechanism; qualified signups to app.pitchlabs.com are the outcome. The notebook framing and the acquisition goal are not in tension as long as the content is useful on its own.
+It is also an owned acquisition channel for PitchLabs, a session-planning tool for individual soccer coaches. Reputation and SEO traffic are the mechanism; qualified signups to usepitchlabs.com are the outcome. The notebook framing and the acquisition goal are not in tension as long as the content is useful on its own.
 
 **The Test:** Would a coach genuinely bookmark this even if PitchLabs didn't exist?
 
@@ -61,7 +61,7 @@ title: "Article Title"
 excerpt: "Brief excerpt for listings and social sharing."
 date: "YYYY-MM-DD"
 author: "Chris Gartside, 8U–10U Program Director | USSF B License"
-cta: "Optional call-to-action linking to app.pitchlabs.com"
+cta: "Optional call-to-action linking to usepitchlabs.com"
 ---
 ```
 
