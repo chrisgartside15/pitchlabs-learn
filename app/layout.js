@@ -8,6 +8,8 @@ import { SITE_URL } from '@/lib/site'
 import { GoogleAnalyticsPageTracker } from '@/components/GoogleAnalyticsPageTracker'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 
+const GA_LEARN_STREAM_ID = process.env.NEXT_PUBLIC_GA_LEARN_ID
+
 // Same brand type pairing as the main PitchLabs marketing site: Sora for display headlines,
 // Inter for body copy, JetBrains Mono for the small scoreboard-style labels (eyebrows, byline/
 // read-time). Scoped via CSS variables so globals.css controls where each is actually applied.
@@ -121,7 +123,11 @@ export default function RootLayout({ children }) {
               strategy="afterInteractive"
             />
             {/* GA4 bootstrap: expose window.gtag for lib/analytics + the page tracker; config sends
-                the first page_view with path. Mirrors the main PitchLabs app's layout snippet. */}
+                the first page_view with path. Mirrors the main PitchLabs app's layout snippet.
+
+                When GA_LEARN_STREAM_ID is set, initialize both the app stream and the Learn stream
+                so they track as separate web streams within the same GA4 property. This enables
+                cross-domain tracking and attribution from Learn articles to app signups. */}
             <Script id="google-tag-inline" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
@@ -129,6 +135,7 @@ export default function RootLayout({ children }) {
                 window.gtag = gtag;
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}', { page_path: window.location.pathname + window.location.search });
+                ${GA_LEARN_STREAM_ID ? `gtag('config', '${GA_LEARN_STREAM_ID}', { page_path: window.location.pathname + window.location.search });` : ''}
               `}
             </Script>
             <Suspense fallback={null}>
