@@ -4,6 +4,8 @@ import { CLUSTERS } from '@/lib/clusters'
 import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
 import { SeriesRecap, SERIES } from '@/components/SeriesRecap'
 import { SITE_URL } from '@/lib/site'
+import { TrackedCtaLink } from '@/components/TrackedCtaLink'
+import { APP_URL } from '@/lib/analytics'
 
 export const metadata = {
   title: 'PitchLabs Learn - Coaching Education',
@@ -35,6 +37,14 @@ export default function Home() {
         <p>
           Research-backed articles on soccer coaching — session planning, tactical development, and the reasoning behind both.
         </p>
+        <TrackedCtaLink
+          href={APP_URL}
+          location="home_hero"
+          className="cta-button"
+          style={{ display: 'inline-block', marginTop: '1rem' }}
+        >
+          Try PitchLabs Free →
+        </TrackedCtaLink>
       </section>
 
       <section className="topics-section">
