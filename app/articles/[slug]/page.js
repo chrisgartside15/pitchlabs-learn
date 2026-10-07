@@ -167,8 +167,8 @@ export default function ArticlePage({ params }) {
           <h1>{article.meta.title}</h1>
           <div className="article-meta">
             <span>{formatArticleDate(article.meta.date)}</span>
-            {article.meta.author && <span>· {article.meta.author}</span>}
-            <span>· {readingTime} min read</span>
+            {article.meta.author && <span>{article.meta.author}</span>}
+            <span>{readingTime} min read</span>
           </div>
         </div>
 

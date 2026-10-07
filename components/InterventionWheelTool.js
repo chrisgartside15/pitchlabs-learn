@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { WheelChips, scrollCardIntoView } from './WheelChips'
 import { INTERACTIONS as SHARED_INTERACTIONS, STOPPAGE_NAMES } from '@/lib/coachingInteractions'
 
 /**
@@ -60,6 +61,7 @@ export function InterventionWheelTool() {
   const [selected, setSelected] = useState(null)
   const active = selected ? INTERACTIONS.find((i) => i.id === selected) : null
   const svgRef = useRef(null)
+  const cardRef = useRef(null)
 
   useEffect(() => {
     function fitLabels() {
@@ -94,7 +96,7 @@ export function InterventionWheelTool() {
         <p key={selected ?? 'default'} className="step-tool-desc panel-swap">
           {active
             ? active.def
-            : "Once you've decided to say something, how do you say it? Twelve ways to interact once you've stepped in — from saying nothing at all to a direct instruction. Select a segment of the wheel."}
+            : "Once you've decided to say something, how do you say it? Twelve ways to interact once you've stepped in — from saying nothing at all to a direct instruction. Select one to see how it sounds."}
         </p>
       </div>
 
@@ -161,7 +163,21 @@ export function InterventionWheelTool() {
           </svg>
         </div>
 
-        <aside key={selected ?? 'default'} className="step-tool-card wheel-tool-card panel-swap">
+        <WheelChips
+          groups={[
+            {
+              kind: 'interaction',
+              label: 'Twelve ways to interact',
+              items: INTERACTIONS.map((x) => ({ id: x.id, name: x.name, state: selected === x.id ? 'active' : '' })),
+            },
+          ]}
+          onSelect={(_, id) => {
+            setSelected(selected === id ? null : id)
+            scrollCardIntoView(cardRef.current)
+          }}
+        />
+
+        <aside ref={cardRef} key={selected ?? 'default'} className="step-tool-card wheel-tool-card panel-swap">
           <p className="step-tool-card-kicker">{active ? 'Sounds like' : 'Start here'}</p>
           <p className="step-tool-card-title">{active ? active.name : 'Pick an interaction'}</p>
           {active ? (

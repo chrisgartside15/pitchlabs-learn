@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { INTERACTIONS } from '@/lib/coachingInteractions'
+import { WheelChips, scrollCardIntoView } from './WheelChips'
 
 /**
  * The full, three-ring Coaching Intervention Wheel — reworked from the same Colorado Storm SC
@@ -271,6 +272,7 @@ function Segment({ kind, id, d, lines, labelPos, fitWidth, lineHeight, isSelecte
 export function CoachingInterventionWheel() {
   const [sel, setSel] = useState(null)
   const svgRef = useRef(null)
+  const cardRef = useRef(null)
   useLabelFit(svgRef)
 
   const sets = activeSets(sel)
@@ -279,6 +281,30 @@ export function CoachingInterventionWheel() {
     setSel((current) => (current && current.kind === kind && current.id === id ? null : { kind, id }))
   }
 
+  function toggleFromChip(kind, id) {
+    toggle(kind, id)
+    scrollCardIntoView(cardRef.current)
+  }
+
+  const chipState = (kind, id) => {
+    if (sel?.kind === kind && sel.id === id) return 'active'
+    if (!sets) return ''
+    return sets[kind].has(id) ? 'paired' : 'dimmed'
+  }
+  const chipGroups = [
+    { kind: 'target', label: 'Who you’re coaching', items: TARGETS.map((t) => ({ id: t.id, name: t.name, state: chipState('target', t.id) })) },
+    {
+      kind: 'interaction',
+      label: 'How you say it (inner ring)',
+      items: INTERACTIONS.map((x) => ({ id: x.id, name: x.name, state: chipState('interaction', x.id) })),
+    },
+    {
+      kind: 'intervention',
+      label: 'How you stop play (outer ring)',
+      items: INTERVENTIONS.map((v) => ({ id: v.id, name: v.name, meta: v.cost, state: chipState('intervention', v.id) })),
+    },
+  ]
+
   const outerStep = 360 / INTERVENTIONS.length
   const midStep = 360 / INTERACTIONS.length
   const centerStep = 360 / TARGETS.length
@@ -286,7 +312,7 @@ export function CoachingInterventionWheel() {
   let panelKicker = 'Start here'
   let panelTitle = 'Pick any segment'
   let panelBody = null
-  let headerDesc = "Center: who you're coaching. Inner ring: how you interact. Outer ring: how you stop the game to say it. Select any segment — the wheel highlights what commonly pairs with it."
+  let headerDesc = "Center: who you're coaching. Inner ring: how you interact. Outer ring: how you stop the game to say it. Select any one — the wheel highlights what commonly pairs with it."
 
   if (sel?.kind === 'target') {
     const t = TARGETS_BY_ID[sel.id]
@@ -446,13 +472,15 @@ export function CoachingInterventionWheel() {
           </svg>
         </div>
 
-        <aside key={sel ? `${sel.kind}:${sel.id}` : 'default'} className="step-tool-card civ-card panel-swap">
+        <WheelChips groups={chipGroups} onSelect={toggleFromChip} />
+
+        <aside ref={cardRef} key={sel ? `${sel.kind}:${sel.id}` : 'default'} className="step-tool-card civ-card panel-swap">
           <p className="step-tool-card-kicker">{panelKicker}</p>
           <p className="step-tool-card-title">{panelTitle}</p>
           {panelBody || (
             <p className="step-tool-card-p">
               Three rings, one framework. Observe and Silence work with anyone, anytime — everything else pairs loosely
-              with specific moments and audiences. Select a segment to see how it fits with the rest of the wheel.
+              with specific moments and audiences. Select one to see how it fits with the rest of the wheel.
             </p>
           )}
         </aside>

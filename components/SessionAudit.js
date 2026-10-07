@@ -180,7 +180,7 @@ export function SessionAudit() {
               type="text"
               value={r.name}
               maxLength={60}
-              placeholder="e.g. Passing through gates"
+              placeholder="e.g. Passing gates"
               aria-label={`Activity ${i + 1} name`}
               onChange={(e) => update(i, { name: e.target.value })}
             />
