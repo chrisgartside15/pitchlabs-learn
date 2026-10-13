@@ -230,3 +230,134 @@ Chris co-wrote Storm's internal "Learning Plans" document (250+ pages, Storm's c
 - **CLAUDE.md** — editorial rules, the wedge, and voice
 - **ROADMAP_6MONTH.md** — cluster sequencing
 - **PUBLISHING_CALENDAR.md** — article queue
+
+## Formations & goal kicks: 7v7 sources (checked 2026-10-09)
+
+For the 1-2-3-1 series. See FORMATION_1-2-3-1_NOTES.md for Chris's own practice. Strength of evidence is stated per source; none of this is youth outcome evidence.
+
+- **Build-out line, rules.** [U.S. Soccer, "Five things to know: how small-sided standards will change youth soccer" (2017)](https://www.ussoccer.com/stories/2017/08/five-things-to-know-how-smallsided-standards-will-change-youth-soccer), read at source. Line sideline to sideline 14 yards in front of each goal, from under-9. On a goal kick or while the keeper holds the ball, the opponents stay behind the line until the ball is back in play. Punts and drop kicks banned for the keeper. The page says recommended 7v7 and 9v9 formations exist but does not list them. Local leagues vary (line position, release triggers, 9v9). Current rulebook text not checked; articles should say "check your league".
+- **Recommended 7v7 shape.** [EPYSA's summary of the PDI](https://www.epysa.org/u-s-soccer-player-development-initiatives/), read at source: for U9 and U10, "1-2-3-1 or 1-3-2-1", attributed to U.S. Soccer's Player Development Initiatives. A regional association's summary, not U.S. Soccer itself. U.S. Soccer's own "Selecting a Formation for Your Team" PDF could not be opened (file too large); a search summary said it lists 1-3-2-1 for U9–U10 and describes formations as a guide to adapt to players. **Unverified, so don't write "U.S. Soccer recommends the 1-2-3-1."**
+- **Goal kick outcomes (adult men, elite).** Mendes, Rezende & Praça, "Association between goal-kick strategies and the offensive outcome in the UEFA Euro 2020", *Human Movement* 24(3), 64–70 (2023), [doi:10.5114/hm.2023.125924](https://doi.org/10.5114/hm.2023.125924). 595 goal kicks from 51 games. Short goal kicks were associated with unsuccessful offensive sequences, long goal kicks with successful ones (p = 0.021); this contradicted the authors' hypothesis. Read from the journal's abstract page only: short/long definitions and limitations were not on it. One tournament, men's elite, observational. Not youth, and not a claim that long is better at U10.
+- **Goal kicks, descriptive (youth elite).** FIFA Training Centre, U-17 World Cup 2025 analysis of short goal kicks: reported short goal kicks rising from 17% (2023) to 39% (2025) and outfield players on either side of the keeper making the first pass to the keeper against a high press. **Seen as a search snippet only, page not opened.** Verify before citing. Descriptive, no outcome comparison.
+- **Formation geometry (U19).** González-Rodenas, Ferrandis, Carril-Valdó, Claver-Rabaz, Ballester & Gil-Arias, "Effects of Different Tactical Formations on Positional Team Behaviors during Small Sided Games in Youth Soccer Players", *Journal of Human Kinetics* 97, 237–247 (2025), read at the journal page. 18 sub-elite U19 male players, 7-a-side with keepers on 65 × 50 m, 2-3-1 vs 3-1-2 against a 3-3, 5-minute bouts. 2-3-1 was higher and wider in attack; defending it was higher, shorter and more compact. Positional geometry only, no outcome measure, one opposing shape, no coaching instructions. Too old to carry a U10 claim.
+- **Line-breaking passes.** Rein, Raabe & Memmert, "Which pass is better? Novel approaches to assess passing effectiveness in elite soccer", *Human Movement Science* 55, 172–181 (2017): citation confirmed, **findings not read**. Not usable until the paper is opened. Related tracking-data work is adult elite only. "Break the first line of pressure" is treated as common coaching language, not a research finding.
+- **Gaps (searched, nothing found):** any study comparing 2-3-1 and 3-2-1 at U10; any study of numerical superiority or line-breaking passes at U10; any youth study of short vs long goal kicks.
+
+## Playing time, play volume and selection: leads (checked 2026-10-10, from search results and abstracts only)
+
+For a possible article on "players who play more excel" (idea from Chris, 2026-10-10, not yet planned). **None of these has been read at source; all are from search results or abstracts. Verify before citing.**
+
+- **Play volume.** Ford, Ward, Hodges & Williams, "The role of deliberate practice and play in career progression in sport: the early engagement hypothesis", *High Ability Studies* 20(1), 65–75 (2009). Elite English youth soccer players, retrospective activity histories, ages 6–12. Players who went on to professional status logged more hours per year in soccer *play*, but not in soccer practice, competition or other sports, than those who didn't progress. Both elite groups practised more than recreational players. Correlational, retrospective, English academy sample. **Play here means informal soccer play, not club minutes.**
+- **Selection by birth date, US.** Elite-level samples only, and they show who gets selected, not how players develop:
+  - Vincent & Glamser (2006): 1,344 U.S. ODP players born 1984; strong effect in male state, regional and national teams, marginal or none in female.
+  - Korgaokar (2013, dissertation): 3,218 male U.S. Soccer Development Academy players; strong effect at U15/16, none at U17/18.
+  - Elite Clubs National League study (2018): 7,294 female players; effect across U14–U18.
+  - Finnegan et al. (2024): 3,364 U.S. female players; Q1 over-represented at club and talent-ID-centre stages, not at youth national team.
+  - Not found: Cobley et al. (2009) meta-analysis (named from memory only).
+- **Playing time as outcome, not cause.** Deprez et al. (2014/2015, *Journal of Strength and Conditioning Research*): 388 Belgian players aged 8–16; motor coordination, endurance and speed separated those who stayed from those who dropped out. Playing time here reflects coaches' judgement of current ability. Retrospective and correlational.
+- **Gap:** no study found showing that giving a player more minutes causes faster improvement. The "more minutes, more development" claim as stated has no support in what was found, and selection runs the other way (ability and age earn minutes).
+
+## Extra coaching outside the club, ages 6–12: what the evidence says (checked 2026-10-10)
+
+For the "between sessions" parent-facing idea (see PUBLISHING_CALENDAR.md, Idea queue). Source status noted per item: **R** = read at source, **S** = search result/abstract/secondary only, verify before citing.
+
+- **Best direct test of "extra sessions": no extra gain in the skill test. (R)** Sørensen, Dalen & Lagestad, "Effects of a Short-Term Soccer Training Intervention on Skill Course Performance in Youth Players: A Randomized Study", *Sports* 12(12), 345 (2024), [doi:10.3390/sports12120345](https://doi.org/10.3390/sports12120345). 90 players aged 9–12 from a free community soccer school, randomised to intervention (n = 54) or control (n = 36). 11 weekly 75-minute sessions: 1v1, then added pressure, then 4v4 to 7v7, instruction-based coaching. Timed skill course (dribbling, passing, movement). Both groups improved (7.9 s intervention, 3.9 s control), and the groups did not differ significantly. Authors' limits: only 11 sessions, low similarity between test and sessions, test didn't measure decision-making, test familiarisation, sample size. A short-term trial on one test, and it does not rule out longer-term effects.
+- **Practice and skill level, retrospective. (S)** Helsen, Starkes & Hodges, "Team sports and the theory of deliberate practice", *Journal of Sport & Exercise Psychology* 20, 12–34 (1998). Soccer and field hockey players, recalled practice; accumulated individual plus team practice rose with skill level. Hour totals not verified (only an unreliable flashcard site gave figures). A 2022 paper on elite youth soccer notes meta-analyses report the explanatory power of deliberate practice as considerably less than originally claimed.
+- **What "strong coach" means. (S, secondary summaries only)** Côté & Gilbert, "An integrative definition of coaching effectiveness and expertise", *International Journal of Sports Science & Coaching* (2009): effectiveness is judged on athletes' competence, confidence, connection and character, not only technical outcomes. Original paper not opened.
+- **Coach training and dropout. (S, press release)** Smith, Smoll & Cumming (2007) coach-training work: University of Washington reported 11% of athletes with trained coaches quit in a basketball season against 26% with untrained coaches, controlling for win-loss record. Peer-reviewed citation for that study not found; the 30% figure in one secondary source could not be verified.
+- **Specialisation and overuse. (S)** AOSSM early sport specialisation consensus statement (2016): no evidence young children benefit from early specialisation in most sports; risks of overuse injury and burnout. AAP clinical report (2016): delay specialisation until after puberty for most sports. Expert consensus, not a systematic review. One sports physician argues volume, not specialisation, drives injury risk. A "weekly organised hours no more than age" rule of thumb is circulated; source not verified.
+- **Futsal and touches. (S)** A 2026 study of 14 players (about 12.9 years) found more technical actions in 6v6 futsal than 6v6 football. A UEFA-funded report (Oppici) states the claimed futsal-to-football transfer lacks scientific support, and no final published results were found. No peer-reviewed touches-per-minute comparison found.
+- **Cost and equity. (S)** Aspen Institute Project Play 2025 survey: average family spent $1,016 on a child's primary sport in 2024, up 46% since 2019, about $1,491 including other teams; private instruction and camps are named as a driver; 2022 report found the wealthiest families spent about four times what the poorest did.
+- **Gaps:** no controlled study of one-on-one or private coaching vs none at ages 6–12; no study showing extra minutes or touches cause faster improvement; no soccer-specific cost figure retrieved.
+
+## 7v7 formations guide (comparison pillar): research pass (checked 2026-10-11)
+
+For the "7v7 Soccer Formations: 2-3-1 vs 3-2-1, and How to Choose" pillar idea. Status: **R** = fetched and read at source; **S** = search summary only, verify before citing. Searches were standard-mode, no keyword-volume tool, so nothing here says anything about search volume.
+
+**What U.S. Soccer itself says (R).**
+- [U.S. Way, "Develop through the game", U9–U10 7v7](https://www.ussoccer.com/us-way/player-development/game/formations/u9-u10-7v7): the formation shown is **1-3-2-1** (U7–U8 1-2-1, U11–U12 1-3-2-3, U13+ 1-4-3-3). Wording: "These are examples and other formations may be used"; "each formation builds on the previous format"; "formations change as players play different formats". Roles: one central back and two wing backs, two staggered midfielders (one more attacking, one more defensive), one central forward. "Players have flexibility to interchange between roles (positions) and should be encouraged to try all positions at this age group." Page was truncated; no goal-kick or build-out content on it.
+- [U9–U10 age-group guide](https://www.ussoccer.com/us-way/player-development/environment/age-group-guide/u9-u10): "Introduce formations for 7v7: 1-3-2-1"; "Provide opportunities for players to experience all positions"; "Help players learn their role in attack, defense, and transition." No field size, roster, game length or build-out line on it.
+- **Net:** U.S. Soccer's own page names the **1-3-2-1 (the 3-2-1)**, not the 2-3-1. The 1-2-3-1 appears only in EPYSA's reproduction of the PDI (see section above). This supports the 3-2-1 and corrects the common "2-3-1 is the standard" line in coaching blogs. It still has to be written as "the example U.S. Soccer shows", not "U.S. Soccer says use it".
+
+**What ranks and what it says (S, search summaries; pages not opened).**
+- Results are dominated by commercial lineup-tool and coaching-software blogs (Renderfoot, Cupello, others) plus small coaching sites. Common claims: 2-3-1 is "the industry standard" and the balanced default; 3-2-1 ("Christmas tree") is the defensive, compact option, weak on width unless the outside defenders step up; "test both and see what fits". None cite youth-development research. One says rotate roles across a season and play out from the back every time.
+- **Gap this leaves:** no result reasoned from what each shape asks of players (channels, who the keeper's options are, what each costs), none separated rules from opinion, none said where the 2-3-1 claim comes from. That is the angle.
+
+**Rules facts (S, league and state documents; U.S. Soccer's own rules page not read).**
+- Format: 7 players including keeper, minimum 5; size 4 ball; two 25-minute halves is the common standard (halftime varies); unlimited substitutions; no heading.
+- Field: commonly 55–65 yd × 35–45 yd; one league document gives 60 × 40. Goals up to 6.5 ft × 18.5 ft, smaller recommended.
+- **Build-out line varies by source.** U.S. Soccer 2017 (R, earlier section): 14 yards in front of each goal. Another source (S): halfway between the top of the penalty area and the halfway line. Offside is judged from the line (none between the halfway line and the line; no offside below U9). Opponents are released when the keeper passes, rolls or throws, or the goal kick moves. **Do not give a single number without "check your league".**
+
+**Positions and early specialisation (S).**
+- No study found comparing rotating positions with fixed positions at 8–10 on development outcomes. Position of the sources is consistent but it is expert consensus and practitioner opinion: keep players moving through positions until about 11–12.
+- Related peer-reviewed sources surfaced but not read: a cross-sectional survey of 746 US adolescents aged 12–18 on sport specialisation (PMC6437330, SAGE 10.1177/2325967119832399); it does not address position rotation or under-12s. Not usable for a position claim.
+- Consistent with U.S. Soccer's own "try all positions" wording (R, above). That is the citable support for rotation; the claim is guidance, not a measured effect.
+
+**Where the guide's claims should come from.**
+- First-person "I do X": only FORMATION_1-2-3-1_NOTES.md (3-2-1 goal-kick routine, why he runs it, one wide player forward on the ball side, central channel control).
+- "What the sources say": U.S. Soccer 1-3-2-1 page, rules facts (with "check your league"), the Euro 2020 goal-kick paper and U19 geometry paper already logged above, flagged as not-youth.
+- "What I see": 2-3-1 more common in the US, 3-2-1 more common among European tournament teams (observation, not a count).
+- **Still unsupported anywhere:** that either shape produces better youth development or results; 2-3-1 vs 3-2-1 matchup effects at U10; any numbers on how often pressers appear. State as gaps.
+
+**Open items before drafting.**
+1. Open U.S. Soccer's current rulebook/PDI text for the build-out line, offside and release trigger.
+2. Read Rein et al. 2017 and the Euro 2020 paper in full if either will be cited.
+3. Chris's own take on the 2-3-1 (what it asks of players, where he'd choose it). Not in the notes.
+4. Decide notation once: keeper-first (1-3-2-1) vs outfield-only (3-2-1).
+
+## 7v7 formations guide: international pass (checked 2026-10-11)
+
+Adds to the section above. **R** = fetched and read at source (page summaries by a small model for web pages; PDF read as text); **S** = search summary only, verify before citing.
+
+**Correction to the earlier pass.** The first pass said U.S. Soccer's page shows the 1-3-2-1 and "not the 2-3-1". That is true of U.S. Soccer's own page, but the **FA's 7v7 page shows both the 1-2-3-1 and the 1-3-2-1** (below), and EPYSA's PDI reproduction lists both. So both shapes have official-body backing; neither is "the" standard. The accurate line is: the two most-cited official sources show the 1-3-2-1 (U.S. Soccer) or both (FA).
+
+**Formats differ by country, so "U9/U10" is a US label, not a universal one.**
+- **England (R).** [The FA, "What is a format in football"](https://learn.englandfootball.com/articles/resources/2022/What-is-a-format-in-football): from 2026-27, 3v3 at U7, 5v5 at U8–U9, **7v7 at U10–U11**, 9v9 at U12–U13, 11v11 from U14. Mandatory from 2026-27 (a secondary source, S). Formats are a maximum; smaller is fine.
+- **England 7v7 page (R).** [How to play and manage 7v7 games](https://learn.englandfootball.com/articles-and-resources/coaching/resources/2025/How-to-play-and-manage-7v7-games): pitch 55×37 m recommended (46×27 m minimum), goals 12×6 ft, size 3 ball, officials required, retreat line used, no offside, no heading, rolling subs, suggests each player gets at least 50% of game time. Shows **a 1-2-3-1 and a 1-3-2-1**, encourages trying different positions, no role descriptions. Retreat-line distance not read (video).
+- **United States (R, earlier).** 7v7 at U9–U10; 1-3-2-1 shown; build-out line.
+- **Ireland (S).** [FAI Player Development Plan (2015)](https://www.stfrancisfc1958.ie/images/coaching/FAI_Player_Development_Plan.pdf) has 5v5 at U8/U9 and 7v7 at U10/U11 (contents page only). FAI small-sided games page says 7v7 gives "all round flexibility of roles and positions" in attack and defence (could not be re-fetched: 404). A third-party session plan attributed to FAI shows 1-2-3-1 v 1-2-3-1 on 60×40 m; attribution unverified.
+- **Germany (S).** DFB reform, binding from summer 2024: E-Jugend (about U10–U11) play 5v5, or 7v7 with goalkeeper using side pitches; built-in rotation; the aim is more touches and goals. **No DFB formation recommendation found**, formations left to coaches. Details of the 7v7 variant not verified.
+- **Netherlands (S).** KNVB pupillen: U7 4v4, U8–U10 6v6 on a quarter pitch (42.5×30 m), U11–U12 8v8. **7v7 is not an official matchday format**, only used in practice games. KNVB's exercise database uses 1-3-2-1 against 1-2-2-2 and other shapes; no text on why a shape fits an age found.
+- **Spain (S).** Regional federations run F7, F8 or F11 for alevín (U12) with no clear developmental criterion, per the paper below; no RFEF formation recommendation found.
+- **Australia (S).** MiniRoos: club pages give 7v7 at U8–U9 (one source) or U8–9 (another); no offside at U7–9; frequent interchange. **No Football Australia formation guidance found**; the Playing Formats document was not opened.
+- **Canada (S).** No Canada Soccer formation guidance found; provincial documents point to LTPD / Grassroots Standards and "try all positions".
+- **UEFA (S).** UEFA Grassroots Charter text not found.
+
+**Best new evidence: Spanish U12 format study (R, read from PDF text).** Sánchez-García & Sánchez-Sánchez, "Influencia de las modalidades de fútbol 7, 8 y 11 en la demanda técnico-táctica de jugadores de categoría alevín", *RICYDE* 16(61), 236–256 (2020), [doi:10.5232/ricyde2020.06101](https://doi.org/10.5232/ricyde2020.06101).
+- 18 men's matches (6 each of F7, F8, F11), 2016–17 season, 7,275 technical-tactical actions, observational, one-way ANOVA with Tukey.
+- **Goal-kick starts:** keepers made more short passes to nearby players in F7 and F8, and passed long in F11 (very large effect sizes reported). Authors attribute this to larger player spacing making short passes feel less safe, and conclude F7/F8 suit under-12s better for close-passing associations.
+- F11 produced more dribbles and more individual actions; F8 enhanced the offensive phase and close-passing starts.
+- **Direct statement of our gap:** the authors say that, as far as they know, **no studies have analysed the influence of the playing system (formation) on technical-tactical demand in young players**; only senior and professional work exists.
+- Limits: observational, men's, one season, Spain, 18 matches, compares formats not shapes, authors note coaches' game models were unknown.
+- Use: backs "short build-out is more natural at 7v7 than 11v11" with a youth sample. Does not support any shape.
+- Related, not read: Práxedes et al. (2017) cited as finding more actions per player in F7; Floro (2004) cited as arguing F8 distributes players more evenly. Both seen only as citations inside secondary text.
+
+**What this changes for the article.**
+1. Frame by "7v7", not "U9/U10". Say once that ages differ by country (U9–U10 US, U10–U11 England). This also widens the search audience beyond the US.
+2. Notation: both bodies write keeper-first (1-2-3-1, 1-3-2-1). The blogs write outfield-only (2-3-1, 3-2-1). A one-line decoder at the top is worth doing and is itself a search hook ("2-3-1 or 1-2-3-1").
+3. International picture in one line: no federation found mandates a shape; U.S. Soccer and the FA each publish examples and say try all positions.
+4. Gaps stand. Added: no international body's text explains *why* a shape suits an age.
+
+**Still open.** FA retreat-line distance and release trigger; U.S. Soccer current rulebook text; DFB 7v7 variant specifics and FUNiño; FAI current plan; Football Australia and Canada Soccer primary documents; whether an England-based search audience justifies spelling "football" (site is US-voiced, so probably no).
+
+## 7v7 formations guide: worldwide pass 2 (checked 2026-10-12)
+
+Adds to the two sections above. **R** = read at source, **S** = search summary only.
+
+- **No federation text found that recommends a shape** in Germany, Netherlands, France, Italy, Spain, Portugal, Belgium (Flanders), Japan, Canada, Ireland or Australia. Searched in each local language where relevant. Absence in search is not proof of absence; primary documents were mostly not opened. (S)
+- **Formats seen (S):** Italy FIGC Pulcini U10/U11, 7v7 (or 6v6), three 15-minute periods, no offside, self-refereeing; Germany DFB reform binding from 2024/25, E-Jugend 5v5 up to a 7v7 maximum, formation left to coaches, 7v7 field 50–55 × 35 m in regional documents; Portugal (Madeira association, 2025/26) sub-11 plays GR+6x6+GR on half a pitch; France foot à 8 for U10–U11 with 7 outfield players, no prescribed shape; Japan JFA moved U12 to 8v8 in 2011 and published small-sided guidelines in 2022, no formation recommended; Netherlands KNVB 6v6 at U8–U10, 8v8 at U11–U12.
+- **Australia (S):** club materials show "7v7 (1-2-3-1 or 1-3-2-1)" for U8–U9, so both shapes appear there too, but I could not trace it to a Football Australia document. **Football Australia "Game Time Policy Template" (R, via PDF text; a club template, not a rule):** for MiniRoos U6–U11, equal game time, coaches must rotate players through every position including goalkeeper; "it is vital that players are exposed to playing in multiple positions". For U12–U18, minimum half game time, with players moving into the positions they are better at as they get older.
+- **Retreat/build-out line distance varies widely (S):** U.S. Soccer 2017, 14 yards in front of goal (R, earlier); many U.S. leagues, midpoint between the penalty area and halfway line, with offside judged from the line; some English county tournament rules, opposition retreat to halfway; Scotland 2026 7s rules, 13 m; New Zealand regional rules, 30% of pitch length. All agree the opposition stays back until the keeper releases the ball. No national FA distance found.
+- **Peer-reviewed shape work (S for the search, R for the study already logged):** one study compares 7-a-side shapes (2-3-1 vs 3-1-2, U19). A second paper on age, pitch size, position and formation effects on training load (ResearchGate listing) was seen as a title only. No study of the 3-2-1 or of 2-3-1 vs 3-2-1 found.
+- **Spanish literature (R for one paper):** the RICYDE paper's claim that no study has examined formation effects on technical-tactical demand in young players stands. Another Spanish paper (Praxedes et al., 2017) is cited as finding more actions per player in F7; not read.
+- **Still unopened primary documents:** Football Australia playing formats and Skill Acquisition Manual; Canada Soccer grassroots standards; FFF livrets pédagogiques; FIGC SGS technical materials; DFB 7v7 variant; FA retreat-line video; U.S. Soccer current rulebook. These are the places a shape recommendation, if one exists, would sit.
+
+### 7v7 formations guide: other federations re-read at source (2026-10-13)
+
+Chris asked for the other-countries paragraph to be researched properly. Each line below was read in the federation's own document or page, not a search summary. None of them names a formation.
+
+- **Italy (FIGC SGS, season 2026/27, "Allegato 7b, Approfondimento Regole U10-U11", PDF text read):** Pulcini U10/U11, "7 contro 7 (var. 6 contro 6)", three 15-minute periods; 5v5 allowed for first-year and mixed-age Pulcini. https://files.figc.it/version/c:NmRlYWQ2MjktOGMxZC00:NjdlMDlhZDgtNGRmNi00/Allegato%207b%20-%20Approfondimento_Regole_U10-U11.pdf
+- **Germany (DFB Kinderfußball page):** E-Jugend "im Fünf-gegen-Fünf oder im Sieben-gegen-Sieben"; binding for U6 to U11 since 2024/25; 7v7 field 55 x 35 m. https://www.dfb.de/mehr-fussball/kinderfussball
+- **Netherlands (KNVB "wedstrijdvormen pupillen" page, undated):** Onder 8 to Onder 10 play 6v6 on 42.5 x 30 m; Onder 11 and 12 play 8v8 on 64 x 42.5 m. https://www.knvb.nl/assist-scheidsrechters/scheidsrechtersco%C3%B6rdinator/wedstrijdvormen-pupillen
+- **France (District de Football de Seine-Maritime on fff.fr, published 2025-12-08; a district page, not the national FFF rulebook):** U6-U7 foot à 4, U8-U9 foot à 5, U10-U11 foot à 8. https://dfsm.fff.fr/simple/lois-du-jeu-football-danimation/
+- **Japan (JFA tournament guidelines; and the 2026 All Japan U-12 championship rules):** 8v8 recommended for U-12 and under, 11-a-side from age 12; the U-12 championship is played 8-a-side. The JFA line is about U-12 and under, not specifically U9-U10. https://www.jfa.jp/documents/guideline/

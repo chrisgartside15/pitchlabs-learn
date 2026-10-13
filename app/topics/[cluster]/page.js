@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { CLUSTERS, getCluster } from '@/lib/clusters'
 import { getArticlesByCluster, getArticleBySlug, formatArticleDate } from '@/lib/articles'
 import { PitchDivider } from '@/components/atmosphere'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, SHOW_TOOLS } from '@/lib/site'
 
 export async function generateStaticParams() {
   return CLUSTERS.map((cluster) => ({ cluster: cluster.slug }))
@@ -53,7 +53,7 @@ export default function ClusterPage({ params }) {
       </div>
 
       <section className="pillar-slot">
-        <p className="pillar-slot-label">Pillar guide</p>
+        <h2 className="pillar-slot-label">Pillar guide</h2>
         {pillar ? (
           <Link href={`/articles/${pillar.slug}`} className="article-card pillar-card">
             <h3>{pillar.meta.title}</h3>
@@ -71,6 +71,16 @@ export default function ClusterPage({ params }) {
           </p>
         )}
       </section>
+
+      {cluster.tool && SHOW_TOOLS && (
+        <section className="pillar-slot">
+          <h2 className="pillar-slot-label">Free tool</h2>
+          <Link href={cluster.tool.href} className="article-card pillar-card">
+            <h3>{cluster.tool.title}</h3>
+            <p className="excerpt">{cluster.tool.blurb}</p>
+          </Link>
+        </section>
+      )}
 
       {supporting.length > 0 && (
         <>

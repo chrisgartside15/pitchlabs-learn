@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -70 436 704" width="436" height="704" role="img" aria-label="3-1-2 formation on a 7v7 pitch">
+<title>3-1-2 formation on a 7v7 pitch</title>
+<rect x="-18" y="-70" width="436" height="704" fill="#131820"/>
+<rect x="0" y="0" width="400" height="600" fill="#1e3248"/>
+<rect x="0" y="0" width="400" height="600" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<line x1="0" y1="300" x2="400" y2="300" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<circle cx="200" cy="300" r="80" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<rect x="80" y="0" width="240" height="120" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<rect x="80" y="480" width="240" height="120" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<rect x="160" y="0" width="80" height="40" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<rect x="160" y="560" width="80" height="40" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<path d="M 122.54033307585166 120 A 80 80 0 0 0 277.45966692414834 120" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<path d="M 122.54033307585166 480 A 80 80 0 0 1 277.45966692414834 480" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2" fill="none"/>
+<rect x="170" y="-15" width="60" height="15" fill="rgba(255,255,255,0.28)" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2"/>
+<rect x="170" y="600" width="60" height="15" fill="rgba(255,255,255,0.28)" stroke="rgba(238, 242, 248, 0.94)" stroke-width="2"/>
+<polyline points="55,370.7 200,445.1 345,370.7" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="5 5"/>
+<polyline points="135,187.8 265,187.8" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="5 5"/>
+<g><circle cx="200" cy="566" r="20" fill="#4fae6a" stroke="#ffffff" stroke-width="2.5"/><text x="200" y="571" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">GK</text></g>
+<g><circle cx="55" cy="370.7" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="55" y="375.7" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">WD</text></g>
+<g><circle cx="200" cy="445.1" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="200" y="450.1" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">CD</text></g>
+<g><circle cx="345" cy="370.7" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="345" y="375.7" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">WD</text></g>
+<g><circle cx="200" cy="285.45" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="200" y="290.45" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">CM</text></g>
+<g><circle cx="135" cy="187.8" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="135" y="192.8" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">F</text></g>
+<g><circle cx="265" cy="187.8" r="20" fill="#4fae6a" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><text x="265" y="192.8" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#08130d">F</text></g>
+<text x="0" y="-24" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="40" font-weight="700" fill="rgba(238, 242, 248, 0.94)">3-1-2</text><text x="400" y="-28" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="rgba(238,242,248,0.8)">1-3-1-2 (keeper counted)</text>
+<text x="392" y="622" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="rgba(238,242,248,0.7)">PitchLabs 7v7 field</text>
+</svg>

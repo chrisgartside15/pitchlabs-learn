@@ -6,7 +6,10 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:pitch": "node scripts/check-pitch-parity.mjs",
+    "build:diagrams": "node scripts/build-shape-diagrams.mjs",
+    "verify:diagrams": "node scripts/verify-diagrams.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

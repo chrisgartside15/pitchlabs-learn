@@ -180,7 +180,9 @@ export function SessionAudit() {
               type="text"
               value={r.name}
               maxLength={60}
-              placeholder="e.g. Passing gates"
+              name={`activity-${i + 1}-name`}
+              autoComplete="off"
+              placeholder="Passing gates…"
               aria-label={`Activity ${i + 1} name`}
               onChange={(e) => update(i, { name: e.target.value })}
             />
@@ -191,6 +193,8 @@ export function SessionAudit() {
               min="0"
               max="180"
               value={r.minutes}
+              name={`activity-${i + 1}-minutes`}
+              autoComplete="off"
               placeholder="10"
               aria-label={`Activity ${i + 1} minutes`}
               onChange={(e) => update(i, { minutes: e.target.value })}
@@ -229,6 +233,40 @@ export function SessionAudit() {
       </div>
 
       <div className="audit-result" aria-live="polite">
+        {/* Sizer: an invisible copy of the tallest result, so the box is the same height before and after there is
+            anything to show. */}
+        <div className="audit-sizer" aria-hidden="true">
+          <div className="audit-compare">
+            <div className="audit-compare-row">
+              <p className="audit-compare-label">
+                Your session <span>00 min</span>
+              </p>
+              <div className="audit-bar"><span>Repeat</span></div>
+            </div>
+            <div className="audit-compare-row">
+              <p className="audit-compare-label">
+                Study average <span>70 sessions</span>
+              </p>
+              <div className="audit-bar"><span>Drills</span></div>
+            </div>
+          </div>
+          <p className="audit-summary">Repeat 00 min (00%) · Decide 00 min (00%) · Look 00 min (00%)</p>
+          <p className="audit-note">
+            Most of your time went on repeating movements, close to the pattern in the study. That can be exactly right,
+            especially for a skill players can&apos;t do yet (Teach It or Let the Game Teach It? covers when). If you&apos;d
+            like more decisions in it, changing one drill with STEP is one way to start.
+          </p>
+          <p className="audit-note">
+            Nothing here was built around looking before the ball arrives. The scanning piece has a few conditions that
+            add it without changing the whole game.
+          </p>
+          <p className="audit-source">
+            Study: Ford et al. (2010), cited via Cushion, Ford &amp; Williams (2012); players aged 9, 13 and 16, data over
+            fifteen years old. It didn&apos;t separate &ldquo;decide&rdquo; from &ldquo;look&rdquo;, so both count as game
+            time here.
+          </p>
+        </div>
+        <div className="audit-live">
         {hasResult ? (
           <>
             <div className="audit-compare">
@@ -283,6 +321,7 @@ export function SessionAudit() {
         ) : (
           <p className="audit-empty">Add minutes and a tag for at least one activity to see your split.</p>
         )}
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
+import { StateStack } from '@/components/StateStack'
 
 /**
  * Interactive STEP-framework diagnostic tool — reworked from an HTML/CSS/JS tool built for
@@ -103,7 +105,29 @@ const PROBLEMS = {
 
 export function StepTool() {
   const [selected, setSelected] = useState(null)
-  const active = selected ? PROBLEMS[selected] : null
+
+  // GA4 (added 2026-10-13, analytics only): which of the four problems a reader picks.
+  useEffect(() => {
+    if (selected) trackEvent('tool_use', { tool: 'step_tool', action: `select_${selected}` })
+  }, [selected])
+  const state = selected ?? 'default'
+  const keys = ['default', ...Object.keys(PROBLEMS)]
+
+  const bullets = (lines) =>
+    lines.map((line, i) => {
+      const splitAt = line.indexOf('. ')
+      const lead = splitAt === -1 ? line : line.slice(0, splitAt + 1)
+      const rest = splitAt === -1 ? '' : line.slice(splitAt + 1)
+      return (
+        <div key={i} className="step-tool-adj">
+          <span className="step-tool-tick" aria-hidden="true">▸</span>
+          <span>
+            <strong>{lead}</strong>
+            {rest}
+          </span>
+        </div>
+      )
+    })
 
   return (
     <div className="step-tool">
@@ -112,15 +136,26 @@ export function StepTool() {
           <span aria-hidden="true" className="tech-eyebrow-tick" />
           Interactive · Pick a problem
         </span>
-        <p key={selected ?? 'default'} className="step-tool-desc panel-swap">
-          {active ? active.stripDesc : 'Is the activity too easy, too difficult, too slow, or not producing the behavior you want? Diagnose first, then adjust without losing the original objective.'}
-        </p>
-        <div className="step-tool-chips">
+        <StateStack
+          active={state}
+          items={keys.map((k) => ({
+            key: k,
+            node: (
+              <p className="step-tool-desc">
+                {k === 'default'
+                  ? 'Is the activity too easy, too difficult, too slow, or not producing the behavior you want? Diagnose first, then adjust without losing the original objective.'
+                  : PROBLEMS[k].stripDesc}
+              </p>
+            ),
+          }))}
+        />
+        <div className="step-tool-chips" role="group" aria-label="The problem">
           {Object.entries(PROBLEMS).map(([key, p]) => (
             <button
               key={key}
               type="button"
               className={`step-tool-chip${selected === key ? ' active' : ''}`}
+              aria-pressed={selected === key}
               onClick={() => setSelected(key)}
             >
               {p.chip}
@@ -130,7 +165,7 @@ export function StepTool() {
       </div>
 
       <div className="step-tool-body">
-        <div key={`panels-${selected ?? 'default'}`} className="step-tool-panels panel-swap">
+        <div className="step-tool-panels">
           {Object.keys(STEP_META).map((letter) => (
             <div key={letter} className="step-tool-panel">
               <div className="step-tool-panel-head">
@@ -138,43 +173,44 @@ export function StepTool() {
                 <span className="step-tool-pname">{STEP_META[letter].name}</span>
               </div>
               <p className="step-tool-pq">{STEP_META[letter].q}</p>
-              {(active ? active.steps[letter] : DEFAULT_STEPS[letter]).map((line, i) => {
-                const splitAt = line.indexOf('. ')
-                const lead = splitAt === -1 ? line : line.slice(0, splitAt + 1)
-                const rest = splitAt === -1 ? '' : line.slice(splitAt + 1)
-                return (
-                  <div key={i} className="step-tool-adj">
-                    <span className="step-tool-tick" aria-hidden="true">▸</span>
-                    <span>
-                      <strong>{lead}</strong>
-                      {rest}
-                    </span>
-                  </div>
-                )
-              })}
+              <StateStack
+                active={state}
+                items={keys.map((k) => ({
+                  key: k,
+                  node: <div>{bullets(k === 'default' ? DEFAULT_STEPS[letter] : PROBLEMS[k].steps[letter])}</div>,
+                }))}
+              />
             </div>
           ))}
         </div>
 
-        <aside key={`card-${selected ?? 'default'}`} className="step-tool-card panel-swap">
-          <p className="step-tool-card-kicker">{active ? 'Diagnosis' : 'Start here'}</p>
-          <p className="step-tool-card-title">{active ? active.title : 'Pick a problem'}</p>
-          {active ? (
-            active.card.map((p, i) => <p key={i} className="step-tool-card-p">{p}</p>)
-          ) : (
-            <p className="step-tool-card-p">
-              The four chips above are the four ways an activity goes wrong. Select one — the S·T·E·P panels update with the adjustments that fix that problem, and this card explains what to watch for. One rule underneath all four: adjust the activity without changing the objective.
-            </p>
-          )}
-          <p className="step-tool-card-note">Suggestions, not rules — change one variable at a time, let it run, and watch the response before adjusting again.</p>
+        <aside className="step-tool-card step-tool-card-wide">
+          <StateStack
+            active={state}
+            items={keys.map((k) => ({
+              key: k,
+              node: (
+                <div className="step-tool-card-in">
+                  <p className="step-tool-card-kicker">{k === 'default' ? 'Start here' : 'Diagnosis'}</p>
+                  <p className="step-tool-card-title">{k === 'default' ? 'Pick a problem' : PROBLEMS[k].title}</p>
+                  {k === 'default' ? (
+                    <p className="step-tool-card-p">
+                      The four chips above are the four ways an activity goes wrong. Select one — the S·T·E·P panels update with the adjustments that fix that problem, and this card explains what to watch for. One rule underneath all four: adjust the activity without changing the objective.
+                    </p>
+                  ) : (
+                    PROBLEMS[k].card.map((p, i) => <p key={i} className="step-tool-card-p">{p}</p>)
+                  )}
+                  <p className="step-tool-card-note">Suggestions, not rules — change one variable at a time, let it run, and watch the response before adjusting again.</p>
+                </div>
+              ),
+            }))}
+          />
         </aside>
       </div>
 
-      {selected && (
-        <button type="button" className="step-tool-clear" onClick={() => setSelected(null)}>
-          Clear
-        </button>
-      )}
+      <button type="button" className="step-tool-clear" onClick={() => setSelected(null)} disabled={!selected}>
+        Clear
+      </button>
     </div>
   )
 }

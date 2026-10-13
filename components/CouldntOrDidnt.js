@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { trackEvent } from '@/lib/analytics'
+import { StateStack } from '@/components/StateStack'
+import { scrollCardIntoView } from '@/components/WheelChips'
 
 /**
  * "Couldn't or didn't?" — an interactive flowchart for "Teach It or Let the Game Teach It?". Every branch
@@ -61,6 +63,12 @@ export function CouldntOrDidnt() {
     }
   }, [result, first, second])
 
+  // On a phone the result sits a screen below the questions, so bring it into view when one arrives.
+  const resultRef = useRef(null)
+  useEffect(() => {
+    if (result) scrollCardIntoView(resultRef.current)
+  }, [result, probably])
+
   const pickFirst = (v) => {
     setFirst(first === v ? null : v)
     setSecond(null)
@@ -75,7 +83,6 @@ export function CouldntOrDidnt() {
   // On the "Not sure" path the result comes from the second question, so the Yes/No outcome boxes stay
   // dimmed with their branches rather than lighting up inside a faded column.
   const outcomeState = (kind) => (!result || first === 'unsure' ? '' : result === kind ? ' on' : ' off')
-  const r = result ? RESULTS[result] : null
 
   return (
     <div className="step-tool cd-tool">
@@ -155,34 +162,53 @@ export function CouldntOrDidnt() {
         </div>
       </div>
 
-      <div className="cd-result" aria-live="polite">
-        {r ? (
-          <div className={`cd-result-card cd-result-${result}`}>
-            <p className="cd-result-kicker">{r.kicker}</p>
-            <p className="cd-result-title">
-              {probably ? `Probably ${r.title.charAt(0).toLowerCase()}${r.title.slice(1)}` : r.title}
-            </p>
-            <p className="cd-result-lead">
-              {probably
-                ? 'If the breakdowns are spread across different moments, a game change is the first thing I’d try. Watch whether it helps: if it doesn’t, come back to the teaching side.'
-                : r.lead}
-            </p>
-            <ul className="cd-steps">
-              {r.steps.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-            <p className="cd-result-link">
-              <Link href={r.link.href}>{r.link.label} →</Link>
-            </p>
-            <button type="button" className="step-tool-clear cd-reset" onClick={reset}>
-              Start again
-            </button>
-          </div>
-        ) : (
-          <p className="cd-empty">{first === 'unsure' ? 'Answer the second question to see what to try.' : 'Pick an answer to see what to try.'}</p>
-        )}
+      <div ref={resultRef} className="cd-result" aria-live="polite">
+        <StateStack
+          active={result ? (probably ? 'probably' : result) : 'empty'}
+          items={[
+            {
+              key: 'empty',
+              node: (
+                <div className="cd-result-card cd-result-empty">
+                  <p className="cd-empty">{first === 'unsure' ? 'Answer the second question to see what to try.' : 'Pick an answer to see what to try.'}</p>
+                </div>
+              ),
+            },
+            ...['choosing', 'teaching', 'probably'].map((k) => {
+              const kind = k === 'probably' ? 'choosing' : k
+              const res = RESULTS[kind]
+              return {
+                key: k,
+                node: (
+                  <div className={`cd-result-card cd-result-${kind}`}>
+                    <p className="cd-result-kicker">{res.kicker}</p>
+                    <p className="cd-result-title">
+                      {k === 'probably' ? `Probably ${res.title.charAt(0).toLowerCase()}${res.title.slice(1)}` : res.title}
+                    </p>
+                    <p className="cd-result-lead">
+                      {k === 'probably'
+                        ? 'If the breakdowns are spread across different moments, a game change is the first thing I’d try. Watch whether it helps: if it doesn’t, come back to the teaching side.'
+                        : res.lead}
+                    </p>
+                    <ul className="cd-steps">
+                      {res.steps.map((st) => (
+                        <li key={st}>{st}</li>
+                      ))}
+                    </ul>
+                    <p className="cd-result-link">
+                      <Link href={res.link.href}>{res.link.label} →</Link>
+                    </p>
+                  </div>
+                ),
+              }
+            }),
+          ]}
+        />
       </div>
+
+      <button type="button" className="step-tool-clear cd-reset" onClick={reset} disabled={!first}>
+        Start again
+      </button>
     </div>
   )
 }

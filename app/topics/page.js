@@ -19,6 +19,7 @@ export default function TopicsIndex() {
         <p>Coaching education organized into a few deep pillars, not a random stream of posts.</p>
       </div>
 
+      <h2 className="sr-only">All topics</h2>
       <div className="topics-grid">
         {/* Same rule as the homepage grid: only topics that have at least one article. */}
         {CLUSTERS.filter((cluster) => getArticlesByCluster(cluster.slug).length > 0).map((cluster) => {

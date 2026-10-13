@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { INTERACTIONS } from '@/lib/coachingInteractions'
 import { WheelChips, scrollCardIntoView } from './WheelChips'
+import { trackEvent } from '@/lib/analytics'
+import { StateStack } from '@/components/StateStack'
 
 /**
  * The full, three-ring Coaching Intervention Wheel — reworked from the same Colorado Storm SC
@@ -271,6 +273,11 @@ function Segment({ kind, id, d, lines, labelPos, fitWidth, lineHeight, isSelecte
 
 export function CoachingInterventionWheel() {
   const [sel, setSel] = useState(null)
+
+  // GA4 (added 2026-10-13, analytics only): which ring segment a reader selects.
+  useEffect(() => {
+    if (sel) trackEvent('tool_use', { tool: 'intervention_wheel', action: `select_${sel.kind}_${sel.id}` })
+  }, [sel])
   const svgRef = useRef(null)
   const cardRef = useRef(null)
   useLabelFit(svgRef)
@@ -295,12 +302,12 @@ export function CoachingInterventionWheel() {
     { kind: 'target', label: 'Who you’re coaching', items: TARGETS.map((t) => ({ id: t.id, name: t.name, state: chipState('target', t.id) })) },
     {
       kind: 'interaction',
-      label: 'How you say it (inner ring)',
+      label: 'How you say it',
       items: INTERACTIONS.map((x) => ({ id: x.id, name: x.name, state: chipState('interaction', x.id) })),
     },
     {
       kind: 'intervention',
-      label: 'How you stop play (outer ring)',
+      label: 'How you stop play',
       items: INTERVENTIONS.map((v) => ({ id: v.id, name: v.name, meta: v.cost, state: chipState('intervention', v.id) })),
     },
   ]
@@ -309,64 +316,92 @@ export function CoachingInterventionWheel() {
   const midStep = 360 / INTERACTIONS.length
   const centerStep = 360 / TARGETS.length
 
-  let panelKicker = 'Start here'
-  let panelTitle = 'Pick any segment'
-  let panelBody = null
-  let headerDesc = "Center: who you're coaching. Inner ring: how you interact. Outer ring: how you stop the game to say it. Select any one — the wheel highlights what commonly pairs with it."
-
-  if (sel?.kind === 'target') {
-    const t = TARGETS_BY_ID[sel.id]
-    const def = INTERVENTIONS_BY_ID[t.defIntervention]
-    panelKicker = 'Who'
-    panelTitle = t.name
-    headerDesc = t.def
-    panelBody = (
-      <>
-        <p className="step-tool-card-p">{t.def}</p>
-        <p className="step-tool-card-note">
-          Suggested default: {def.name} ({def.cost}).
+  // Every state of the header line and the detail card, so the tool can hold all of them at once and never resize.
+  // The wheel is swapped for chips under 560px (WheelChips), so the ring wording only shows where there are rings.
+  const DEFAULT_DESC = (
+    <>
+      <span className="only-wide">
+        Center: who you&apos;re coaching. Inner ring: how you interact. Outer ring: how you stop the game to say it.
+        Select any one — the wheel highlights what commonly pairs with it.
+      </span>
+      <span className="only-phone">
+        Three choices: who you&apos;re coaching, how you say it, and how you stop play to say it. Select any one to
+        highlight what commonly pairs with it.
+      </span>
+    </>
+  )
+  const views = [
+    {
+      key: 'default',
+      desc: DEFAULT_DESC,
+      kicker: 'Start here',
+      title: 'Pick any one',
+      body: (
+        <p className="step-tool-card-p">
+          Three choices, one framework. Observe and Silence work with anyone, anytime — everything else pairs loosely with
+          specific moments and audiences. Select one to see how it fits with the rest.
         </p>
-      </>
-    )
-  } else if (sel?.kind === 'interaction') {
-    const x = INTERACTIONS_BY_ID[sel.id]
-    panelKicker = 'Sounds like'
-    panelTitle = x.name
-    headerDesc = x.def
-    panelBody = (
-      <>
-        <p className="step-tool-card-p">{x.sounds ? `"${x.sounds}"` : x.universal}</p>
-        {x.pairs.length > 0 && (
-          <p className="step-tool-card-note">
-            Works well with: {x.pairs.map((id) => INTERVENTIONS_BY_ID[id].name).join(', ')} — suggested pairings, not rules.
-          </p>
-        )}
-      </>
-    )
-  } else if (sel?.kind === 'intervention') {
-    const v = INTERVENTIONS_BY_ID[sel.id]
-    panelKicker = 'Time cost'
-    panelTitle = v.name
-    headerDesc = v.def
-    panelBody = (
-      <>
-        <p className="civ-cost">{v.cost}</p>
-        <p className="step-tool-card-p">{v.def}</p>
-        <p className="step-tool-card-note">Suggested fit: {v.fit}.</p>
-        {v.id === 'drinks' ? (
-          <p className="step-tool-card-note">
-            <strong>Free in playing time — not free in attention.</strong> Players are resting, so keep the message short.
-          </p>
-        ) : v.free ? (
-          <p className="step-tool-card-note">
-            <strong>Free.</strong> Costs no playing time. Reach for these first.
-          </p>
-        ) : (
-          <p className="step-tool-card-note">Spends {v.cost} of playing time. Ask whether a free option would do the same job.</p>
-        )}
-      </>
-    )
-  }
+      ),
+    },
+    ...TARGETS.map((t) => {
+      const def = INTERVENTIONS_BY_ID[t.defIntervention]
+      return {
+        key: `target:${t.id}`,
+        desc: t.def,
+        kicker: 'Who',
+        title: t.name,
+        body: (
+          <>
+            <p className="step-tool-card-p">{t.def}</p>
+            <p className="step-tool-card-note">
+              Suggested default: {def.name} ({def.cost}).
+            </p>
+          </>
+        ),
+      }
+    }),
+    ...INTERACTIONS.map((x) => ({
+      key: `interaction:${x.id}`,
+      desc: x.def,
+      kicker: 'Sounds like',
+      title: x.name,
+      body: (
+        <>
+          <p className="step-tool-card-p">{x.sounds ? `"${x.sounds}"` : x.universal}</p>
+          {x.pairs.length > 0 && (
+            <p className="step-tool-card-note">
+              Works well with: {x.pairs.map((id) => INTERVENTIONS_BY_ID[id].name).join(', ')} — suggested pairings, not rules.
+            </p>
+          )}
+        </>
+      ),
+    })),
+    ...INTERVENTIONS.map((v) => ({
+      key: `intervention:${v.id}`,
+      desc: v.def,
+      kicker: 'Time cost',
+      title: v.name,
+      body: (
+        <>
+          <p className="civ-cost">{v.cost}</p>
+          <p className="step-tool-card-p">{v.def}</p>
+          <p className="step-tool-card-note">Suggested fit: {v.fit}.</p>
+          {v.id === 'drinks' ? (
+            <p className="step-tool-card-note">
+              <strong>Free in playing time — not free in attention.</strong> Players are resting, so keep the message short.
+            </p>
+          ) : v.free ? (
+            <p className="step-tool-card-note">
+              <strong>Free.</strong> Costs no playing time. Reach for these first.
+            </p>
+          ) : (
+            <p className="step-tool-card-note">Spends {v.cost} of playing time. Ask whether a free option would do the same job.</p>
+          )}
+        </>
+      ),
+    })),
+  ]
+  const activeKey = sel ? `${sel.kind}:${sel.id}` : 'default'
 
   return (
     <div className="step-tool">
@@ -375,9 +410,7 @@ export function CoachingInterventionWheel() {
           <span aria-hidden="true" className="tech-eyebrow-tick" />
           Interactive · The full wheel
         </span>
-        <p key={sel ? `${sel.kind}:${sel.id}` : 'default'} className="step-tool-desc panel-swap">
-          {headerDesc}
-        </p>
+        <StateStack active={activeKey} items={views.map((v) => ({ key: v.key, node: <p className="step-tool-desc">{v.desc}</p> }))} />
       </div>
 
       <div className="civ-body">
@@ -474,23 +507,26 @@ export function CoachingInterventionWheel() {
 
         <WheelChips groups={chipGroups} onSelect={toggleFromChip} />
 
-        <aside ref={cardRef} key={sel ? `${sel.kind}:${sel.id}` : 'default'} className="step-tool-card civ-card panel-swap">
-          <p className="step-tool-card-kicker">{panelKicker}</p>
-          <p className="step-tool-card-title">{panelTitle}</p>
-          {panelBody || (
-            <p className="step-tool-card-p">
-              Three rings, one framework. Observe and Silence work with anyone, anytime — everything else pairs loosely
-              with specific moments and audiences. Select one to see how it fits with the rest of the wheel.
-            </p>
-          )}
+        <aside ref={cardRef} className="step-tool-card civ-card">
+          <StateStack
+            active={activeKey}
+            items={views.map((v) => ({
+              key: v.key,
+              node: (
+                <div className="step-tool-card-in">
+                  <p className="step-tool-card-kicker">{v.kicker}</p>
+                  <p className="step-tool-card-title">{v.title}</p>
+                  {v.body}
+                </div>
+              ),
+            }))}
+          />
         </aside>
       </div>
 
-      {sel && (
-        <button type="button" className="step-tool-clear" onClick={() => setSel(null)}>
-          Clear
-        </button>
-      )}
+      <button type="button" className="step-tool-clear" onClick={() => setSel(null)} disabled={!sel}>
+        Clear
+      </button>
     </div>
   )
 }

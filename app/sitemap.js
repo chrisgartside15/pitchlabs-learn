@@ -1,6 +1,7 @@
 import { getAllArticles, getArticlesByCluster } from '@/lib/articles'
 import { CLUSTERS } from '@/lib/clusters'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, TOOLS_PUBLISHED } from '@/lib/site'
+import { TOOLS as TOOL_REGISTRY } from '@/lib/tools'
 
 export default function sitemap() {
   const articles = getAllArticles()
@@ -34,5 +35,14 @@ export default function sitemap() {
     priority: 0.9,
   }))
 
-  return [...staticRoutes, ...topicRoutes, ...articleRoutes]
+  // Tools section: listed only once it is released (lib/site.js TOOLS_PUBLISHED).
+  const toolRoutes = TOOLS_PUBLISHED
+    ? [
+        { url: `${SITE_URL}/tools`, lastModified: latestDate, changeFrequency: 'monthly', priority: 0.7 },
+        { url: `${SITE_URL}/tools/7v7-formation-builder`, lastModified: latestDate, changeFrequency: 'monthly', priority: 0.8 },
+        ...TOOL_REGISTRY.map((t) => ({ url: `${SITE_URL}/tools/${t.slug}`, lastModified: latestDate, changeFrequency: 'monthly', priority: 0.6 })),
+      ]
+    : []
+
+  return [...staticRoutes, ...topicRoutes, ...toolRoutes, ...articleRoutes]
 }

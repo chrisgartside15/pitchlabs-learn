@@ -20,6 +20,7 @@ export default function ArticlesIndex() {
         <p>Every article, newest first.</p>
       </div>
 
+      <h2 className="sr-only">All articles</h2>
       <div className="articles-grid">
         {articles.map((article) => (
           <Link key={article.slug} href={`/articles/${article.slug}`} className="article-card">
