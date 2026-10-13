@@ -199,6 +199,38 @@ Items 4+ deliberately not planned yet — fill in once this series is moving.
 
 **Second cluster migration, same day (2026-09-26):** on Chris's review, cut from 6 clusters to 5. `coaching-u6-u10` retired — its decision-making-adjacent content merged into `coaching-principles` (STEP/the Intervention Wheel already *are* the differentiated U6–U10 coaching philosophy; a separate age cluster was splitting authority rather than concentrating it), replaced by a narrower `age-development` scoped specifically to what changes structurally by age (formats, group sizes, session length). `activities` cut outright — a generic drill library fails the wedge test explicitly (CLAUDE.md's own Decision-Making Framework: "Don't write it if: It's a generic activity/drill list with no original analysis"). `futsal-small-sided` renamed/narrowed to `futsal` — small-sided-format content (5v5/7v7) moved into `session-planning`, which was renamed `session-design` and broadened in scope to cover season/curriculum-level sequencing, not just single sessions (title: "Session & Curriculum Design"). Reassigned `why-your-practice-feels-like-chaos.mdx` and `coach-without-stopping-the-game.mdx` from `session-planning` to `session-design` (slug rename only, same articles, same reasoning as before). `how-much-should-you-actually-say.mdx` and `fundamentals-of-soccer-coaching.mdx` stay under `coaching-principles`, unchanged. Updated `lib/clusters.js`, CONTENT_STRATEGY.md, ROADMAP_6MONTH.md, and `_ARTICLE_TEMPLATE.mdx`'s stale slug list (which still listed slugs removed in the *first* migration — missed at the time). Final 5: `coaching-principles`, `session-design`, `age-development`, `futsal`, `coach-development`.
 
+## Queue: Formations & Animate pilot (added 2026-10-09)
+
+**Direction set by Chris, 2026-10-09:** a new homepage topic for formations; each formation is a series; the 1-2-3-1 (GK + 2-3-1, Chris's notation) goes first as two parts, **in possession** and **out of possession**. Each part is spoken through as if at a coaching education night with coaches, and is not tied to any one principle or methodology. The in-possession part starts from the team's own goal kick; the out-of-possession part starts from the opponent's goal kick. The first articles to embed PitchLabs Animate clips. All 11 live articles stay locked; the new pieces link to them, nothing in them changes. Nothing drafted yet; waiting on Chris's input on how he actually uses the shape (see open items).
+
+| # | Article (working titles) | Status | Draft keyword (volume unchecked) | Angle |
+|---|---|---|---|---|
+| 1 | 7v7 3-2-1 (1-3-2-1) in possession: from your own goal kick | **Planned, not drafted.** Slug TBD | 7v7 formations / 7v7 3-2-1 formation / 7v7 goal kick | Walk the room through the shape from the keeper's restart: where everyone stands, where the first pass goes, how the shape moves as the ball does. 3–4 Animate clips. "What I use and how I use it", one way among several. |
+| 2 | 7v7 3-2-1 (1-3-2-1) out of possession: when the opponent has the goal kick | **Planned, not drafted.** Slug TBD | 7v7 defending shape / 7v7 pressing goal kick | Same format from the other side: where the team sets up, when it moves, what changes once the ball is played. Depends on the build-out line rule below. |
+
+**Update 2026-10-09 (Chris):** the pilot shape is the **3-2-1** (1-3-2-1 with the keeper), not the 2-3-1. It is the shape his programme runs, and the opponent in the clips is the 2-3-1. The 2-3-1 build-out is a later piece. Why he runs it: it lets him teach players to ask questions that are impossible to answer (3v1s and 2v1s). Tournament material (IberCup-level U9/U10/U11 7v7) is *watched*, not coached: write it as "what I see". The "1-2-3-1" in the headings above predates this decision.
+
+**Structure decisions to confirm:**
+- **Topic (cluster):** new `lib/clusters.js` entry, working title "Formations & Team Shape". Clusters with no articles are hidden, so it can be created with two articles. Needs a pillar eventually (editorial principle 3); proposed: hold the pillar until a second formation exists, since a "choosing a shape" pillar needs something to compare.
+- **Series:** one series per formation, listed in `components/SeriesRecap.js` `SERIES` (the article frontmatter `series` / `seriesPart` / `seriesTotal` must match). Two parts to start; a third (transitions) is an option, not committed.
+- Cluster placement of the first two articles is `formations` once it exists (previously proposed `age-development`; superseded).
+
+**Rules facts that shape both articles (verified 2026-10-09, [U.S. Soccer, 2017](https://www.ussoccer.com/stories/2017/08/five-things-to-know-how-smallsided-standards-will-change-youth-soccer)):** build-out line is a sideline-to-sideline line 14 yards in front of each goal, starting at under-9. When the keeper has the ball in hand or takes a goal kick, the opposing team stays behind the line until the ball is back in play. Punts and drop kicks are banned for the keeper. Local leagues vary: some place the line differently and some have dropped it for 9v9. Not verified: the current rulebook text, and whether U.S. Soccer's "recommended formations" for 7v7 include the 2-3-1 (the page says they exist but doesn't list them). **Articles must tell readers to check their own league's rules.**
+
+**Open items before drafting:**
+- Chris's real practice: what he runs at U9–U10, how he teaches the shape, what goes wrong most often, which league rules he plays under. No anecdotes or "I do X" claims get written until he supplies them.
+- Lead finding and sources: to be researched and logged in COACHING_FRAMEWORK.md. Nothing assumed. Must sit honestly beside small-sided-games' finding that 3v3/4v4 give more actions per player than 7v7.
+- Embed plumbing: a `VideoClip` component (basePath-aware src, poster, lazy-load, GA4 `video_play`) and an MP4 hosting decision (default: `public/`, revisit if clips multiply). Clips exported from Animate (Pro/Founder).
+- Scope note: 9v9 / 11v11 shapes and anything on how senior or professional teams build out are outside Chris's experience and would be source-based only. Not part of these articles.
+
+## Idea queue (not planned, not drafted)
+
+**Play volume between club sessions, ages 6–12 (idea from Chris, 2026-10-10).** Parent-facing: kids who train in different environments and get more touches improve quicker; many families do only the 2–3 club sessions a week and wonder why their player improves more slowly than kids who play more.
+- **Evidence so far** (COACHING_FRAMEWORK.md, "Playing time, play volume and selection"): the one study that matches is Ford et al. 2009 (English academy players, ages 6–12, more informal soccer *play* separated those who turned professional; retrospective and correlational). No study found showing extra minutes or touches *cause* faster improvement, and selection studies show minutes follow ability and birth date. "Will improve significantly quicker" cannot be stated as established.
+- **Open decisions:** audience (Learn's reader is coaches; options: parents directly, or written so a coach can send it to the parent who asks "what can my child do at home?"); whether to offer a printable ("between sessions" sheet); Chris's own observations from his programme, labelled as such.
+- **Risks to design out:** blaming families ("wonder why"); a parent reading "more" as "book more paid training" when the finding is about play; any claim of causation.
+- Parked behind the 3-2-1 pilot.
+
 ## Per-Article Process Checklist
 
 - [ ] Added to queue with cluster + draft keyword
@@ -222,3 +254,24 @@ Items 4+ deliberately not planned yet — fill in once this series is moving.
 - **COACHING_FRAMEWORK.md** — the STEP and Intervention Wheel research base articles 2 and 3 draw from
 - **ROADMAP_6MONTH.md** — cluster priority and sequencing
 - **PERFORMANCE_FRAMEWORK.md** — what to check once articles are live
+
+## Queue: 7v7 formations pillar + formation builder (added 2026-10-13)
+
+**One release, three parts. Nothing is approved or published.** Chris signs off before any of it goes live.
+
+| Part | File | State |
+|---|---|---|
+| Pillar article, "7v7 Formations: 2-3-1 or 3-2-1, and How to Choose" | `content/articles/7v7-soccer-formations.mdx` | **Published and locked 2026-10-13** on Chris's go, after his interview answers the same day. |
+| Formation builder tool page and Tools section | `app/tools/` | **Released 2026-10-13** (`TOOLS_PUBLISHED = true` in `lib/site.js`): indexable, in the sitemap, linked from the nav. |
+| Embed route | `app/embed/shape-board/page.js` | Built, `noindex`. |
+| Topic `formations` | `lib/clusters.js` (hidden until it has a published article) | Added. |
+
+**Go-live checklist:** (1) Chris reads the article and fixes the wording of his opinions; (2) Chris supplies where the 2-3-1 goes wrong (the one deliberate gap); (3) confirm the 2-3-1 central mid (8 or 6), the 3-1-2 forwards (10 and 9) and the 3-2-1 midfielder sides (6 left, 8 right); (4) confirm the Animate CTA line is true of the product; (5) rename the article file to `7v7-soccer-formations.mdx`; (6) set `TOOLS_PUBLISHED = true` in `lib/site.js` (one switch: shows the Tools nav link, `/tools`, the builder and embed routes, the sitemap entries, the Formations topic tool card, and the gated links added to three older articles); (7) `npm run check:pitch`, `npm run verify:diagrams`, `npm run build`; (8) in GA4 register `embed_host` as an event-scoped custom dimension (tool and action are used by the admin already).
+
+**Evidence and sources:** `COACHING_FRAMEWORK.md`, "7v7 formations guide" sections. **Tool design notes and progress:** `SHAPE_BOARD_DEEP_DIVE.md`.
+
+**Not built:** the "Open in PitchLabs" deep link and a printable lineup card (both need app changes, so need approval first), and a physical-device and Android test pass.
+
+**Cross-links added 2026-10-13 (Chris approved link-only edits to locked articles):** `small-sided-games`, `coaching-u6-to-u10`, `how-to-plan-a-soccer-training-session` each end with a block wrapped in `<IfPublished slug="7v7-soccer-formations" tool>`, so the link appears only once the article and the Tools section are live. The new article already links to all three, and to the tool.
+
+**Tools section, 2026-10-13:** besides the formation builder, six existing article tools now have their own `/tools/<slug>` page from one registry (`lib/tools.js`, route `app/tools/[slug]`): small-sided-game-splitter, step-framework-tool, session-audit, couldnt-or-didnt, coaching-interaction-picker, coaching-intervention-wheel. Same release switch (`TOOLS_PUBLISHED`). The article components are unchanged except for analytics: `StepTool`, `InterventionWheelTool` and `CoachingInterventionWheel` now fire `tool_use` (tools `step_tool`, `intervention_picker`, `intervention_wheel`; action `select_<id>`), so all tools appear in the admin's tool table. Copy on the new pages is drafted from each article and component, and needs Chris's read before release (especially the two "version I use" attribution lines).

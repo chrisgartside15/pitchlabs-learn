@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { GA_MEASUREMENT_ID, APP_URL } from '@/lib/analytics'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, SHOW_TOOLS } from '@/lib/site'
 import { GoogleAnalyticsPageTracker } from '@/components/GoogleAnalyticsPageTracker'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 
@@ -90,12 +90,13 @@ export default function RootLayout({ children }) {
           Skip to content
         </a>
         <header className="header">
-          <nav className="nav">
+          <nav className="nav" aria-label="Main">
             <Link href="/" className="logo">
               PitchLabs <span className="logo-accent">Learn</span>
             </Link>
             <div className="nav-links">
               <Link href="/topics">Topics</Link>
+              {SHOW_TOOLS && <Link href="/tools">Tools</Link>}
               <Link href="/articles">Articles</Link>
               <TrackedCtaLink href={APP_URL} location="nav" className="nav-cta">
                 Build Sessions

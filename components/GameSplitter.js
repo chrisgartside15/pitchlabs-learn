@@ -91,6 +91,7 @@ export function GameSplitter() {
   }
   const rows = options(players)
   const anyNeutral = rows.some((r) => r.hasNeutral)
+  const anyStart = rows.some((r) => r.start)
 
   return (
     <div className="step-tool gs-tool">
@@ -115,6 +116,8 @@ export function GameSplitter() {
           </button>
           <input
             id="gs-players"
+            name="players"
+            autoComplete="off"
             className="gs-number"
             type="number"
             inputMode="numeric"
@@ -144,12 +147,18 @@ export function GameSplitter() {
           <span>Per ball</span>
           <span>Goals</span>
         </div>
+        {/* Always four rows, so changing the number of players never changes the table's height. */}
         {rows.map((r) => (
           <div key={r.games} className={`gs-row${r.start ? ' gs-row-start' : ''}`}>
             <span className="gs-games">{r.games === 1 ? 'One game' : `${r.games} games`}</span>
             <span className="gs-split">
               {r.label}
               {r.start && <span className="gs-tag">Start here</span>}
+              {!anyStart && r.games === 1 && (
+                <span className="gs-tag gs-tag-ghost" aria-hidden="true">
+                  Start here
+                </span>
+              )}
             </span>
             <span className="gs-per-ball">
               <span className="gs-cell-label">Per ball </span>
@@ -161,8 +170,31 @@ export function GameSplitter() {
             </span>
           </div>
         ))}
+        {Array.from({ length: MAX_GAMES - rows.length }, (_, i) => (
+          <div key={`empty-${i}`} className="gs-row gs-row-empty">
+            <span className="gs-games">{rows.length + i + 1} games</span>
+            <span className="gs-split">Needs more players</span>
+            <span className="gs-per-ball">
+              <span className="gs-cell-label">Per ball </span>–
+            </span>
+            <span className="gs-goals">
+              <span className="gs-cell-label">Goals </span>–
+            </span>
+          </div>
+        ))}
       </div>
 
+      <div className="gs-notes-wrap">
+      <div className="gs-notes gs-sizer" aria-hidden="true">
+        <p>
+          At this size the games can’t all be 3v3 or 4v4. Splitting still means more of the ball each; one game keeps a
+          bit more room for decisions. If the decision you want needs more players, move up a row.
+        </p>
+        <p>
+          With an odd number, one game has a neutral who plays for whichever team has the ball. Swap who it is every few
+          minutes so nobody spends the session as the spare.
+        </p>
+      </div>
       <div className="gs-notes">
         {rows[0].start ? (
           <p>At this size, one game is already 3v3 or 4v4.</p>
@@ -184,6 +216,7 @@ export function GameSplitter() {
             minutes so nobody spends the session as the spare.
           </p>
         )}
+      </div>
       </div>
     </div>
   )

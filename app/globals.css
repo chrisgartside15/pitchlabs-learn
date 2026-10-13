@@ -11,7 +11,7 @@
 
   --fg: #ededed;
   --fg-muted: #b0b0b0;
-  --fg-subtle: #737373;
+  --fg-subtle: #8b949e; /* was #737373 (3.95:1 on --surface-0); raised 2026-10-13 after an axe scan of every page */
 
   --border-subtle: rgba(255, 255, 255, 0.07);
 
@@ -156,22 +156,35 @@ nav.nav {
 
 @media (max-width: 480px) {
   nav.nav {
-    padding: 1rem 1rem;
-    gap: 0.75rem;
+    padding: 1rem 0.75rem;
+    gap: 0.5rem;
   }
   .logo {
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
   }
   .nav-links {
-    gap: 0.7rem;
+    gap: 0.55rem;
   }
   .nav-links a {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
   .nav-links a.nav-cta {
-    padding: 0.4rem 0.7rem;
-    font-size: 0.74rem;
+    padding: 0.38rem 0.6rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* On the narrowest phones (under 390px) the logo and the four links take a row each, so nothing is pushed off the
+   side. Four links only just fit 375px on one row, and font rendering differs by device, so wrap with margin to spare. */
+@media (max-width: 389px) {
+  nav.nav {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
@@ -306,7 +319,7 @@ main.container {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--fg-subtle);
+  color: var(--fg-muted); /* the subtle token fails 4.5:1 here (axe scan 2026-10-13) */
 }
 
 .tldr-body {
@@ -1121,7 +1134,7 @@ article .download-card-button:hover,
 }
 
 .author-bio-credentials {
-  color: var(--fg-subtle);
+  color: var(--fg-muted); /* the subtle token fails 4.5:1 here (axe scan 2026-10-13) */
   font-size: 0.85rem;
   margin-top: 0.15rem;
   line-height: 1.25;
@@ -1211,6 +1224,8 @@ article .download-card-button:hover,
 }
 
 .pillar-slot-label {
+  margin: 0;
+  line-height: 1.4;
   font-family: var(--font-mono-family);
   font-size: 0.72rem;
   font-weight: 600;
@@ -2164,7 +2179,7 @@ footer.footer {
 }
 
 .footer-inner p {
-  color: var(--fg-subtle);
+  color: var(--fg-muted); /* --fg-subtle (#737373) fails 4.5:1 on the footer; found by an axe scan 2026-10-13 */
   font-size: 0.85rem;
 }
 
@@ -3155,5 +3170,1316 @@ footer.footer {
   }
   .wheel-chip.active .wheel-chip-meta {
     color: #08130d;
+  }
+}
+
+/* ===== Shape board (7v7 formations article) ===== */
+.sb-notation {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin-bottom: 0.1rem;
+}
+
+.sb-notation-num {
+  font-family: var(--font-mono-family);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+}
+
+.sb-notation-note {
+  color: var(--fg-subtle);
+  font-size: 0.85rem;
+}
+
+
+.sb-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+  gap: 1.5rem 2rem;
+  align-items: start;
+  margin-top: 1.25rem;
+}
+
+@container (max-width: 640px) {
+  .sb-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sb-board {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}
+
+
+
+
+
+
+.sb-notation-vs {
+  font-family: var(--font-mono-family);
+  font-size: 1.1rem;
+  color: var(--fg-muted);
+}
+
+.sb-notation-v {
+  color: var(--fg-subtle);
+  font-size: 0.85rem;
+}
+
+.sb-notation-opp {
+  color: #ff7b72;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.sb-notation-note {
+  margin: 0 0 0.6rem;
+}
+
+.sb-pitch-wrap {
+  position: relative;
+  margin: 0 auto;
+}
+
+.sb-pitch {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 18px 36px -18px rgba(0, 0, 0, 0.6);
+}
+
+.sb-mark {
+  stroke: inherit;
+  stroke-width: 2;
+  fill: none;
+}
+
+.sb-goal {
+  fill: rgba(255, 255, 255, 0.28);
+  stroke: inherit;
+  stroke-width: 1.5;
+}
+
+.sb-ball-img {
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.55));
+}
+
+.sb-channel {
+  fill: var(--brand-a14);
+  stroke: var(--brand-a35);
+  stroke-width: 1;
+  stroke-dasharray: 6 6;
+}
+
+.sb-buildout {
+  stroke: rgba(242, 193, 78, 0.42);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 7;
+  animation: sb-fade 0.3s ease both;
+}
+
+.sb-buildout-label {
+  fill: rgba(242, 193, 78, 0.85);
+  font-family: var(--font-mono-family);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+
+.sb-row {
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+  animation: sb-fade 0.3s ease both;
+}
+
+.sb-diamond {
+  fill: var(--brand-a25);
+  stroke: var(--brand-text);
+  stroke-width: 2;
+  animation: sb-fade 0.3s ease both;
+  pointer-events: none;
+}
+
+.sb-lane {
+  stroke: var(--brand-text);
+  stroke-width: 2;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.sb-lane-blocked {
+  stroke: #ff7b72;
+  stroke-dasharray: 5 6;
+  opacity: 0.8;
+}
+
+.sb-pass {
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  pointer-events: none;
+  animation: sb-pass 1s ease-out both;
+}
+
+.sb-player {
+  touch-action: none; /* a finger on a player drags it; the rest of the pitch still scrolls the page */
+  cursor: grab;
+  outline: none;
+  transition: transform 0.65s var(--ease-snap), opacity 0.35s ease;
+}
+
+.sb-dragging .sb-player {
+  transition: none;
+  cursor: grabbing;
+}
+
+.sb-player:focus-visible .sb-dot {
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.sb-hit {
+  fill: transparent;
+}
+
+.sb-dot {
+  stroke: rgba(0, 0, 0, 0.4);
+  stroke-width: 2;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.45));
+}
+
+.sb-us {
+  fill: var(--brand);
+}
+
+.sb-opp {
+  fill: #d9544d;
+  animation: sb-fade 0.3s ease both;
+}
+
+.sb-gk {
+  stroke: #ffffff;
+  stroke-width: 2.5;
+}
+
+.sb-carrier {
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.sb-label {
+  fill: #08130d;
+  font-family: var(--font-mono-family);
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.sb-ballg {
+  pointer-events: none;
+  transition: transform 0.55s var(--ease-snap);
+}
+
+.sb-dragging .sb-ballg {
+  transition: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.sb-caption {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.sb-caption p + p {
+  margin-top: 0.6rem;
+}
+
+.sb-caption-small {
+  font-size: 0.85rem;
+  color: var(--fg-subtle);
+}
+
+@keyframes sb-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sb-pass {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .sb-player,
+  .sb-ballg,
+  .sb-row,
+  .sb-diamond,
+  .sb-opp,
+  .sb-buildout,
+  .sb-pass,
+  .sb-hint {
+    transition: none;
+    animation: none;
+  }
+}
+
+
+/* ---- panel: one visual system (segmented controls, switches, buttons) ---- */
+.sb-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.sb-group-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono-family);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.sb-group-label-opp {
+  color: #ff7b72;
+}
+
+.sb-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  background: var(--surface-0);
+}
+
+.sb-seg-btn {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.5rem 0.25rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--fg-muted);
+  font-family: var(--font-mono-family);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sb-seg-btn:hover:not(.is-on) {
+  background: var(--surface-2);
+  color: var(--fg);
+}
+
+.sb-seg-btn.is-on {
+  background: var(--brand);
+  color: #08130d;
+}
+
+.sb-seg-opp .sb-seg-btn.is-on {
+  background: #d9544d;
+  color: #1a0807;
+}
+
+.sb-switches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.sb-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg-muted);
+  font-family: var(--font-body-family);
+  font-size: 0.82rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.sb-switch:hover:not(:disabled) {
+  border-color: var(--brand-a35);
+  color: var(--fg);
+}
+
+.sb-switch:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sb-switch-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1.5px solid var(--fg-subtle);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sb-switch.is-on {
+  border-color: var(--brand-a35);
+  background: var(--brand-a08);
+  color: var(--fg);
+}
+
+.sb-switch.is-on .sb-switch-dot {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.sb-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.sb-btn {
+  padding: 0.55rem 0.4rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-body-family);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sb-btn:hover:not(:disabled) {
+  border-color: var(--brand-a35);
+  background: var(--brand-a08);
+}
+
+.sb-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sb-status {
+  min-height: 1.1rem;
+  margin-top: 0.4rem;
+  color: var(--brand-text);
+  font-size: 0.78rem;
+}
+
+.sb-hint {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  color: var(--fg-subtle);
+  font-size: 0.8rem;
+}
+
+.sb-hint strong {
+  color: var(--fg-muted);
+  font-weight: 600;
+}
+
+.sb-pulse {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sb-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sb-pulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+.sb-player:hover .sb-dot {
+  stroke: #ffffff;
+}
+
+/* ---- rotation planner ---- */
+.sb-viewswitch {
+  max-width: 340px;
+  margin: 0 0 0.25rem;
+}
+
+.sb-stepper {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) 2.6rem;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.sb-stepper-n {
+  text-align: center;
+  color: var(--fg);
+  font-family: var(--font-mono-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.sb-input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--surface-0);
+  color: var(--fg);
+  font-family: var(--font-body-family);
+  font-size: 0.85rem;
+}
+
+.sb-input:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+  border-color: var(--brand-a35);
+}
+
+.sb-plan {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.sb-plan-summary {
+  margin-bottom: 0.9rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.sb-plan-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+
+.sb-plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.sb-plan-table th,
+.sb-plan-table td {
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sb-plan-table thead th {
+  color: var(--fg-subtle);
+  font-family: var(--font-mono-family);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sb-plan-table tbody tr:last-child th,
+.sb-plan-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sb-plan-table th[scope='row'] {
+  text-align: left;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.sb-plan-table th:first-child {
+  text-align: left;
+}
+
+.sb-plan-table .is-on {
+  background: var(--brand-a08);
+}
+
+.sb-plan-num {
+  display: inline-block;
+  width: 1.5rem;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono-family);
+  font-size: 0.75rem;
+}
+
+.sb-plan-played {
+  color: var(--fg-muted);
+  font-family: var(--font-mono-family);
+}
+
+.sb-cell {
+  display: inline-block;
+  min-width: 2.3rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  font-family: var(--font-mono-family);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.sb-cell-G {
+  background: rgba(242, 193, 78, 0.16);
+  color: #f2c14e;
+}
+
+.sb-cell-D {
+  background: rgba(79, 174, 106, 0.16);
+  color: var(--brand-text);
+}
+
+.sb-cell-M {
+  background: rgba(96, 165, 250, 0.16);
+  color: #8ab4ff;
+}
+
+.sb-cell-F {
+  background: rgba(255, 123, 114, 0.16);
+  color: #ff9a93;
+}
+
+.sb-cell-sub {
+  color: var(--fg-subtle);
+  font-weight: 500;
+}
+
+.sb-plan-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.sb-plan-actions .sb-btn {
+  padding-inline: 1rem;
+}
+
+.sb-plan-actions .sb-status {
+  margin: 0;
+}
+
+/* Phones: give the tool its width back and keep the segmented controls inside it. */
+@media (max-width: 520px) {
+  .sb-tool.step-tool {
+    padding: 1.25rem 0.9rem;
+  }
+
+  .sb-seg-btn {
+    font-size: 0.66rem;
+    letter-spacing: 0;
+    padding: 0.5rem 0.15rem;
+  }
+
+  .sb-switch {
+    padding: 0.5rem 0.55rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ---- embed ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.embed-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: auto;
+  padding: 0.75rem;
+  background: var(--surface-0);
+}
+
+.embed-shell .step-tool {
+  margin: 0;
+}
+
+.embed-credit {
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+.embed-credit a {
+  color: var(--fg-subtle);
+}
+
+.embed-code {
+  margin: 0.75rem 0 1.5rem;
+}
+
+.embed-code-box {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--surface-1);
+  color: var(--fg-muted);
+  font-family: var(--font-mono-family);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.embed-code-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+.embed-code-row .sb-btn {
+  padding-inline: 1rem;
+}
+
+.embed-code-row .sb-status {
+  margin: 0;
+}
+
+/* ---- formation diagrams in the 7v7 formations article ---- */
+.formation-figure {
+  float: right;
+  width: min(300px, 42%);
+  margin: 0.25rem 0 1rem 1.75rem;
+}
+
+.formation-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+article h2 {
+  clear: both;
+}
+
+@media (max-width: 640px) {
+  .formation-figure {
+    float: none;
+    width: min(320px, 100%);
+    margin: 1rem auto;
+  }
+}
+
+.formation-table th:first-child,
+.formation-table td:first-child {
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* Legibility and interaction polish for the shape board and its article. */
+.sb-seg-btn,
+.sb-switch,
+.sb-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sb-plan-table td,
+.sb-plan-table th,
+.sb-notation-num,
+.sb-stepper-n,
+.formation-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+article h1,
+article h2 {
+  text-wrap: balance;
+}
+
+.sb-seg-btn:focus-visible,
+.sb-switch:focus-visible,
+.sb-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+
+/* ---- deep link + printing the rotation plan ---- */
+.sb-open-link {
+  display: inline-block;
+  margin-top: 0.4rem;
+  color: var(--brand-text);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.sb-open-link:hover {
+  text-decoration: underline;
+}
+
+.sb-print-only {
+  display: none;
+}
+
+@media print {
+  html.sb-printing body * {
+    visibility: hidden;
+  }
+
+  html.sb-printing .sb-plan,
+  html.sb-printing .sb-plan * {
+    visibility: visible;
+  }
+
+  html.sb-printing .sb-plan {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  html.sb-printing .sb-plan,
+  html.sb-printing .sb-plan * {
+    color: #000 !important;
+    background: #fff !important;
+    border-color: #888 !important;
+    box-shadow: none !important;
+  }
+
+  html.sb-printing .sb-print-only {
+    display: block;
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  html.sb-printing .sb-plan-actions,
+  html.sb-printing .sb-plan .sb-caption-small {
+    display: none !important;
+  }
+
+  html.sb-printing .sb-cell {
+    border: 1px solid #888;
+    font-weight: 700;
+  }
+}
+
+/* ---- shape board, 2026-10-13 clean-up: header row, legend, four actions, period buttons ---- */
+.sb-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+}
+
+.sb-top .sb-viewswitch {
+  flex: 0 1 320px;
+  margin: 0;
+}
+
+.sb-tool .sb-actions {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@container (max-width: 520px) {
+  .sb-tool .sb-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.sb-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 0.9rem;
+  margin: 0.45rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--fg-subtle);
+  font-size: 0.76rem;
+}
+
+.sb-legend li {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.sb-legend-key {
+  color: var(--fg-muted);
+  font-family: var(--font-mono-family);
+  font-weight: 700;
+}
+
+.sb-plan-period {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.sb-plan-period:hover {
+  border-color: var(--brand-a35);
+  color: var(--fg);
+}
+
+.sb-plan-period[aria-pressed='true'] {
+  border-color: var(--brand-a35);
+  color: var(--brand-text);
+}
+
+.sb-plan-period:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+
+.sb-plan-actions {
+  flex-wrap: wrap;
+}
+
+@media print {
+  html.sb-printing .sb-plan-period {
+    border: 0;
+    padding: 0;
+  }
+}
+
+/* ---- tool cards (the /tools index and the "more free tools" strips) ---- */
+.tool-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-1);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.2s var(--ease-snap);
+}
+
+.tool-card:hover {
+  border-color: var(--brand-a35);
+  transform: translateY(-2px);
+}
+
+.tool-card:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.tool-card-kind {
+  color: var(--brand-text);
+  font-family: var(--font-mono-family);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.tool-card h3 {
+  margin: 0;
+  font-family: var(--font-display-family);
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+.tool-card p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.tool-embed {
+  margin: 1.5rem 0 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+
+.tool-embed summary {
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.tool-embed p {
+  margin: 0.75rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.tool-cta {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-1);
+}
+
+.tool-cta p {
+  margin: 0 0 0.9rem;
+  color: var(--fg-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card {
+    transition: none;
+  }
+
+  .tool-card:hover {
+    transform: none;
+  }
+}
+
+/* Wide tables scroll inside their own box on small phones, so the page itself never scrolls sideways. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll > table {
+  min-width: 30rem;
+}
+
+/* ---- shape board: arrows, zones, phase ---- */
+.sb-seg-gap {
+  margin-top: 0.4rem;
+}
+
+.sb-pitch.sb-drawing {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.sb-arrow-line {
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.sb-zone-band {
+  fill: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.sb-zone-line {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 7;
+  pointer-events: none;
+}
+
+/* ===========================================================================
+   Tools sweep, 2026-10-13: one behaviour for every tool.
+   - StateStack: all states of a panel share one grid cell, so nothing resizes when a selection is made or cleared.
+   - Sizers: an invisible copy of the tallest result reserves its space.
+   - Phones: the same gutters, padding and tap sizes on every tool.
+   =========================================================================== */
+.state-stack {
+  display: grid;
+}
+
+.state-stack-item {
+  grid-area: 1 / 1;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.state-stack-item.is-active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* The header line of each tool sits in a stack, so its bottom margin belongs to the stack. */
+.step-tool-header .state-stack .step-tool-desc {
+  margin-bottom: 0;
+}
+
+.step-tool-header .state-stack {
+  margin: 0.6rem 0 1rem;
+}
+
+.step-tool-header .state-stack .step-tool-desc {
+  margin-top: 0;
+}
+
+/* Detail cards: the layout that used to sit on the card now sits on its inner wrapper. */
+@container (min-width: 500px) {
+  .step-tool-card {
+    display: block;
+  }
+
+  .step-tool-card-wide .step-tool-card-in {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    column-gap: 1.25rem;
+    align-content: start;
+  }
+}
+
+.step-tool-card-in > :last-child {
+  margin-bottom: 0;
+}
+
+/* Clear is always there, so its row never appears or disappears. */
+.step-tool-clear:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.step-tool-clear:disabled:hover {
+  border-color: var(--border-subtle);
+  color: var(--fg-muted);
+}
+
+/* Couldn't or Didn't: the empty state is a card too, the same size as any result. */
+.cd-result-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-style: dashed;
+  border-color: var(--border-subtle);
+  background: transparent;
+}
+
+.cd-result .state-stack-item > .cd-result-card {
+  height: 100%;
+}
+
+.cd-reset {
+  margin-top: 1rem;
+}
+
+/* Sizers */
+.audit-result {
+  display: grid;
+}
+
+.audit-sizer,
+.audit-live {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.audit-sizer,
+.gs-sizer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gs-notes-wrap {
+  display: grid;
+}
+
+.gs-notes-wrap > .gs-notes {
+  grid-area: 1 / 1;
+  align-content: start;
+}
+
+/* Placeholder rows are real, readable text ("Needs more players"), so no opacity: quiet colour and weight instead. */
+.gs-row-empty,
+.gs-row-empty * {
+  color: var(--fg-subtle);
+  font-weight: 400;
+}
+
+/* Shape board: lines whose length changes keep a fixed amount of room. */
+.sb-hint {
+  min-height: 2.6em;
+}
+
+.sb-legend {
+  min-height: 2.8em;
+  align-content: start;
+}
+
+.sb-plan-summary {
+  min-height: 4.7em;
+}
+
+.sb-caption > .state-stack p {
+  margin: 0 0 0.6rem;
+}
+
+.sb-caption > .state-stack p:empty {
+  margin: 0;
+}
+
+.sb-seg-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Phones: the same spacing on every page and every tool. */
+@media (max-width: 560px) {
+  main.container {
+    padding: 2rem 1.1rem;
+  }
+
+  .articles-page {
+    padding: 0 0 64px;
+  }
+
+  .step-tool,
+  .session-audit {
+    padding: 1.25rem 1rem;
+    margin: 1.25rem 0;
+  }
+
+  /* Tap targets of at least 40px on a phone. */
+  .step-tool-chip,
+  .wheel-chip,
+  .cd-answer,
+  .audit-seg-btn,
+  .audit-remove,
+  .gs-step,
+  .sb-seg-btn,
+  .sb-switch,
+  .sb-btn,
+  .step-tool-clear {
+    min-height: 40px;
+  }
+
+  .sb-plan-period {
+    min-height: 40px;
+    min-width: 40px;
+  }
+}
+
+/* Sweep follow-ups: the last few things that changed a tool's height, and phone tap sizes for text links. */
+.sb-hint,
+.sb-legend {
+  min-height: 0;
+}
+
+.gs-tag-ghost {
+  visibility: hidden;
+}
+
+@media (max-width: 560px) {
+  .sb-open-link,
+  .audit-link-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+}
+
+/* Tools sweep: one floor for small labels on phones, so no tool has text under 11px. */
+@media (max-width: 560px) {
+  .gs-tag,
+  .step-tool-card-kicker,
+  .audit-seg-btn,
+  .cd-branch-label,
+  .cd-outcome-kicker,
+  .cd-answer-small,
+  .wheel-chip-label,
+  .sb-seg-btn,
+  .sb-group-label {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Copy that names a layout only shows where that layout exists (the wheels become chips under 560px). */
+.only-phone {
+  display: none;
+}
+@media (max-width: 560px) {
+  .only-wide {
+    display: none;
+  }
+  .only-phone {
+    display: inline;
+  }
+}
+
+@media (max-width: 560px) {
+  /* The reserved result box is tall on a phone: keep its hint at the top, where it comes into view first. */
+  .cd-result-empty {
+    align-items: flex-start;
   }
 }

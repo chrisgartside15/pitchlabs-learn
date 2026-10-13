@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { WheelChips, scrollCardIntoView } from './WheelChips'
+import { trackEvent } from '@/lib/analytics'
+import { StateStack } from '@/components/StateStack'
 import { INTERACTIONS as SHARED_INTERACTIONS, STOPPAGE_NAMES } from '@/lib/coachingInteractions'
 
 /**
@@ -59,7 +61,11 @@ const LABEL_MAX_WIDTH = 44
 
 export function InterventionWheelTool() {
   const [selected, setSelected] = useState(null)
-  const active = selected ? INTERACTIONS.find((i) => i.id === selected) : null
+
+  // GA4 (added 2026-10-13, analytics only): which interaction a reader opens.
+  useEffect(() => {
+    if (selected) trackEvent('tool_use', { tool: 'intervention_picker', action: `select_${selected}` })
+  }, [selected])
   const svgRef = useRef(null)
   const cardRef = useRef(null)
 
@@ -93,11 +99,20 @@ export function InterventionWheelTool() {
           <span aria-hidden="true" className="tech-eyebrow-tick" />
           Interactive · Pick an interaction
         </span>
-        <p key={selected ?? 'default'} className="step-tool-desc panel-swap">
-          {active
-            ? active.def
-            : "Once you've decided to say something, how do you say it? Twelve ways to interact once you've stepped in — from saying nothing at all to a direct instruction. Select one to see how it sounds."}
-        </p>
+        <StateStack
+          active={selected ?? 'default'}
+          items={[
+            {
+              key: 'default',
+              node: (
+                <p className="step-tool-desc">
+                  Once you&apos;ve decided to say something, how do you say it? Twelve ways to interact once you&apos;ve stepped in — from saying nothing at all to a direct instruction. Select one to see how it sounds.
+                </p>
+              ),
+            },
+            ...INTERACTIONS.map((x) => ({ key: x.id, node: <p className="step-tool-desc">{x.def}</p> })),
+          ]}
+        />
       </div>
 
       <div className="wheel-tool-body">
@@ -177,35 +192,44 @@ export function InterventionWheelTool() {
           }}
         />
 
-        <aside ref={cardRef} key={selected ?? 'default'} className="step-tool-card wheel-tool-card panel-swap">
-          <p className="step-tool-card-kicker">{active ? 'Sounds like' : 'Start here'}</p>
-          <p className="step-tool-card-title">{active ? active.name : 'Pick an interaction'}</p>
-          {active ? (
-            <>
-              <p className="step-tool-card-p">
-                {active.sounds ? `"${active.sounds}"` : active.universal}
-              </p>
-              {active.pairs.length > 0 && (
-                <p className="step-tool-card-note">
-                  Works well with: {active.pairs.join(', ')} — suggested pairings, not rules.
-                </p>
-              )}
-            </>
-          ) : (
-            <p className="step-tool-card-p">
-              Twelve segments, one wheel. Observe and Silence work with anyone, anytime — the rest
-              pair loosely with specific moments in a session. Select one to see how it actually
-              sounds out loud.
-            </p>
-          )}
+        <aside ref={cardRef} className="step-tool-card wheel-tool-card">
+          <StateStack
+            active={selected ?? 'default'}
+            items={[
+              {
+                key: 'default',
+                node: (
+                  <div className="step-tool-card-in">
+                    <p className="step-tool-card-kicker">Start here</p>
+                    <p className="step-tool-card-title">Pick an interaction</p>
+                    <p className="step-tool-card-p">
+                      Twelve interactions. Observe and Silence work with anyone, anytime — the rest pair loosely with
+                      specific moments in a session. Select one to see how it actually sounds out loud.
+                    </p>
+                  </div>
+                ),
+              },
+              ...INTERACTIONS.map((x) => ({
+                key: x.id,
+                node: (
+                  <div className="step-tool-card-in">
+                    <p className="step-tool-card-kicker">Sounds like</p>
+                    <p className="step-tool-card-title">{x.name}</p>
+                    <p className="step-tool-card-p">{x.sounds ? `"${x.sounds}"` : x.universal}</p>
+                    {x.pairs.length > 0 && (
+                      <p className="step-tool-card-note">Works well with: {x.pairs.join(', ')} — suggested pairings, not rules.</p>
+                    )}
+                  </div>
+                ),
+              })),
+            ]}
+          />
         </aside>
       </div>
 
-      {selected && (
-        <button type="button" className="step-tool-clear" onClick={() => setSelected(null)}>
-          Clear
-        </button>
-      )}
+      <button type="button" className="step-tool-clear" onClick={() => setSelected(null)} disabled={!selected}>
+        Clear
+      </button>
     </div>
   )
 }

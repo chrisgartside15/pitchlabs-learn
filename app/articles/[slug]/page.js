@@ -16,7 +16,10 @@ import { SessionAudit } from '@/components/SessionAudit'
 import { CouldntOrDidnt } from '@/components/CouldntOrDidnt'
 import { InvolvementChart } from '@/components/InvolvementChart'
 import { GameSplitter } from '@/components/GameSplitter'
+import { IfPublished } from '@/components/IfPublished'
+import { ShapeBoard } from '@/components/ShapeBoard'
 import { getCluster } from '@/lib/clusters'
+import { faqJsonLd } from '@/lib/faq'
 import { SITE_URL } from '@/lib/site'
 
 // Spacing/typography/color for these all now live in globals.css (`article h1`, `article a`,
@@ -37,6 +40,8 @@ const components = {
   CouldntOrDidnt,
   InvolvementChart,
   GameSplitter,
+  ShapeBoard,
+  IfPublished,
   a: MdxLink,
 }
 
@@ -133,6 +138,9 @@ export default function ArticlePage({ params }) {
     ],
   }
 
+  // FAQPage structured data, opt-in (`faqSchema: true`), built from the article's visible "Common questions" block.
+  const faqLd = article.meta.faqSchema ? faqJsonLd(article.content) : null
+
   return (
     <>
       {/* Article structured data — the search-result rich card (author, date, headline) reads
@@ -145,6 +153,12 @@ export default function ArticlePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
       <article>
         <div className="article-header">
           {cluster ? (
@@ -202,7 +216,7 @@ export default function ArticlePage({ params }) {
       {(nextArticle || prevArticle) && (
         <>
           <PitchDivider className="article-nav-divider" />
-          <nav className="article-nav">
+          <nav className="article-nav" aria-label="More articles">
           {prevArticle ? (
             <Link href={`/articles/${prevArticle.slug}`} className="nav-link prev">
               ← {prevArticle.meta.title}
