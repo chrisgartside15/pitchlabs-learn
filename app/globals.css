@@ -2279,7 +2279,6 @@ footer.footer {
   margin: 40px 0 48px 0;
   padding-bottom: 40px;
   border-bottom: 1px solid var(--border-subtle);
-  animation: fadeIn 0.5s ease-in;
 }
 
 .home-page .hero .tech-eyebrow {
@@ -2568,7 +2567,6 @@ footer.footer {
 
 .article-header {
   margin-bottom: 2.5rem;
-  animation: fadeIn 0.5s ease-in;
 }
 
 .article-header .back-link {
@@ -2717,10 +2715,8 @@ footer.footer {
 
 .articles-page .page-header {
   margin-bottom: 48px;
-  /* Matches .home-page .hero and .article-header's entrance — this header was the one page-header
-     on the site that snapped in instantly instead of fading in like its siblings. Shared by
-     /articles, /topics, and /topics/[cluster]. */
-  animation: fadeIn 0.5s ease-in;
+  /* Shared by /articles, /topics, and /topics/[cluster]. No entrance fade: it hid the page title from the
+     browser until the animation ran and cost about 1.3 s of Largest Contentful Paint (Lighthouse, 2026-10-14). */
 }
 
 /* Only the cluster page (/topics/[cluster]) uses this — it was falling back to an unstyled,
