@@ -116,7 +116,8 @@ export function DownloadCard({
         <p className="download-card-title">{title}</p>
         {children && <div className="download-card-body">{children}</div>}
         {/* Optional: open a matching starter in the PitchLabs editor. The downloads below stay as they were. */}
-        {starter && <StarterCta starter={starter} label={starterLabel} />}
+        {starter && <StarterCta starter={starter} label={starterLabel} embedded />}
+        {starter && <p className="download-card-or">Or print a blank copy</p>}
         <div className="download-card-actions">{downloadLinks('card')}</div>
       </div>
 

@@ -4480,34 +4480,77 @@ article h2 {
   }
 }
 
-/* Primary "open in PitchLabs" call to action (StarterCta): inside a download card above the downloads, or
-   on its own in an article. The small-screen note is hidden from 1024px up, where the editor works. */
+/* Primary "open in PitchLabs" call to action (StarterCta). On its own in an article it is a small framed
+   panel; inside a download card (.starter-cta-embedded) it drops the frame and sits above the downloads.
+   The small-screen note is hidden from 1024px up, where the editor works. */
 .starter-cta {
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 1.4rem 0 1.75rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--brand-a25);
+  border-radius: 10px;
+  background: var(--brand-a08);
+}
+
+.starter-cta-embedded {
+  margin: 1.1rem 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
 }
 
 article .starter-cta-button,
 .starter-cta-button {
-  display: inline-block;
-  padding: 0.7rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.25rem;
   border-radius: 10px;
   background: var(--cta-bg);
   color: var(--cta-text);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
+  line-height: 1.25;
   text-decoration: none;
-  transition: background 0.15s ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 8px 20px -10px rgba(79, 174, 106, 0.7);
+  transition: background 0.15s ease, transform 0.15s var(--ease-snap), box-shadow 0.15s ease;
 }
 
 article .starter-cta-button:hover,
 .starter-cta-button:hover {
   background: var(--cta-bg-hover);
+  transform: translateY(-1px);
+}
+
+article .starter-cta-button:focus-visible,
+.starter-cta-button:focus-visible {
+  outline: 2px solid var(--brand-text);
+  outline-offset: 3px;
+}
+
+.starter-cta-icon {
+  flex: none;
+  color: var(--brand);
+}
+
+.starter-cta-arrow {
+  flex: none;
+  opacity: 0.7;
+  transition: transform 0.15s var(--ease-snap);
+}
+
+.starter-cta-button:hover .starter-cta-arrow {
+  transform: translate(2px, -2px);
 }
 
 .starter-cta-note {
-  margin: 0.5rem 0 0;
+  margin: 0;
   font-size: 0.85rem;
-  opacity: 0.8;
+  line-height: 1.45;
+  color: var(--fg-subtle);
 }
 
 .starter-cta-note-small-screen {
@@ -4520,7 +4563,39 @@ article .starter-cta-button:hover,
   }
 }
 
+@media (max-width: 560px) {
+  .starter-cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starter-cta-button,
+  .starter-cta-arrow {
+    transition: none;
+  }
+  .starter-cta-button:hover,
+  .starter-cta-button:hover .starter-cta-arrow {
+    transform: none;
+  }
+}
+
 /* With a starter button present, the printable downloads become the quieter, secondary actions. */
+.download-card-or {
+  margin: 1.1rem 0 0;
+  font-family: var(--font-mono-family);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+.download-card-has-starter .download-card-actions {
+  margin-top: 0.5rem;
+}
+
 .download-card-has-starter .download-card-button {
   background: transparent;
   color: inherit;
