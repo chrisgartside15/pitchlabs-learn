@@ -4479,3 +4479,55 @@ article h2 {
     align-items: flex-start;
   }
 }
+
+/* Primary "open in PitchLabs" call to action (StarterCta): inside a download card above the downloads, or
+   on its own in an article. The small-screen note is hidden from 1024px up, where the editor works. */
+.starter-cta {
+  margin-top: 1rem;
+}
+
+article .starter-cta-button,
+.starter-cta-button {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border-radius: 10px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+article .starter-cta-button:hover,
+.starter-cta-button:hover {
+  background: var(--cta-bg-hover);
+}
+
+.starter-cta-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.starter-cta-note-small-screen {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .starter-cta-note-small-screen {
+    display: block;
+  }
+}
+
+/* With a starter button present, the printable downloads become the quieter, secondary actions. */
+.download-card-has-starter .download-card-button {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+.download-card-has-starter .download-card-button:hover {
+  background: rgba(127, 127, 127, 0.15);
+  color: inherit;
+}

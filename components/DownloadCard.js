@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { withBasePath } from '@/lib/site'
 import { trackEvent } from '@/lib/analytics'
+import { StarterCta } from '@/components/StarterCta'
 
 /**
  * A printable resource offered inside an article (e.g. the blank activity sheet): a preview
@@ -14,11 +15,26 @@ import { trackEvent } from '@/lib/analytics'
  * Tracking (GA4): `resource_preview` when the lightbox opens, `resource_download` on each download,
  * with `location` ("card" or "lightbox") so the two entry points can be told apart.
  *
+ * Optional `starter` (a PitchLabs starter-template id) adds a primary "open in PitchLabs" button above
+ * the downloads; `starterLabel` overrides its text.
+ *
  * Props are plain strings rather than arrays/objects, because next-mdx-remote strips JavaScript
  * expressions from component props in article .mdx files — the same reason every other article
  * component here takes string props only.
  */
-export function DownloadCard({ title, resource, letter, a4, preview, previewAlt, previewWidth, previewHeight, children }) {
+export function DownloadCard({
+  title,
+  resource,
+  letter,
+  a4,
+  preview,
+  previewAlt,
+  previewWidth,
+  previewHeight,
+  starter,
+  starterLabel,
+  children,
+}) {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef(null)
   const dialogRef = useRef(null)
@@ -74,7 +90,7 @@ export function DownloadCard({ title, resource, letter, a4, preview, previewAlt,
     ))
 
   return (
-    <div className={`download-card${preview ? ' download-card-has-preview' : ''}`}>
+    <div className={`download-card${preview ? ' download-card-has-preview' : ''}${starter ? ' download-card-has-starter' : ''}`}>
       {preview && (
         <button
           type="button"
@@ -99,6 +115,8 @@ export function DownloadCard({ title, resource, letter, a4, preview, previewAlt,
         <p className="download-card-label">Free printable</p>
         <p className="download-card-title">{title}</p>
         {children && <div className="download-card-body">{children}</div>}
+        {/* Optional: open a matching starter in the PitchLabs editor. The downloads below stay as they were. */}
+        {starter && <StarterCta starter={starter} label={starterLabel} />}
         <div className="download-card-actions">{downloadLinks('card')}</div>
       </div>
 

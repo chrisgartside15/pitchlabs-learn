@@ -12,7 +12,9 @@ cluster: "session-design"
      text, frontmatter, examples or its activity sheet and session plan downloads without Chris explicitly asking
      for a change to this specific article. See docs/pitchlabs-learn/PUBLISHING_CALENDAR.md.
      Link-only edit approved by Chris 2026-10-13: a gated cross-link to the 7v7 formations article and tool, shown only
-     once they are published (components/IfPublished.js). Nothing else in this article changes. */}
+     once they are published (components/IfPublished.js). Nothing else in this article changes.
+     Edit approved by Chris 2026-10-14: the activity sheet download gets an "open in PitchLabs" button (the
+     `starter` prop on its DownloadCard). The downloads and the text are unchanged. */}
 
 <TLDR>
 - A lot of session plans describe the session going right. The more useful part of a plan is what you'll change when it goes wrong: too easy, too difficult, too slow, or the wrong behavior.
@@ -61,6 +63,7 @@ For team sizes specifically, smaller usually means more touches, and the players
   previewAlt="A blank one-page PitchLabs activity sheet with a drawing box, objective, preparation, players, organization, rules, progressions, coaching points and questions for players."
   previewWidth="1275"
   previewHeight="1650"
+  starter="play-practice-play-opening-game"
 >
 One page per activity: a box to draw the setup, and space for the objective, preparation, players, organization, rules, progressions, coaching points and questions. It follows the layout of a PitchLabs activity export, with everything left white so you can write on it.
 </DownloadCard>
