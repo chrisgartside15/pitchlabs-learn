@@ -6,10 +6,11 @@ import { trackEvent, withLearnUtm } from '@/lib/analytics'
  * External link to the main app (usepitchlabs.com) that fires a GA4 event distinct from a plain
  * pageview, so blog-driven conversions can be told apart from direct traffic. `location` identifies
  * where on the blog the click came from (e.g. "nav", "article_cta") and `articleSlug` is included
- * when the click happened on an article page. The href is tagged with utm_source=learn, utm_medium=cta and
+ * when the click happened on an article page. `extraParams` (a plain object, so JS callers only, not
+ * MDX) adds more GA4 params to the same event, e.g. { starter_id } for starter-template links. The href is tagged with utm_source=learn, utm_medium=cta and
  * utm_campaign=<article slug, else location> (see withLearnUtm), because the link sends no referrer.
  */
-export function TrackedCtaLink({ href, location, articleSlug, className, children, ...rest }) {
+export function TrackedCtaLink({ href, location, articleSlug, extraParams, className, children, ...rest }) {
   return (
     <a
       href={withLearnUtm(href, articleSlug || location)}
@@ -20,6 +21,7 @@ export function TrackedCtaLink({ href, location, articleSlug, className, childre
         trackEvent('blog_cta_click', {
           link_location: location,
           ...(articleSlug ? { article_slug: articleSlug } : {}),
+          ...(extraParams || {}),
         })
       }}
       {...rest}

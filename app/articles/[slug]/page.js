@@ -12,6 +12,7 @@ import { InterventionWheelTool } from '@/components/InterventionWheelTool'
 import { CoachingInterventionWheel } from '@/components/CoachingInterventionWheel'
 import { SeriesRecap } from '@/components/SeriesRecap'
 import { DownloadCard } from '@/components/DownloadCard'
+import { StarterCta } from '@/components/StarterCta'
 import { SessionAudit } from '@/components/SessionAudit'
 import { CouldntOrDidnt } from '@/components/CouldntOrDidnt'
 import { InvolvementChart } from '@/components/InvolvementChart'
@@ -36,6 +37,7 @@ const components = {
   CoachingInterventionWheel,
   SeriesRecap,
   DownloadCard,
+  StarterCta,
   SessionAudit,
   CouldntOrDidnt,
   InvolvementChart,
