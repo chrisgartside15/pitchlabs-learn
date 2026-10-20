@@ -156,7 +156,7 @@ nav.nav {
 
 @media (max-width: 480px) {
   nav.nav {
-    padding: 1rem 0.75rem;
+    padding: 1rem 1rem;
     gap: 0.5rem;
   }
   .logo {
@@ -175,9 +175,9 @@ nav.nav {
   }
 }
 
-/* On the narrowest phones (under 390px) the logo and the four links take a row each, so nothing is pushed off the
+/* On narrow phones (under 430px) the logo and the four links take a row each, so nothing is pushed off the
    side. Four links only just fit 375px on one row, and font rendering differs by device, so wrap with margin to spare. */
-@media (max-width: 389px) {
+@media (max-width: 429px) {
   nav.nav {
     flex-wrap: wrap;
     row-gap: 0.5rem;
@@ -4480,49 +4480,52 @@ article h2 {
   }
 }
 
-/* Primary "open in PitchLabs" call to action (StarterCta). On its own in an article it is a small framed
-   panel; inside a download card (.starter-cta-embedded) it drops the frame and sits above the downloads.
-   The small-screen note is hidden from 1024px up, where the editor works. */
+/* "Open in PitchLabs" call to action (StarterCta). A quiet green-accent secondary action, not the site's white
+   primary button: under a formation diagram (.formation-figure) it fills the figure's width, and inside a download
+   card (.starter-cta-embedded) it leads the downloads. The small-screen note is hidden from 1024px up, where the
+   editor works. */
 .starter-cta {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin: 1.4rem 0 1.75rem;
-  padding: 1.1rem 1.25rem;
-  border: 1px solid var(--brand-a25);
-  border-radius: 10px;
-  background: var(--brand-a08);
+  align-items: stretch;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
 }
 
 .starter-cta-embedded {
+  align-items: flex-start;
   margin: 1.1rem 0 0;
-  padding: 0;
-  border: 0;
-  background: none;
 }
 
 article .starter-cta-button,
 .starter-cta-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.25rem;
-  border-radius: 10px;
-  background: var(--cta-bg);
-  color: var(--cta-text);
-  font-size: 1.02rem;
-  font-weight: 700;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--brand-a35);
+  border-radius: 8px;
+  background: var(--brand-a14);
+  color: var(--brand-text);
+  font-size: 0.92rem;
+  font-weight: 600;
   line-height: 1.25;
+  text-align: center;
   text-decoration: none;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 8px 20px -10px rgba(79, 174, 106, 0.7);
-  transition: background 0.15s ease, transform 0.15s var(--ease-snap), box-shadow 0.15s ease;
+  touch-action: manipulation;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.starter-cta-embedded .starter-cta-button {
+  padding: 0.6rem 1.1rem;
 }
 
 article .starter-cta-button:hover,
 .starter-cta-button:hover {
-  background: var(--cta-bg-hover);
-  transform: translateY(-1px);
+  background: var(--brand-a25);
+  border-color: var(--brand);
+  color: var(--fg);
 }
 
 article .starter-cta-button:focus-visible,
@@ -4531,24 +4534,9 @@ article .starter-cta-button:focus-visible,
   outline-offset: 3px;
 }
 
-.starter-cta-icon {
-  flex: none;
-  color: var(--brand);
-}
-
-.starter-cta-arrow {
-  flex: none;
-  opacity: 0.7;
-  transition: transform 0.15s var(--ease-snap);
-}
-
-.starter-cta-button:hover .starter-cta-arrow {
-  transform: translate(2px, -2px);
-}
-
 .starter-cta-note {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   line-height: 1.45;
   color: var(--fg-subtle);
 }
@@ -4564,20 +4552,14 @@ article .starter-cta-button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .starter-cta-button {
-    width: 100%;
-    justify-content: center;
+  .starter-cta-embedded {
+    align-items: stretch;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .starter-cta-button,
-  .starter-cta-arrow {
+  .starter-cta-button {
     transition: none;
-  }
-  .starter-cta-button:hover,
-  .starter-cta-button:hover .starter-cta-arrow {
-    transform: none;
   }
 }
 
