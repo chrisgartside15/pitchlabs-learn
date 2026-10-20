@@ -5,31 +5,31 @@
    the app's own marketing pages (no light-mode toggle there either).
    =========================================================================== */
 :root {
-  --surface-0: #0d1117; /* base background */
-  --surface-1: #161b22; /* cards, elevated surfaces */
-  --surface-2: #1c2128; /* hover states */
+  --surface-0: #08140f; /* base background */
+  --surface-1: #0f1f18; /* cards, elevated surfaces */
+  --surface-2: #14281f; /* hover states */
 
-  --fg: #ededed;
-  --fg-muted: #b0b0b0;
-  --fg-subtle: #8b949e; /* was #737373 (3.95:1 on --surface-0); raised 2026-10-13 after an axe scan of every page */
+  --fg: #f3f0e6;
+  --fg-muted: #b9c7be;
+  --fg-subtle: #93aa9c; /* was #737373 (3.95:1 on --surface-0); raised 2026-10-13 after an axe scan of every page */
 
-  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-subtle: #1f3a2e;
 
-  --brand: #4fae6a;
-  --brand-text: #8fd6a3; /* lighter tint for small text on dark */
-  --brand-a08: rgba(79, 174, 106, 0.08);
-  --brand-a14: rgba(79, 174, 106, 0.14);
-  --brand-a25: rgba(79, 174, 106, 0.25);
-  --brand-a35: rgba(79, 174, 106, 0.35);
+  --brand: #d7f25c;
+  --brand-text: #d7f25c; /* lighter tint for small text on dark */
+  --brand-a08: rgba(215, 242, 92, 0.08);
+  --brand-a14: rgba(215, 242, 92, 0.14);
+  --brand-a25: rgba(215, 242, 92, 0.25);
+  --brand-a35: rgba(215, 242, 92, 0.35);
 
   --cta-bg: #ffffff;
-  --cta-text: #0d1117;
+  --cta-text: #08140f;
   --cta-bg-hover: #e6e6e6;
 
   --shadow-card-hover: 0 16px 32px -12px rgba(0, 0, 0, 0.45);
 
-  --font-display-family: var(--font-display), 'Sora', system-ui, sans-serif;
-  --font-body-family: var(--font-body), 'Inter', system-ui, sans-serif;
+  --font-display-family: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-body-family: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
   --font-mono-family: var(--font-mono), 'JetBrains Mono', monospace;
 
   /* Shared decelerate curve for anything that lifts, scales, or slides in — used instead of the
@@ -97,7 +97,7 @@ button:focus-visible {
 /* === Header / nav === */
 header.header {
   border-bottom: 1px solid var(--border-subtle);
-  background: rgba(13, 17, 23, 0.85);
+  background: rgba(8, 20, 15, 0.85);
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
@@ -115,7 +115,8 @@ nav.nav {
 
 .logo {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
   text-decoration: none;
@@ -900,8 +901,9 @@ main.container {
 .cd-result-title {
   margin: 0 0 0.4rem;
   font-family: var(--font-display-family);
+  font-stretch: 125%;
   font-size: 1.12rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--fg);
 }
 
@@ -969,8 +971,9 @@ article .cd-steps li {
 .download-card-title {
   margin-bottom: 0.4rem;
   font-family: var(--font-display-family);
+  font-stretch: 125%;
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--fg);
 }
 
@@ -1190,7 +1193,8 @@ article .download-card-button:hover,
 
 .topic-card h3 {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 17px;
   color: var(--fg);
   display: -webkit-box;
@@ -1262,7 +1266,8 @@ article {
 
 article h1 {
   font-family: var(--font-display-family);
-  font-weight: 800;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 2.4rem;
   letter-spacing: -0.01em;
   margin-bottom: 0.5rem;
@@ -1272,7 +1277,8 @@ article h1 {
 
 article h2 {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.5rem;
   margin: 2.25rem 0 1rem 0;
   line-height: 1.3;
@@ -1281,7 +1287,8 @@ article h2 {
 
 article h3 {
   font-family: var(--font-display-family);
-  font-weight: 600;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.2rem;
   margin: 1.5rem 0 0.75rem 0;
   color: var(--fg);
@@ -1518,7 +1525,8 @@ article code {
 
 .step-tool-pname {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 0.9rem;
   letter-spacing: 0.01em;
   color: var(--fg);
@@ -1599,7 +1607,8 @@ article code {
 
 .step-tool-card-title {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.05rem;
   color: var(--fg);
   margin-bottom: 0.6rem;
@@ -1859,7 +1868,8 @@ article code {
 
 .series-recap-title {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.3rem;
   color: var(--fg);
   margin: 0.5rem 0 0.4rem 0;
@@ -1980,7 +1990,8 @@ article code {
 
 .series-recap-item-title {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 0.92rem;
   line-height: 1.35;
   color: var(--fg);
@@ -2085,7 +2096,7 @@ article .article-figure img {
   justify-content: center;
   gap: 0.4rem;
   opacity: 0;
-  background: rgba(13, 17, 23, 0.45);
+  background: rgba(8, 20, 15, 0.45);
   color: #fff;
   font-family: var(--font-mono-family);
   font-size: 0.75rem;
@@ -2235,7 +2246,8 @@ footer.footer {
 
 .not-found-page h1 {
   font-family: var(--font-display-family);
-  font-weight: 800;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 2rem;
   letter-spacing: -0.01em;
   color: var(--fg);
@@ -2287,7 +2299,8 @@ footer.footer {
 
 .home-page .hero h1 {
   font-family: var(--font-display-family);
-  font-weight: 800;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 44px;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -2324,7 +2337,8 @@ footer.footer {
 
 .home-page .section-title {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 26px;
   margin: 0 0 28px 0;
   color: var(--fg);
@@ -2364,7 +2378,8 @@ footer.footer {
 
 .home-page .featured-content h3 {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 28px;
   margin: 0 0 12px 0;
   line-height: 1.25;
@@ -2442,7 +2457,8 @@ footer.footer {
 
 .article-card h3 {
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 19px;
   margin: 0 0 10px 0;
   line-height: 1.35;
@@ -2644,7 +2660,7 @@ footer.footer {
 
 .article-cta {
   position: relative;
-  background: #111814;
+  background: #0f1f18;
   border: 1px solid var(--brand-a14);
   padding: 2rem;
   border-radius: 12px;
@@ -2739,7 +2755,8 @@ footer.footer {
 
 .articles-page .page-header h1 {
   font-family: var(--font-display-family);
-  font-weight: 800;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 40px;
   letter-spacing: -0.015em;
   margin: 12px 0 12px 0;
@@ -2765,7 +2782,8 @@ footer.footer {
 .ssg-chart-title {
   margin: 0.4rem 0 1.1rem;
   font-family: var(--font-display-family);
-  font-weight: 700;
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.05rem;
   color: var(--fg);
 }
@@ -3091,7 +3109,7 @@ footer.footer {
     opacity: 1;
     padding: 0.35rem 0.6rem;
     border-radius: 999px;
-    background: rgba(13, 17, 23, 0.75);
+    background: rgba(8, 20, 15, 0.75);
   }
 }
 
@@ -3778,7 +3796,7 @@ footer.footer {
 }
 
 .sb-cell-D {
-  background: rgba(79, 174, 106, 0.16);
+  background: rgba(215, 242, 92, 0.16);
   color: var(--brand-text);
 }
 
@@ -4151,6 +4169,8 @@ article h2 {
 .tool-card h3 {
   margin: 0;
   font-family: var(--font-display-family);
+  font-stretch: 125%;
+  font-weight: 500;
   font-size: 1.05rem;
   line-height: 1.25;
   color: var(--fg);
