@@ -1,27 +1,21 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
-import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
+import { Archivo, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { GA_MEASUREMENT_ID, APP_URL } from '@/lib/analytics'
 import { SITE_URL, SHOW_TOOLS } from '@/lib/site'
 import { GoogleAnalyticsPageTracker } from '@/components/GoogleAnalyticsPageTracker'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 
-// Same brand type pairing as the main PitchLabs marketing site: Sora for display headlines,
-// Inter for body copy, JetBrains Mono for the small scoreboard-style labels (eyebrows, byline/
-// read-time). Scoped via CSS variables so globals.css controls where each is actually applied.
-const sora = Sora({
+// Brand type (kit v1.2), same as the main PitchLabs site: Archivo only, loaded with its width axis.
+// Body copy sits at normal width; headlines are set expanded (font-stretch 125%) in globals.css.
+// JetBrains Mono stays for the small scoreboard-style labels (eyebrows, byline/read-time).
+const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
+  axes: ['wdth'],
   display: 'swap',
-  variable: '--font-display',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-body',
+  variable: '--font-archivo',
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -76,7 +70,7 @@ const siteJsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${jetbrainsMono.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

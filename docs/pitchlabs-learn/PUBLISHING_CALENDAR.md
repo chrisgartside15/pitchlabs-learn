@@ -1,277 +1,82 @@
-# PitchLabs Learn: Publishing Calendar
+# PitchLabs Learn: Publishing Plan
 
-## How This Calendar Works
+**Reset 2026-10-14.** The previous calendar (launch log, per-article review history, lock records, old queue) is archived, unedited, at `docs/archive/PUBLISHING_CALENDAR_2026-09-to-10-14.md`. Other docs still cite it for "what was reviewed and why" on any live article. Treat the archive as history: don't update it.
 
-No fixed weekly cadence — Chris's review bandwidth is bursty. This is a **priority queue**, not a locked schedule: articles are listed in the order they should get drafted and reviewed, and dates get filled in as each one is actually approved and published, not planned in advance. Update this file after every publish rather than trying to predict 60 days out in one sitting.
+## What Learn is for (decided 2026-10-14, Chris)
 
-**Launched 2026-09-29.** Live at `https://www.usepitchlabs.com/learn`, reverse-proxied by the main PitchLabs app (`next.config.ts` rewrite, shipped in PitchLabs 2.0 / PR #2, merge `cf3d034`). The Learn Vercel project's own production build serves under `basePath: '/learn'`, so `pitchlabs-learn-lime.vercel.app/` now 404s by design (`/learn` there still works). Earlier pre-launch state (2026-09-24, temp domain only) superseded.
+**PitchLabs signups.** For the next 90 days an article earns its place by bringing qualified coaches toward the app. Authority, CPD and courses are a later layer (see Parked). Judge by CTA clicks and signups beside sessions, as `/admin/learn` already shows. No fixed publishing pace: a priority queue, dated only when an article is approved and live.
 
-**Both repos pushed and deployed 2026-09-29.** Learn `main` at `0ba2169`; PitchLabs `main` at `6b7cdbb` (tag `v2.0.0`).
+## Where things stand (2026-10-14)
 
-## Launch Items (Blocking Sept 29) — all done 2026-09-29
+- **12 articles live and locked**, 11 from 2026-09-29 plus the 7v7 formations pillar (2026-10-13). Don't edit a locked article, its tools or its downloads unless Chris asks about that article. Lock notes sit in each file's frontmatter; review history is in the archive.
+- **Traffic is small.** 28 days to 2026-10-14: 69 Learn sessions (32.7% of all sessions), 268 search impressions, 7 clicks, 9 CTA clicks to the app. Search Console runs 3+ days behind. Directional only.
+- **Search has barely started** and no query has more than 5 impressions. Most Learn traffic that converts is not coming from search (How Much Should You Actually Say: 2 impressions, 22 views, 3 CTA clicks).
+- **The shape board is the most-used thing on Learn:** 11 of 16 tool events; the formation builder is the most-viewed tool page.
+- **Keyword volume is unchecked.** A Keyword Planner pass wasn't completed. Third-party estimates for neighbouring terms exist but are not trustworthy enough to choose on. Don't claim volume in any brief.
 
-- [x] Domain architecture decided: `/learn` subpath, not subdomain
-- [x] `basePath: '/learn'` added to this app (production-only) — Learn repo commit `2e1f98d`
-- [x] Reverse-proxy rewrite added to the main app's `next.config.ts` — App-Studio/Projects/PitchLabs commit `4955e2d` (on branch `phase3/builder-v2` — needs merging to whatever branch that repo deploys from before launch)
-- [x] Fixed the two things `basePath` doesn't handle automatically: plain `<img>` src paths and markdown-syntax links inside article `.mdx` content (both would have silently 404'd under the proxy)
-- [x] **Push both repos** — done 2026-09-29 (Learn first, then PitchLabs PR #2 merged)
-- [x] Set `NEXT_PUBLIC_GA_ID` on the Learn Vercel project (done 2026-09-29, Production only, `G-YFDWB5CGGG`) to the **same** value as the main app's, so Learn traffic lands in the existing GA4 property instead of a separate one
-- [x] Confirm `NEXT_PUBLIC_APP_URL` on Learn's Vercel project is unset (confirmed 2026-09-29; code default is now `https://www.usepitchlabs.com`)
-- [x] After both are deployed: verify `usepitchlabs.com/learn` loads the homepage, an article page loads with working images/nav/interactive tools, `sitemap.xml`/`robots.txt` resolve, and GA4 Realtime shows events landing in the right property
-- [x] Set up Google Search Console + submit the sitemap — done 2026-09-29 in the `usepitchlabs.com` Domain property: `/learn/sitemap.xml` (18 pages) and `/sitemap.xml` resubmitted after the www fix; indexing requested for `/learn` and the three pillars
+## How we choose the next article
 
-## Remaining Launch Items (Not Blocking, Can Follow Sept 29)
+An article goes in the queue only if it passes all of these:
 
-- [ ] Produce a real graphic/diagram for article #2 (currently text + interactive tool only, no static diagram — lower priority since the interactive tool covers the same ground)
-- [ ] Favicon (currently none — falls back to browser default)
+1. **Wedge test.** It rests on what Chris can claim from his own practice and on sources read at source. Not a drill library, not generic session plans.
+2. **Product path.** There is a natural, honest step from the article to a PitchLabs feature (builder, Animate, shape board, printables).
+3. **Evidence it is wanted**, from the best signal available, stated plainly: tool use, search queries, CTA clicks, or Chris's coaching-night questions. "No signal yet" is allowed, but is written down.
+4. **Claims are safe.** Each research claim is marked read-at-source or not, in `COACHING_FRAMEWORK.md`. No causal claims the evidence doesn't support.
+5. **Chris's real experience supplies the angle.** Anything about "what I do" waits for his answers; nothing is invented.
 
-## Content, Design & SEO Polish (done, 2026-09-24, non-blocking)
+Nothing publishes without Chris's sign-off. Voice: `PITCHLABS_VOICE.md`.
 
-Everything below is already committed locally (not pushed) — recorded here so it doesn't need re-deriving later.
+## Queue (priority order, proposed 2026-10-14, Chris to ratify)
 
-- **Navigation bugs fixed:** prev/next article arrows were inverted (a newer part 2 showed as "← " before part 1 — index math assumed oldest-first sort, the array is actually newest-first); a dead cross-article link used a URL pattern that was never built.
-- **SEO/infra baseline added:** `sitemap.xml`, `robots.txt`, `metadataBase`, canonical URLs on every page, JSON-LD `Article` structured data per article, a branded 404 page (was Next's unstyled default), `loading="lazy"` on in-article images.
-- **Reading time is now computed, not typed.** Both articles claimed "7 min read" by hand; actual word count put them at 7–9 min depending on the rate assumed. `getReadingTimeMinutes()` in `lib/articles.js` computes it from the real word count (225 wpm) and will stay correct as articles change.
-- **Voice-consistency pass**, checked against Chris's stated voice spec (warm, thinking-alongside, not authoritative; credentialed but not lecturing; problem → direct answer, not a slow build; jargon defined, never dumbed down): article 1's opening now leads with the direct answer instead of two rhetorical hook questions; the "17 coaches / 22 teams" line reads as observation rather than an explicit credential statement; "ecological dynamics" now gets a plain-language gloss; article 1 gained a matching "part one of a series" closing footer (article 2 already had one, article 1 didn't). `lib/clusters.js`'s five topic blurbs were rewritten — they'd been shipped as internal content-strategy notes ("own the search space...") instead of reader-facing copy.
-- **Design polish:** consistent site-wide spacing rhythm and card hover states, `prefers-reduced-motion` support, `next/link`-based nav (was plain `<a>`, full page reloads), the Intervention Wheel rebuilt as a proper circular SVG (was a chip-row grid), and the article footer sequence (closing `---`, the italic series note, the CTA box, author bio) given consistent spacing — the `<hr>` was falling back to the browser's tiny default margin instead of the site's own spacing scale.
-
-## All 11 articles locked (2026-09-29)
-
-Every live article was reviewed one by one with Chris and locked; each carries a `{/* LOCKED 2026-09-29 … */}` note under its frontmatter, and each has its own section below. Locks cover the tools and downloads that render inside the article. Don't edit a locked article, its tools or its downloads unless Chris explicitly asks for a change to that article; a site-wide sweep (renaming a term, restyling a shared component) should skip locked pages or ask first. Pages added after the review: `components/InvolvementChart.js` and `components/GameSplitter.js` (small-sided-games) and the Coaching Tally Sheet download (see-your-own-coaching).
-
-## LOCKED: Series 1, articles 1–3 (2026-09-29)
-
-"Why Your Soccer Practice Feels Like Chaos (And How to Fix It)", "How Much Should You Actually Say?" and "How to Coach Without Stopping the Game Every Two Minutes" are approved as final by Chris after a full review pass. Each file carries a LOCKED note under its frontmatter. Don't change their text, frontmatter (title, slug, date, excerpt), examples or downloads unless Chris explicitly asks for a change to that article.
-
-The lock also covers what renders inside them, since editing these changes the locked pages: `components/StepTool.js`, `components/InterventionWheelTool.js`, `components/CoachingInterventionWheel.js`, `lib/coachingInteractions.js`, the series-1 entry in `components/SeriesRecap.js`, and the downloads/images they reference (`switch-of-play-to-four-goals-*`, `pitchlabs-activity-sheet-*`, `coaching-interaction-menu-*`, `six-ways-to-step-in-*`). Shared components used across the site (`DownloadCard`, `DefinitionBox`, `TLDR`, global styles) can still change, but check these three pages afterwards.
-
-Final pass (2026-09-29): all internal links resolve, every referenced download and image exists, series frontmatter and dates are in order (May 12, May 26, Jun 9), none of the voice guide's banned phrases appear, and five filler uses of "actually" were removed from article 3.
-
-Post-lock change, at Chris's request (2026-09-29): the full wheel's "Start here" panel in article 3 now stacks its heading above its text (`.civ-card` override in app/globals.css) instead of inheriting StepTool's two-column card layout, which squeezed it beside the wheel. StepTool itself is unchanged.
-
-## LOCKED: The Fundamentals of Soccer Coaching (2026-09-29)
-
-The Coaching Principles pillar is approved as final by Chris and carries a LOCKED note under its frontmatter. Same rule as series 1: no changes to its text, frontmatter or examples unless Chris explicitly asks. The lock covers `components/SessionAudit.js` (and its `.audit-*` styles), which only renders in this article. Final pass: all internal links resolve, no banned voice patterns, three filler uses of "actually" removed.
-
-## LOCKED: Scanning: Why Information Comes Before Decisions (2026-09-29)
-
-Before the Decision, part 1, approved as final by Chris; carries a LOCKED note under its frontmatter. Same rule as the other locked articles.
-
-## LOCKED: Teach It or Let the Game Teach It? (2026-09-29)
-
-Before the Decision, part 2, approved as final by Chris; carries a LOCKED note under its frontmatter. The lock covers `components/CouldntOrDidnt.js` and its `.cd-*` styles, which only render in this article.
-
-## LOCKED: First Touch and Receiving (2026-09-29)
-
-Before the Decision, part 3, approved as final by Chris; carries a LOCKED note under its frontmatter. With this, the whole Before the Decision series is locked, including its entry in `components/SeriesRecap.js`.
-
-## LOCKED: Small-Sided Games for Young Players (2026-09-29)
-
-Approved as final by Chris; carries a LOCKED note under its frontmatter. Same rule as the other locked articles. The lock covers `components/InvolvementChart.js` and `components/GameSplitter.js` (and their `.ssg-chart-*` / `.gs-*` styles), which only render in this article. Review history:
-
-Changes approved by Chris: title's filler "Actually" dropped ("Who Gains Most From 3v3 and 4v4", slug unchanged, no locked article links the full title); "across different ages, countries and formats" narrowed to "ages and formats"; FAQ "the research says yes" hedged to "the studies so far say yes". Added `components/InvolvementChart.js` (static bar chart of Hintermann 2021's per-minute means: least involved third 2.02 → 4.90, most involved 3.56 → 6.11, checked against the paper; 103 Swiss ten-year-olds) under the opening, and `components/GameSplitter.js` (players in, 4–20 players in, even splits into one to four games out, with players per ball and goals needed; GA4 `tool_use` / `game_splitter`) under "Choosing a format". Styles are `.ssg-chart-*` and `.gs-*` in app/globals.css. Double-check pass: splitter now spreads pairs rather than players (so at most one neutral, e.g. 14 = 4v4 + 3v3 rather than two 3v3s with a neutral each), typed input no longer clamps mid-typing, and totals verified for every count 4–20. Text: TL;DR/FAQ age range corrected to "roughly 6 to 10" (Bergmann's youngest group is under-7), Clemente sample (16 players) named, Hintermann success rates (62% → 73%) and Clemente figures (−65.6% balls received, −87.6% shots, moderate between-session variability) checked against the papers. Opening line softened from "Everyone who has coached young players knows…" to "Most coaches would guess…".
-
-## LOCKED: How to See Your Own Coaching (2026-09-29)
-
-Approved as final by Chris; carries a LOCKED note under its frontmatter. Same rule as the other locked articles. The lock covers the Coaching Tally Sheet PDFs and preview. Download tracking verified end to end (dummy GA ID, dataLayer read): `resource_preview` and `resource_download` fire with resource `coaching_tally_sheet`, paper and location. Review history:
-
-Changes approved by Chris: excerpt no longer claims "the research shows why" (the attention explanation is reasoning, now framed as "the likeliest reason" in the body and "most likely" in the TL;DR); "Coaches are poor judges" softened to "tend to misjudge", matching the other articles; O'Connor benchmark now names its sample (19 Australian coaches of U12–U16 players); "quickest to most revealing / any one is better than none" became "roughly from quickest to most involved"; "ten minutes is enough" framed as Chris's experience; camera effect "usually fades"; FAQ "Film yourself" became "One way is to film yourself"; two filler "actually"s removed; footer now links the Coach Development & CPD topic page. Added a printable Coaching Tally Sheet (`public/downloads/coaching-tally-sheet-{letter,a4}.pdf`, preview `public/images/articles/coaching-tally-sheet-preview.png`) in a DownloadCard under "What to count": the article's five rows across three clips, minutes filmed, who each stoppage was for, and "one thing to change next time"; white write-in cells, no email gate, tracked as `coaching_tally_sheet`. Built from the app's react-pdf pieces like the other printables.
-
-## LOCKED: Coaching U6–U10 (2026-09-29)
-
-The Age & Development pillar, approved as final by Chris; carries a LOCKED note under its frontmatter. Same rule as the other locked articles. Its "Tools for coaching this age" list is part of the lock: if a tool is added or renamed elsewhere, ask Chris before updating it. Review history:
-
-Changes approved by Chris: Visek claim corrected in TL;DR, excerpt, body and FAQ. "Winning near the bottom of 81 factors" wasn't supported by the paper text on hand; what it does show is that winning sits in the "Mental Bonuses" dimension, 9th of 11, and that the top three were dimensions (being a good sport, trying hard, positive coaching), not individual factors. A search result gives winning's individual rank as 48th of 81, but it couldn't be confirmed at source, so it isn't used. Youngest Visek players now "the under-9 to under-11 group" (was "nine and older"). Title "What Actually Matters" became "What Matters Most at This Age" (slug unchanged); excerpt "actually" removed. Coaching-points line reframed as Chris's rule of thumb ("one, two at most"); "a score nobody will remember", "Fifteen players waiting" and "three activities beat four" softened. Added links to the planning pillar, How Much Should You Say and See Your Own Coaching, plus a "Tools for coaching this age" section collecting the site's printables and online tools (links to their articles only, no new claims).
-
-## LOCKED: How to Plan a Soccer Training Session (2026-09-29)
-
-The Session & Curriculum Design pillar, approved as final by Chris; carries a LOCKED note under its frontmatter. Same rule as the other locked articles. The lock covers the blank activity sheet and session plan PDFs and previews (the activity sheet also appears in the locked chaos article). With this, all 11 articles are locked. Review history:
-
-Changes approved by Chris: Step 4's table brought in line with its own summary line and the locked chaos article. "Too difficult" now leads with a Task change (let any goal count the same for a few minutes, then bring the double back; more room as a second option) instead of Space/Players, and "Too slow" now leads with Players (run a second game) with spare balls second. "Most session plans" became "A lot of session plans" in the TL;DR and excerpt, matching the body. Filler "actually" removed. "Lands for more of the group" became "is more likely to land". FAQ "three activities beat four" framed as "In my experience". Step 3 now mentions the Small-Sided Games splitter. Footer now links the rest of the session-design topic (chaos, Coach Without Stopping, Small-Sided Games).
-
-## Sign-off 2026-09-29
-
-All five articles approved by Chris after the consistency and soundness passes (see COACHING_FRAMEWORK.md). The "17 coaches across 22 teams" line in article #1 confirmed by Chris for public use. Changes are deliberately left uncommitted until Chris says otherwise. **[2026-09-29] Committed (`563c218`) and launched.**
-
-## Batch 2 — drafted 2026-09-29; reviewed by Chris and launched 2026-09-29
-
-Six articles written to support the first five and fill the empty topics. Committed in `563c218` and live since 2026-09-29. Research for each is logged in COACHING_FRAMEWORK.md ("Batch 2 sources").
-
-| Article | Slug | Topic | Role |
-|---|---|---|---|
-| Teach It or Let the Game Teach It? | `teach-it-or-let-the-game-teach-it` | coaching-principles | The novice / "base level" problem as its own piece; linked from #1, the pillar, first touch |
-| First Touch and Receiving | `first-touch-and-receiving` | coaching-principles | The execution skill scanning depends on; linked from scanning |
-| Small-Sided Games for Young Players | `small-sided-games` | session-design | Backs article #1's "too slow" fix; Hintermann 4v4/7v7 lead |
-| How to See Your Own Coaching | `see-your-own-coaching` | coach-development | First coach-development article; backs #2/#3's self-awareness research |
-| Coaching U6–U10: What Matters Most at This Age | `coaching-u6-to-u10` | age-development | **Pillar** for Age & Development (set in lib/clusters.js); catches "u8 soccer coaching" intent |
-| How to Plan a Soccer Training Session | `how-to-plan-a-soccer-training-session` | session-design | **Pillar** for Session & Curriculum Design (set in lib/clusters.js) |
-
-**Site changes the same day:** article #3 renamed `coach-without-stopping-the-game` ("How to Coach Without Stopping the Game Every Two Minutes") and moved to coaching-principles (it's about coaching behavior, not session planning); topics with no articles are now hidden from the homepage and /topics grids instead of showing "Coming soon" (Futsal is the only one hidden right now); topic-card blurbs shortened and the clamp raised to 4 lines so they stop truncating mid-word.
-
-**Blank activity sheet (added 2026-09-29):** a free printable, in `public/downloads/pitchlabs-activity-sheet-{letter,a4}.pdf`, offered via a new `<DownloadCard>` component (components/DownloadCard.js — basePath-aware, fires a GA4 `resource_download` event). Placed in the session-planning pillar under Step 3 (building each activity), with a one-line pointer from article #1's STEP section. Built from the main app's react-pdf pieces (`makeStyles`, `Section`, palette, densities, `arrangeActivity`, `renderFitted` from components/pdf/ActivityPdfDocument.tsx and lib/pdf/react/layout.ts — none modified), as a write-on variant: a plain drawing box instead of the field diagram, a ruled name line, and white Coaching Points / Questions for Players columns instead of the export's dark band. The card shows a preview (`public/images/articles/pitchlabs-activity-sheet-preview.png`, Letter at 150 dpi) that opens in a lightbox with the same download buttons; GA4 events are `resource_preview` (lightbox opened) and `resource_download` (with `paper` and `location`: card or lightbox). To regenerate after the app's PDF design changes, re-render through those pieces rather than editing the PDFs, and re-export the preview.
-
-**Blank session plan + session audit (added 2026-09-29):**
-- `public/downloads/pitchlabs-session-plan-{letter,a4}.pdf` (+ preview `public/images/articles/pitchlabs-session-plan-preview.png`), a write-on one-page version of the planning pillar's session template, styled after the app's session PDF cover page (components/pdf/SessionPdfDocument.tsx) but white with ruled lines. Offered via `<DownloadCard>` in the pillar's "A one-page session template" section; GA4 resource name `blank_session_plan`.
-- `components/SessionAudit.js`, in the Fundamentals pillar's "What this means for a session" section: coaches list their last session's activities, tag each as repeat / decide / look, and see the split beside Ford et al. (2010) (~64% drills / 36% games, labelled as older data that didn't separate decide from look). Messages are observations, not verdicts. Entries stay in the viewer's browser (localStorage). GA4: `tool_use` with tool `session_audit` (result_shown, reset).
-
-**Series 2, "Before the Decision" (added 2026-09-29):** Scanning and Receiving (part 1, Jul 7) → Teach It or Let the Game Teach It? (part 2, Jul 21) → First Touch and Receiving (part 3, Aug 4). Each has `series` / `seriesPart` / `seriesTotal` frontmatter, parts 2–3 have the TL;DR catch-up line, all three have series footers, and part 3 ends with `<SeriesRecap />`. `components/SeriesRecap.js` now holds a `SERIES` list (it previously hardcoded series 1 only); the homepage's "Explore a Series" renders every series in it. "How to See Your Own Coaching" was considered as a part 4 of series 1 and deliberately left standalone.
-
-**Mock publish dates (set 2026-09-29, before launch):** every two weeks from May 12 (Why Your Practice Feels Like Chaos) to Sep 29 (How to Plan a Soccer Training Session), ordered so in-text references ("the first few articles", "the first three articles") stay accurate. Decide before launch whether to keep these or use real dates — frontmatter shouldn't change after publication. **Decided 2026-09-29 (Chris): keep the staggered dates.** All articles actually went live on 2026-09-29.
-
-**Article #2 additions (2026-09-29):** a "One moment, three ways to respond" section running the Switch of Play game (article #1) through Silence / Question / Instruct, using the question from the game's activity sheet; the Buszard and Kirschner recaps cut to one-line references (full versions live in article #1 and Teach It). New download: `public/downloads/coaching-interaction-menu-{letter,a4}.pdf` (+ preview), the twelve interactions with definitions, example phrases (from components/InterventionWheelTool.js) and suggested stoppage pairings; GA4 resource `coaching_interaction_menu`. Also in article #1: `switch-of-play-to-four-goals-{letter,a4}.pdf` (Chris's PitchLabs export, re-rendered without doubled quote marks, tagged U8–U10), resource `switch_of_play_to_four_goals`.
-
-**Intervention Wheel wording (2026-09-29):** "Drive by" renamed **In-flow** everywhere readers see it (article #3, both wheel tools, the Interaction Menu PDF; internal id stays `driveby`). Five example phrases revised so each matches its own definition: Question "What else could you have done there?" (genuinely open), Guide and discovery "Who was free?" (narrowed nudge), Demonstrate "Watch where my eyes go before the ball gets to me.", Feedback "Your first touch went toward the defender, so they got to it first.", Reinforce "That's it — you looked before it came to you." The inner-ring wording now lives in one shared file, `lib/coachingInteractions.js`, used by both tools; article #2's list and the PDF card were updated to match. `docs/pitchlabs-learn/coaching-intervention-wheel-pitchlabs-reference.html` is the original reference and still uses the old wording.
-
-**Article #3 additions (2026-09-29):** "Three moments in the same game" section running the Switch of Play game through in-flow / freeze frame / walkthrough (pairings consistent with the wheel data); the Ford drills-vs-games paragraph removed from "Where this leaves you" (it's article #1's subject). New download: `public/downloads/six-ways-to-step-in-{letter,a4}.pdf` (+ preview), the six stoppages with rough time costs (labelled as Chris's estimates), who each reaches, and when it earns its cost; GA4 resource `six_ways_to_step_in`. Article #2's Interaction Menu card now points to it as its companion.
-
-**Fundamentals pillar pass (2026-09-29):** intro and closing note now name both series (the coaching-around-a-session series and Before the Decision); the opening self-check points to the audit; the dense perceiving paragraph split in two; FAQ "only happens" softened to "mostly happens". Session audit redesigned for clarity: one compact line per activity with a Repeat / Decide / Look switch, the three types explained once in a key, results as a labelled "Your session vs Study average" comparison; on phones the name gets its own line. Logic, localStorage and GA4 events unchanged.
-
-**Scanning article pass (2026-09-29):** retitled "Scanning: Why Information Comes Before Decisions" (was "Scanning and Receiving: …"; receiving is now First Touch's subject). Slug unchanged (`scanning-and-receiving`). With Chris's approval, link text was updated inside locked articles too (chaos article, Fundamentals, SessionAudit): full title in catch-up lines, footers and the series card; "the scanning piece" in running prose. The "Reward finding the overload" condition now names the Switch of Play game, and its activity sheet download card sits under the conditions list. Three filler "actual(ly)"s removed. A pitchside scan counter was considered and dropped.
-
-**Teach It pass (2026-09-29):** a bridge sentence back to the scanning piece (series part 1); the choosing-vs-can't-do split now uses the Switch of Play game (sees the switch but plays short = choosing; pass can't reach across 25 yds = can't do it yet); "stops two common mistakes" → "helps avoid"; "actually" dropped from the excerpt. New interactive: `components/CouldntOrDidnt.js` ("Couldn't or didn't?"), a flowchart with every branch visible that highlights your path and shows next steps; GA4 `tool_use` with tool `couldnt_or_didnt` and the result.
-
-**First Touch pass (2026-09-29):** accuracy fix (the U13 study measured head turns on the ball, not body turns); a Switch of Play bullet in the "reward where the touch goes" list; the Bernstein explanation cut to a reference back to part 2; "actually" dropped from a heading and the excerpt. No new interactive or download (deliberately).
-
-**First-person lines, resolved in the 2026-09-29 article-by-article review:** see-your-own-coaching now says "I watch a lot of other coaches' sessions"; coaching-u6-to-u10 says "U6–U10 is the age range I know best", keeps the "What I see" list (labelled as observation, not research), and frames coaching points as Chris's rule of thumb ("one coaching point, two at most"). The choosing-vs-can't-do split in teach-it stays labelled as a practical rule of thumb.
-
-## Live
-
-All went live 2026-09-29 under `https://www.usepitchlabs.com/learn/articles/<slug>` (frontmatter dates are the staggered ones above, not the go-live date).
-
-- `why-your-practice-feels-like-chaos`
-- `how-much-should-you-actually-say`
-- `coach-without-stopping-the-game`
-- `fundamentals-of-soccer-coaching` (pillar)
-- `scanning-and-receiving`
-- `teach-it-or-let-the-game-teach-it`
-- `first-touch-and-receiving`
-- `small-sided-games`
-- `see-your-own-coaching`
-- `coaching-u6-to-u10` (pillar)
-- `how-to-plan-a-soccer-training-session` (pillar)
-
-**Launch-day notes (2026-09-29):**
-- Canonicals/sitemap/CTA links switched to `www.usepitchlabs.com` (`0ba2169`) — the bare domain 307-redirects to www, so the originals pointed at a redirecting URL.
-- GA4 (`G-YFDWB5CGGG`, property shared with the app): event-scoped custom dimensions registered for `resource`, `paper`, `location`, `tool`, `action`, `result`, `players`, `link_location`, `article_slug`. `/learn` page views confirmed in Realtime. **Still to do:** star `blog_cta_click` as a key event once the first one arrives (Events → Recent events).
-- 2-week check due ~2026-10-13 (indexed? impressions? — see PERFORMANCE_FRAMEWORK.md).
-
-## Queue (Priority Order) — Series 1: "What Actually Shapes a Youth Practice"
-
-Three-part series, spanning two clusters on purpose (see "Series decoupled from cluster" below): articles 1 and 3 live under `session-design`, article 2 lives under `coaching-principles`. All three build on the same "environment" framing (see COACHING_FRAMEWORK.md) — STEP is the design half, the Coaching Intervention Wheel is the interaction half. Article 1 already names articles 2 and 3 in its own "Next in this series" section, so the sequence is locked; don't reorder without updating that section too.
-
-| # | Article | Status | Target Keyword (draft) | Framework | Angle |
-|---|---|---|---|---|---|
-| 1 | Why Your Soccer Practice Feels Like Chaos (And How to Fix It) | **Reframed 2026-09-29, approved by Chris 2026-09-29** — content/articles/why-your-practice-feels-like-chaos.mdx (was `why-your-u8-practice-feels-like-chaos`; renamed pre-launch, nothing live, no redirect needed). U8 framing dropped from title/body per Chris; the U8 4v4 example activity stays. | youth soccer practice chaos | STEP (Space/Task/Equipment/Players) | Building the right environment so you barely need to coach with your voice. Grounded in the constraints-led approach, the Challenge Point framework, small-sided-game research, and working-memory-load research. |
-| 2 | How Much Should You Actually Say? | **Drafted, researched, approved** — content/articles/how-much-should-you-actually-say.mdx | how much should a youth soccer coach talk during practice | Coaching Intervention Wheel — inner ring (Instruct vs. Question/Silence/Guide/Co-create) | Direct sequel to article 1: STEP builds the environment, this is what you do once it's running. Core hook: a season-long coaching-behavior study found coaches lean on Instruct by default and Question makes up under 10% of what they say — most of that closed, not open. Ties back to article 1's working-memory research (why over-instructing backfires) and previews the "free vs. costly" idea that article 3 goes deeper on. |
-| 3 | How to Progress a Session Without Stopping the Game Every Two Minutes | **Drafted, researched, approved by Chris 2026-09-29** — content/articles/coach-without-stopping-the-game.mdx | how to coach youth soccer without stopping the game | Coaching Intervention Wheel — full wheel (center + inner ring recap + outer ring in depth) | Practical/tactical companion to article 2: not just *what* you say but *when/how you stop play to say it*. Now opens with real research backing rather than Chris's tool documentation alone: instruction is the most frequent coach behaviour in every youth-soccer coaching study reviewed, happening more than once a minute on average, and coaches consistently underestimate their own frequency ([Cushion, Ford & Williams, *Journal of Sports Sciences*, 2012](https://doi.org/10.1080/02640414.2012.721930)). Presents the whole Coaching Intervention Wheel for the first time (center: who you're coaching; inner ring: recapped from article 2; outer ring: this article's six stoppage types and their time costs) rather than just the outer-ring slice. Two of the six intervention types (in-flow, drinks-break) are free — teaches coaches to lean on those before reaching for a huddle or freeze frame. Adds a second axis beyond time cost: each stoppage type also has a natural "fit" (who it reaches — individual/group/unit/team), and matching scope to audience is framed as equally important as watching the clock. Also ties into article 1's environment argument via real data on how little youth sessions actually spend in game-realistic play. |
-
-**Research status (updated 2026-09-25):** Article 3 is now backed by real, verified external research — see COACHING_FRAMEWORK.md's "Coaches over-instruct and consistently underestimate how often they do it" section for the full citation trail (Cushion, Ford & Williams 2012, plus Ford et al. 2010 and Wulf & Shea 2004 cited within it). A shakier feedback-frequency meta-analysis was checked and deliberately left out — see that same section's caveat. Also updated: articles 1 and 2's forward-reference text ("the next piece in this series...") is now a real link to article 3's slug, and article 2 gained a closing-footer link forward to article 3 — this was previously plain text since article 3 didn't exist yet.
-
-**Built 2026-09-25:** the full three-ring interactive tool — `components/CoachingInterventionWheel.js`, live in article 3 (`<CoachingInterventionWheel />`, replacing the earlier placeholder comment). Deliberately kept separate from article #2's existing `<InterventionWheelTool />` (inner-ring-only) rather than replacing it — see COACHING_FRAMEWORK.md's "Open / To Research" for the reasoning. Also added: `components/SeriesRecap.js`, a closing card recapping all three articles in the series, live at the end of article 3.
-
-**Series decoupled from cluster, 2026-09-26:** articles 1 and 3 moved from `coaching-principles` to what was then `session-planning` (renamed `session-design` in the second cluster migration below) — both are genuinely session-design/execution content, and that cluster was sitting empty despite being the product-aligned one. Article 2 and the pillar stay under `coaching-principles`. To keep the series reading experience intact across two clusters, added `series`/`seriesPart`/`seriesTotal` frontmatter fields (separate from `cluster`) and a new `SeriesBadge` component (`components/content.js`) shown next to the cluster badge on all three articles — a plain label, not a link, deliberately styled differently from the clickable `ClusterBadge` pill so the two read as different kinds of information. `SeriesRecap` and the closing-footer links were already slug-based, not cluster-based, so neither needed to change. See CONTENT_STRATEGY.md's "A note on series vs. cluster" for the full reasoning.
-
-**TL;DR blocks added, 2026-09-26:** all four articles now open with a `<TLDR>` component (`components/content.js`) — 3–5 bullets, right after the header/meta, before the narrative opening. Articles 2 and 3 (parts 2 and 3 of the series) also get a "catch up" line inside the same box linking back to the earlier part(s) by title — surfaced at the top, not just the closing footer, since a reader deciding whether to keep reading needs to know they're mid-series before investing time, not after. Now the standard for every future article — see `PITCHLABS_VOICE.md`'s "TL;DR" entry under Structural preferences.
-
-**Series made discoverable site-wide, 2026-09-26:** added an "Explore a Series" section to the homepage (`app/page.js`), between "Browse by Topic" and "Featured" — reuses `<SeriesRecap showHeading={false} />` so the series data stays single-sourced, not duplicated. Chosen over building a full `/series` index + detail route pair (mirroring `/topics`), which would be real infrastructure for exactly one series — revisit if/when a second series exists. Caught and fixed two real, pre-existing bugs while wiring this up (both affect the article-embedded card too, not just the new homepage one): (1) `.series-recap-list`'s 3-column `@container` layout had no qualifying `container-type` ancestor anywhere, so it silently never activated — the "3 cards side by side" design has never actually rendered that way until now; (2) `.series-recap-item a` was missing `text-decoration: none` / `color: inherit`, so titles showed as plain underlined blue-ish links outside of `article`'s own link styling (which happened to mask it when embedded in an article, but not on the homepage). Both fixed in `app/globals.css`.
-
-Items 4+ deliberately not planned yet — fill in once this series is moving.
-
-**Voice rewrite, 2026-09-26:** all three articles above were rewritten for voice — stripped AI-polish patterns (over-caveated research paragraphs, duplicated opening hooks, a "worth sitting with" tic) while keeping every framework term, citation, number, and quote unchanged from the versions in this table. See `docs/pitchlabs-learn/PITCHLABS_VOICE.md`, now the canonical voice reference for all future PitchLabs Learn writing (wired into both `CLAUDE.md` files).
-
-## Cluster 2 Pillar: "The Fundamentals of Soccer Coaching"
-
-| Article | Status | Framework | Angle |
-|---|---|---|---|
-| The Fundamentals of Soccer Coaching | **Drafted 2026-09-26, revised 2026-09-29, approved by Chris 2026-09-29** — content/articles/fundamentals-of-soccer-coaching.mdx | Introduces STEP and the Coaching Intervention Wheel as one underlying idea, without the tool-level detail — deliberately leaves "perceiving" (the third leg of perceive → decide → execute) unresolved rather than mapped to an existing tool | Per CONTENT_STRATEGY.md's original outline: what separates good coaching from a well-run activity, the perceive → decide → execute sequence (standard sports-science terminology, not separately cited — same treatment as "ecological dynamics" in article 1), and why a coach's job changes by age group. Reuses already-verified research rather than introducing new claims: the Ford et al./Cushion et al. Training Form vs. Playing Form split (article 3's citation) grounds "good activity ≠ good coaching," and the Buszard working-memory study (articles 1 & 2's citation) grounds the age-group section. **Revised same day per Chris's feedback:** first draft leaned too hard on "STEP + the Wheel already answer this," which read as a wrap-up of finished work rather than a hub for a cluster with six more planned supporting articles (see CONTENT_STRATEGY.md's Cluster 2 list — scanning, first touch, support/movement, decision-making under pressure, possession vs. purpose, pressing). Revised to genuinely provoke rather than resolve: opens with a self-check question before the reader continues, explicitly names "perceiving" as the least-covered third of the sequence with no tidy answer yet, and the closing section says so outright instead of wrapping up. Sets up the still-unwritten "Scanning and Receiving" piece without naming or linking it, since it isn't drafted yet. |
-
-**Wired up 2026-09-26:** `lib/clusters.js`'s `coaching-principles` cluster now has `pillarSlug: 'fundamentals-of-soccer-coaching'` — the pillar slot on `/topics/coaching-principles` is live instead of "coming soon." Articles 1, 2, and 3 each gained a light backlink to the pillar (varied placement per article — not all three handled identically), satisfying CLAUDE.md's "links to pillar article" checklist item for the first time in this cluster.
-
-## Cluster 2 Supporting Article: "Scanning and Receiving"
-
-| Article | Status | Framework | Angle |
-|---|---|---|---|
-| Scanning and Receiving: Why Information Comes Before Decisions | **Drafted 2026-09-28, revised 2026-09-29, approved by Chris 2026-09-29** — content/articles/scanning-and-receiving.mdx | Resolves the pillar's previously-open "perceiving" thread by reframing it as scanning (visual exploratory activity) — an observable action, not a cognitive stage. See COACHING_FRAMEWORK.md's "Component 3: Scanning" for the full citation trail (Jordet et al., two studies, 2021). | Direct answer to the pillar's deliberately-left-open question, and an honest fix to the PDE-vs-ecological-dynamics tension flagged in an earlier review pass — scanning's own research base is explicitly grounded in the ecological approach to perception, the same line already cited for constraints-led practice in article #1, which resolves the tension rather than just hedging it. Cites two Jordet-lineage studies: elite-adult eye-tracking (brief, non-fixated scans) and elite-youth match data (U17 vs. U19 scanning frequency, pass-completion correlation, pressing suppresses scanning). Both studies are academy/professional ages 17–23, explicitly flagged as older than U8–U10 with no direct evidence at that age — deliberately does not invent a scanning-frequency target for young players. Practical section reuses STEP's Task/Equipment levers aimed at forcing scanning through game design rather than instruction. Pillar article ("The Fundamentals of Soccer Coaching") updated to link here in three places instead of leaving the thread open. |
-
-**Wired up 2026-09-28:** `fundamentals-of-soccer-coaching.mdx`'s perceive/decide/execute section, "What this means for a session" section, and closing footer all updated to link to this article instead of describing perceiving as unresolved. Not yet added to `lib/clusters.js` cluster listing pages beyond the existing `coaching-principles` cluster assignment — no new cluster needed.
-
-**Cluster taxonomy migrated 2026-09-26:** the live site had been running the original, generic 5-cluster plan that ROADMAP_6MONTH.md's 2026-09-17 strategy reset explicitly rejected — CONTENT_STRATEGY.md and `lib/clusters.js` were never actually updated after that reset. Migrated `lib/clusters.js`, CONTENT_STRATEGY.md, and fixed stale claims in ROADMAP_6MONTH.md (it claimed a Session Planning pillar was "LIVE, verified 2026-09-18" — no such file exists and never did). Site now runs 6 clusters: `session-planning`, `coaching-principles` (kept as a 6th cluster alongside the roadmap's 5 — see CONTENT_STRATEGY.md's Strategy Reset note), `coaching-u6-u10`, `futsal-small-sided`, `coach-development`, `activities`. Removed `age-groups` and `session-objectives` (zero articles referenced either slug — confirmed before removing). Verified: sitemap.xml reflects all 6 topic URLs, both removed slugs 404 cleanly, no console/build errors.
-
-**Second cluster migration, same day (2026-09-26):** on Chris's review, cut from 6 clusters to 5. `coaching-u6-u10` retired — its decision-making-adjacent content merged into `coaching-principles` (STEP/the Intervention Wheel already *are* the differentiated U6–U10 coaching philosophy; a separate age cluster was splitting authority rather than concentrating it), replaced by a narrower `age-development` scoped specifically to what changes structurally by age (formats, group sizes, session length). `activities` cut outright — a generic drill library fails the wedge test explicitly (CLAUDE.md's own Decision-Making Framework: "Don't write it if: It's a generic activity/drill list with no original analysis"). `futsal-small-sided` renamed/narrowed to `futsal` — small-sided-format content (5v5/7v7) moved into `session-planning`, which was renamed `session-design` and broadened in scope to cover season/curriculum-level sequencing, not just single sessions (title: "Session & Curriculum Design"). Reassigned `why-your-practice-feels-like-chaos.mdx` and `coach-without-stopping-the-game.mdx` from `session-planning` to `session-design` (slug rename only, same articles, same reasoning as before). `how-much-should-you-actually-say.mdx` and `fundamentals-of-soccer-coaching.mdx` stay under `coaching-principles`, unchanged. Updated `lib/clusters.js`, CONTENT_STRATEGY.md, ROADMAP_6MONTH.md, and `_ARTICLE_TEMPLATE.mdx`'s stale slug list (which still listed slugs removed in the *first* migration — missed at the time). Final 5: `coaching-principles`, `session-design`, `age-development`, `futsal`, `coach-development`.
-
-## Queue: Formations & Animate pilot (added 2026-10-09)
-
-**Direction set by Chris, 2026-10-09:** a new homepage topic for formations; each formation is a series; the 1-2-3-1 (GK + 2-3-1, Chris's notation) goes first as two parts, **in possession** and **out of possession**. Each part is spoken through as if at a coaching education night with coaches, and is not tied to any one principle or methodology. The in-possession part starts from the team's own goal kick; the out-of-possession part starts from the opponent's goal kick. The first articles to embed PitchLabs Animate clips. All 11 live articles stay locked; the new pieces link to them, nothing in them changes. Nothing drafted yet; waiting on Chris's input on how he actually uses the shape (see open items).
-
-| # | Article (working titles) | Status | Draft keyword (volume unchecked) | Angle |
+| # | Article | Why now | Blocked on | Status |
 |---|---|---|---|---|
-| 1 | 7v7 3-2-1 (1-3-2-1) in possession: from your own goal kick | **Planned, not drafted.** Slug TBD | 7v7 formations / 7v7 3-2-1 formation / 7v7 goal kick | Walk the room through the shape from the keeper's restart: where everyone stands, where the first pass goes, how the shape moves as the ball does. 3–4 Animate clips. "What I use and how I use it", one way among several. |
-| 2 | 7v7 3-2-1 (1-3-2-1) out of possession: when the opponent has the goal kick | **Planned, not drafted.** Slug TBD | 7v7 defending shape / 7v7 pressing goal kick | Same format from the other side: where the team sets up, when it moves, what changes once the ball is played. Depends on the build-out line rule below. |
+| 1 | **Inviting the Press: building out from a 7v7 goal kick** (3-2-1, part 1) | Formations is where visitors use the tools; the draft and notes exist; pairs with the live pillar | Chris: where the 3-2-1 goes wrong; wording of the REVIEW-marked options. Build: Animate clips (4), `VideoClip` component, `formations` series entry (`SeriesRecap.js`) | Drafted, unapproved: `content/articles/_DRAFT-7v7-3-2-1-goal-kick-in-possession.mdx` |
+| 2 | **3-2-1 out of possession** (part 2) | Completes the series | Part 1; Chris's answers on press and build-out line | Planned |
 
-**Update 2026-10-09 (Chris):** the pilot shape is the **3-2-1** (1-3-2-1 with the keeper), not the 2-3-1. It is the shape his programme runs, and the opponent in the clips is the 2-3-1. The 2-3-1 build-out is a later piece. Why he runs it: it lets him teach players to ask questions that are impossible to answer (3v1s and 2v1s). Tournament material (IberCup-level U9/U10/U11 7v7) is *watched*, not coached: write it as "what I see". The "1-2-3-1" in the headings above predates this decision.
 
-**Structure decisions to confirm:**
-- **Topic (cluster):** new `lib/clusters.js` entry, working title "Formations & Team Shape". Clusters with no articles are hidden, so it can be created with two articles. Needs a pillar eventually (editorial principle 3); proposed: hold the pillar until a second formation exists, since a "choosing a shape" pillar needs something to compare.
-- **Series:** one series per formation, listed in `components/SeriesRecap.js` `SERIES` (the article frontmatter `series` / `seriesPart` / `seriesTotal` must match). Two parts to start; a third (transitions) is an option, not committed.
-- Cluster placement of the first two articles is `formations` once it exists (previously proposed `age-development`; superseded).
 
-**Rules facts that shape both articles (verified 2026-10-09, [U.S. Soccer, 2017](https://www.ussoccer.com/stories/2017/08/five-things-to-know-how-smallsided-standards-will-change-youth-soccer)):** build-out line is a sideline-to-sideline line 14 yards in front of each goal, starting at under-9. When the keeper has the ball in hand or takes a goal kick, the opposing team stays behind the line until the ball is back in play. Punts and drop kicks are banned for the keeper. Local leagues vary: some place the line differently and some have dropped it for 9v9. Not verified: the current rulebook text, and whether U.S. Soccer's "recommended formations" for 7v7 include the 2-3-1 (the page says they exist but doesn't list them). **Articles must tell readers to check their own league's rules.**
+## Parked (with reasons, so they don't get re-proposed blind)
 
-**Open items before drafting:**
-- Chris's real practice: what he runs at U9–U10, how he teaches the shape, what goes wrong most often, which league rules he plays under. No anecdotes or "I do X" claims get written until he supplies them.
-- Lead finding and sources: to be researched and logged in COACHING_FRAMEWORK.md. Nothing assumed. Must sit honestly beside small-sided-games' finding that 3v3/4v4 give more actions per player than 7v7.
-- Embed plumbing: a `VideoClip` component (basePath-aware src, poster, lazy-load, GA4 `video_play`) and an MP4 hosting decision (default: `public/`, revisit if clips multiply). Clips exported from Animate (Pro/Founder).
-- Scope note: 9v9 / 11v11 shapes and anything on how senior or professional teams build out are outside Chris's experience and would be source-based only. Not part of these articles.
+- **"Who gets the minutes?" (playing time and fairness, with a FairPlay link).** Parked 2026-10-14 (Chris): the evidence is too thin. Source reading (`COACHING_FRAMEWORK.md`, "source-reading pass") found no study showing more minutes cause faster improvement, none measuring minutes against dropout, and mixed results on birth date and minutes within a team; only one paper was read in full. Revisit if a youth-soccer study measuring minutes against enjoyment or intention to quit turns up, or if the angle becomes "minutes are a decision, made on purpose" with Chris's own practice as the substance. If revived: PitchLabs stays the main CTA, FairPlay appears once as the separate game-day app with a campaign link so clicks are measurable (FairPlay is maintenance-only, in VALIDATE).
+- **"Soccer practice plans" article.** Rejected as framed (2026-10-14, Chris): reads as a drill or session-plan page, which the strategy already rejected. A planning piece is welcome only as a decision or diagnosis article.
+- **Play volume between club sessions** (Chris, 2026-10-10). Parent-facing; no causal evidence; risk of reading as "book more paid training". Needs a decision on audience first.
+- **Coach Development and CPD cluster.** A later layer aimed at club leaders, not individual coaches. Wait for a signal: add an email capture to the coach-development article and see whether anyone asks. Don't build a course ahead of an audience.
+- **2-3-1 build-out and tournament-watching pieces.** After the 3-2-1 pilot.
+- **Futsal topic.** Hidden until it has an article.
 
-## Idea queue (not planned, not drafted)
+## Measurement and housekeeping
 
-**Play volume between club sessions, ages 6–12 (idea from Chris, 2026-10-10).** Parent-facing: kids who train in different environments and get more touches improve quicker; many families do only the 2–3 club sessions a week and wonder why their player improves more slowly than kids who play more.
-- **Evidence so far** (COACHING_FRAMEWORK.md, "Playing time, play volume and selection"): the one study that matches is Ford et al. 2009 (English academy players, ages 6–12, more informal soccer *play* separated those who turned professional; retrospective and correlational). No study found showing extra minutes or touches *cause* faster improvement, and selection studies show minutes follow ability and birth date. "Will improve significantly quicker" cannot be stated as established.
-- **Open decisions:** audience (Learn's reader is coaches; options: parents directly, or written so a coach can send it to the parent who asks "what can my child do at home?"); whether to offer a printable ("between sessions" sheet); Chris's own observations from his programme, labelled as such.
-- **Risks to design out:** blaming families ("wonder why"); a parent reading "more" as "book more paid training" when the finding is about play; any claim of causation.
-- Parked behind the 3-2-1 pilot.
+- **2 weeks after each article goes live:** indexed? impressions? CTA clicks? (`PERFORMANCE_FRAMEWORK.md`). Record the result here, with the date.
+- **Still open from launch:** star `blog_cta_click` as a GA4 key event; register the `embed_host` dimension.
+- **Open question:** a real keyword-volume check. Needs Google Ads Keyword Planner under the right Google account (the account in the browser is not the PitchLabs one). Until then, volume claims are "unchecked".
 
-## Per-Article Process Checklist
+## Per-article checklist
 
-- [ ] Added to queue with cluster + draft keyword
-- [ ] Claude drafts full article (grounded in Chris's actual experience — no invented specifics)
-- [ ] Chris reviews for accuracy + voice, edits
-- [ ] Voice notes updated if this round revealed something about tone/style (see CLAUDE.md)
-- [ ] SEO pass (headers, meta, internal links to pillar + 2–3 related articles)
-- [ ] Chris explicit approval
-- [ ] Publish: commit `.mdx`, push, confirm Vercel deploy actually succeeded (check the live URL, don't assume)
-- [ ] Move to "Live" table above with actual publish date, verified against the real URL
-- [ ] 2-week check: indexed? any impressions? (see PERFORMANCE_FRAMEWORK.md)
+- [ ] Passes the five tests above, with the evidence for each written in the queue row
+- [ ] Draft grounded in Chris's real experience; no invented specifics
+- [ ] Sources read at source and logged in `COACHING_FRAMEWORK.md`
+- [ ] Chris reviews for accuracy and voice
+- [ ] SEO pass: headings, meta, links to the pillar and 2 to 3 related articles
+- [ ] Chris's explicit approval
+- [ ] Publish: commit `.mdx`, push, confirm the live URL (don't assume the deploy)
+- [ ] Add to Live, below, with the verified date
+- [ ] 2-week check
 
-## Notes
+## Live (all locked)
 
-- "Live" in this doc means verified against the actual deployed URL or Search Console, never carried over from an earlier doc's unverified claim.
-- If a queued article turns out to need expertise or an anecdote Chris doesn't actually have, flag it and either reshape the angle or drop it — see the Decision-Making Framework in CLAUDE.md.
-
-## Related Docs
-
-- **CLAUDE.md** — editorial rules, the wedge, and the review workflow (incl. voice profile once captured)
-- **COACHING_FRAMEWORK.md** — the STEP and Intervention Wheel research base articles 2 and 3 draw from
-- **ROADMAP_6MONTH.md** — cluster priority and sequencing
-- **PERFORMANCE_FRAMEWORK.md** — what to check once articles are live
-
-## Queue: 7v7 formations pillar + formation builder (added 2026-10-13)
-
-**One release, three parts. Nothing is approved or published.** Chris signs off before any of it goes live.
-
-| Part | File | State |
+| Slug | Role | Live |
 |---|---|---|
-| Pillar article, "7v7 Formations: 2-3-1 or 3-2-1, and How to Choose" | `content/articles/7v7-soccer-formations.mdx` | **Published and locked 2026-10-13** on Chris's go, after his interview answers the same day. |
-| Formation builder tool page and Tools section | `app/tools/` | **Released 2026-10-13** (`TOOLS_PUBLISHED = true` in `lib/site.js`): indexable, in the sitemap, linked from the nav. |
-| Embed route | `app/embed/shape-board/page.js` | Built, `noindex`. |
-| Topic `formations` | `lib/clusters.js` (hidden until it has a published article) | Added. |
+| `why-your-practice-feels-like-chaos` | Series 1, part 1 | 2026-09-29 |
+| `how-much-should-you-actually-say` | Series 1, part 2 | 2026-09-29 |
+| `coach-without-stopping-the-game` | Series 1, part 3 | 2026-09-29 |
+| `fundamentals-of-soccer-coaching` | Pillar: coaching principles | 2026-09-29 |
+| `scanning-and-receiving` | Before the Decision, part 1 | 2026-09-29 |
+| `teach-it-or-let-the-game-teach-it` | Before the Decision, part 2 | 2026-09-29 |
+| `first-touch-and-receiving` | Before the Decision, part 3 | 2026-09-29 |
+| `small-sided-games` | Session design | 2026-09-29 |
+| `see-your-own-coaching` | Coach development | 2026-09-29 |
+| `coaching-u6-to-u10` | Pillar: age and development | 2026-09-29 |
+| `how-to-plan-a-soccer-training-session` | Pillar: session design | 2026-09-29 |
+| `7v7-soccer-formations` | Pillar: formations | 2026-10-13 |
 
-**Go-live checklist:** (1) Chris reads the article and fixes the wording of his opinions; (2) Chris supplies where the 2-3-1 goes wrong (the one deliberate gap); (3) confirm the 2-3-1 central mid (8 or 6), the 3-1-2 forwards (10 and 9) and the 3-2-1 midfielder sides (6 left, 8 right); (4) confirm the Animate CTA line is true of the product; (5) rename the article file to `7v7-soccer-formations.mdx`; (6) set `TOOLS_PUBLISHED = true` in `lib/site.js` (one switch: shows the Tools nav link, `/tools`, the builder and embed routes, the sitemap entries, the Formations topic tool card, and the gated links added to three older articles); (7) `npm run check:pitch`, `npm run verify:diagrams`, `npm run build`; (8) in GA4 register `embed_host` as an event-scoped custom dimension (tool and action are used by the admin already).
-
-**Evidence and sources:** `COACHING_FRAMEWORK.md`, "7v7 formations guide" sections. **Tool design notes and progress:** `SHAPE_BOARD_DEEP_DIVE.md`.
-
-**Not built:** the "Open in PitchLabs" deep link and a printable lineup card (both need app changes, so need approval first), and a physical-device and Android test pass.
-
-**Cross-links added 2026-10-13 (Chris approved link-only edits to locked articles):** `small-sided-games`, `coaching-u6-to-u10`, `how-to-plan-a-soccer-training-session` each end with a block wrapped in `<IfPublished slug="7v7-soccer-formations" tool>`, so the link appears only once the article and the Tools section are live. The new article already links to all three, and to the tool.
-
-**Tools section, 2026-10-13:** besides the formation builder, six existing article tools now have their own `/tools/<slug>` page from one registry (`lib/tools.js`, route `app/tools/[slug]`): small-sided-game-splitter, step-framework-tool, session-audit, couldnt-or-didnt, coaching-interaction-picker, coaching-intervention-wheel. Same release switch (`TOOLS_PUBLISHED`). The article components are unchanged except for analytics: `StepTool`, `InterventionWheelTool` and `CoachingInterventionWheel` now fire `tool_use` (tools `step_tool`, `intervention_picker`, `intervention_wheel`; action `select_<id>`), so all tools appear in the admin's tool table. Copy on the new pages is drafted from each article and component, and needs Chris's read before release (especially the two "version I use" attribution lines).
+Dates are the real go-live dates; article frontmatter carries the staggered dates (decided 2026-09-29).

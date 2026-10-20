@@ -188,6 +188,10 @@ export default function ArticlePage({ params }) {
           </div>
         </div>
 
+        <div className="article-content">
+          <MDXRemote source={article.content} components={components} />
+        </div>
+
         {article.meta.cta && (
           <div className="article-cta article-cta-prompt">
             <p>{article.meta.cta}</p>
@@ -201,10 +205,6 @@ export default function ArticlePage({ params }) {
             </TrackedCtaLink>
           </div>
         )}
-
-        <div className="article-content">
-          <MDXRemote source={article.content} components={components} />
-        </div>
 
         <AuthorBio author={article.meta.author} />
 
