@@ -161,6 +161,10 @@ export function StepTool() {
               {p.chip}
             </button>
           ))}
+          {/* Phones only: the panels below fit their content there, so Clear sits up here where they can't move it. */}
+          <button type="button" className="step-tool-clear step-tool-clear-inline" onClick={() => setSelected(null)} disabled={!selected}>
+            Clear
+          </button>
         </div>
       </div>
 
@@ -208,7 +212,7 @@ export function StepTool() {
         </aside>
       </div>
 
-      <button type="button" className="step-tool-clear" onClick={() => setSelected(null)} disabled={!selected}>
+      <button type="button" className="step-tool-clear step-tool-clear-bottom" onClick={() => setSelected(null)} disabled={!selected}>
         Clear
       </button>
     </div>
