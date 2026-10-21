@@ -7,6 +7,7 @@ import { GA_MEASUREMENT_ID, APP_URL } from '@/lib/analytics'
 import { SITE_URL, SHOW_TOOLS } from '@/lib/site'
 import { GoogleAnalyticsPageTracker } from '@/components/GoogleAnalyticsPageTracker'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
+import { FirstTouchCapture } from '@/components/FirstTouchCapture'
 
 // Brand type (kit v1.2), same as the main PitchLabs site: Archivo only, loaded with its width axis.
 // Body copy sits at normal width; headlines are set expanded (font-stretch 125%) in globals.css.
@@ -131,6 +132,8 @@ export default function RootLayout({ children }) {
             </Suspense>
           </>
         ) : null}
+        {/* Signup attribution for the app: runs with or without GA. */}
+        <FirstTouchCapture />
       </body>
     </html>
   )
