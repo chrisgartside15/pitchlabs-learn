@@ -13,6 +13,7 @@ import { SessionAudit } from '@/components/SessionAudit'
 import { CouldntOrDidnt } from '@/components/CouldntOrDidnt'
 import { InterventionWheelTool } from '@/components/InterventionWheelTool'
 import { CoachingInterventionWheel } from '@/components/CoachingInterventionWheel'
+import { SpacePlanner } from '@/components/SpacePlanner'
 
 // The same components that sit inside the articles, shown on their own.
 const COMPONENTS = {
@@ -22,6 +23,7 @@ const COMPONENTS = {
   CouldntOrDidnt,
   InterventionWheelTool,
   CoachingInterventionWheel,
+  SpacePlanner,
 }
 
 export function generateStaticParams() {
@@ -45,7 +47,7 @@ export default function ToolPage({ params }) {
   if (!tool || !SHOW_TOOLS) notFound()
 
   const Tool = COMPONENTS[tool.component]
-  const article = getArticleBySlug(tool.articleSlug)
+  const article = tool.articleSlug ? getArticleBySlug(tool.articleSlug) : null
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -85,6 +87,18 @@ export default function ToolPage({ params }) {
 
         <h2>Where it comes from</h2>
         <p>{tool.note}</p>
+        {tool.sources && (
+          <ul>
+            {tool.sources.map((src) => (
+              <li key={src.href}>
+                <a href={src.href} target="_blank" rel="noopener noreferrer">
+                  {src.label}
+                </a>
+                , {src.detail}
+              </li>
+            ))}
+          </ul>
+        )}
         {article && (
           <p>
             The thinking, sources and caveats are in{' '}

@@ -4608,3 +4608,306 @@ article .starter-cta-button:focus-visible,
   background: rgba(127, 127, 127, 0.15);
   color: inherit;
 }
+
+/* === Small-sided game space planner (components/SpacePlanner.js) — reuses .step-tool, .gs-* stepper and table, .audit-seg === */
+.fs-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.fs-controls .gs-input {
+  margin-bottom: 0;
+}
+
+.fs-control {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.fs-space-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.fs-number {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--surface-0);
+  width: 4.2rem;
+}
+
+.gs-stepper .fs-number {
+  border: none;
+  border-radius: 0;
+  width: 3.4rem;
+}
+
+.fs-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.fs-presets-label {
+  color: var(--fg-subtle);
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+
+.sp-head,
+.sp-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.sp-row {
+  width: 100%;
+  padding: 0.65rem 0.6rem;
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sp-row:hover {
+  background: var(--surface-2);
+}
+
+.sp-row-on,
+.sp-row-on:hover {
+  background: var(--brand-a08);
+  border-top-color: transparent;
+  color: var(--fg);
+}
+
+.sp-row:focus-visible {
+  outline: 2px solid var(--brand-text);
+  outline-offset: -2px;
+}
+
+.sp-games {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-family: var(--font-mono-family);
+  font-size: 0.8rem;
+}
+
+.sp-split {
+  font-family: var(--font-body-family, inherit);
+  font-size: 0.9rem;
+  color: var(--fg);
+}
+
+.sp-room {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sp-room-for {
+  color: var(--fg-subtle);
+}
+
+.sp-feel {
+  color: var(--fg);
+}
+
+.sp-feel-about-match-sized {
+  color: var(--brand-text);
+}
+
+.fs-result {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.fs-field {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  margin: 0 auto 1rem;
+}
+
+.fs-turf {
+  fill: var(--surface-2);
+  stroke: var(--brand-a35);
+  stroke-width: 2;
+}
+
+.fs-cut {
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+.fs-cell {
+  fill: var(--fg);
+  font-family: var(--font-mono-family);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.fs-dim {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono-family);
+  font-size: 17px; /* viewBox units: the SVG scales down on a phone, so this lands nearer 10px there */
+}
+
+.fs-verdict {
+  margin: 0 0 0.6rem;
+  color: var(--fg-muted);
+}
+
+.fs-verdict strong {
+  color: var(--fg);
+}
+
+@container (max-width: 560px) {
+  .sp-head {
+    display: none;
+  }
+
+  .sp-row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+/* ===========================================================================
+   Tools tidy, 2026-10-20: reserved space stays (nothing resizes on a clear state), but empty states now show
+   something useful in it rather than a blank box.
+   =========================================================================== */
+
+/* Session Audit: the empty state shows the study bar, with a dashed placeholder where yours will go. */
+.audit-bar-empty {
+  border: 1px dashed var(--border-subtle);
+  background: transparent;
+}
+
+.audit-bar-empty span {
+  flex: 1;
+  color: var(--fg-subtle);
+  font-weight: 500;
+}
+
+/* Couldn't or Didn't: the empty card previews the two places the answers lead. */
+.cd-result-empty {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.cd-result-empty .cd-empty {
+  text-align: left;
+}
+
+.cd-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.cd-preview-item {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--surface-0);
+}
+
+.cd-preview-title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display-family);
+  font-stretch: 125%;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.cd-preview-lead {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 560px) {
+  .cd-preview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stacked on a phone, the three branches read as alternatives, not a sequence: each is its own group,
+     labelled "If yes", "If no", "If not sure", with no arrows chaining one into the next. */
+  .cd-branches {
+    gap: 0.75rem;
+  }
+
+  .cd-branch {
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--border-subtle);
+    align-items: stretch;
+  }
+
+  .cd-branch.on {
+    border-left-color: var(--brand);
+  }
+
+  .cd-branch::before,
+  .cd-branch .cd-arrow {
+    display: none;
+  }
+
+  .cd-branch-label {
+    align-self: flex-start;
+    margin-bottom: 0.35rem;
+  }
+
+  .cd-branch-label::before {
+    content: 'If ';
+  }
+}
+
+/* STEP tool on phones (Chris, 2026-10-20): the panels and the card fit their content instead of reserving room
+   for their longest state, which left about 100px of blank space in each stacked panel. Nothing above the chips
+   changes, and Clear moves up beside the chips so a clear never moves the button being tapped. Desktop keeps the
+   reserved heights. */
+.step-tool-clear-inline {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .step-tool-body .state-stack-item:not(.is-active) {
+    display: none;
+  }
+
+  .step-tool-clear-inline {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0;
+    border-radius: 999px;
+  }
+
+  .step-tool-clear-bottom {
+    display: none;
+  }
+}

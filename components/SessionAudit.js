@@ -293,7 +293,7 @@ export function SessionAudit() {
                 </p>
                 <div className="audit-bar" aria-hidden="true">
                   <span style={{ flexGrow: STUDY.drills, background: 'var(--fg-subtle)' }}>Drills {STUDY.drills}%</span>
-                  <span style={{ flexGrow: STUDY.games, background: 'var(--brand)' }}>Games {STUDY.games}%</span>
+                  <span style={{ flexGrow: STUDY.games, background: 'var(--brand)', color: 'var(--surface-0)' }}>Games {STUDY.games}%</span>
                 </div>
               </div>
             </div>
@@ -319,7 +319,36 @@ export function SessionAudit() {
             </p>
           </>
         ) : (
-          <p className="audit-empty">Add minutes and a tag for at least one activity to see your split.</p>
+          <>
+            {/* Empty state: the study bar is already known, so show it, with a placeholder where yours will go. */}
+            <div className="audit-compare">
+              <div className="audit-compare-row">
+                <p className="audit-compare-label">
+                  Your session <span>– min</span>
+                </p>
+                <div className="audit-bar audit-bar-empty">
+                  <span>Add minutes and a tag to see your split</span>
+                </div>
+              </div>
+              <div className="audit-compare-row">
+                <p className="audit-compare-label">
+                  Study average <span>70 sessions</span>
+                </p>
+                <div className="audit-bar" aria-hidden="true">
+                  <span style={{ flexGrow: STUDY.drills, background: 'var(--fg-subtle)' }}>Drills {STUDY.drills}%</span>
+                  <span style={{ flexGrow: STUDY.games, background: 'var(--brand)', color: 'var(--surface-0)' }}>Games {STUDY.games}%</span>
+                </div>
+              </div>
+            </div>
+            <p className="audit-source">
+              Study: Ford et al. (2010), cited via{' '}
+              <a href="https://doi.org/10.1080/02640414.2012.721930" target="_blank" rel="noopener noreferrer">
+                Cushion, Ford &amp; Williams (2012)
+              </a>
+              ; players aged 9, 13 and 16, data over fifteen years old. It didn&apos;t separate &ldquo;decide&rdquo; from
+              &ldquo;look&rdquo;, so both count as game time here.
+            </p>
+          </>
         )}
         </div>
       </div>

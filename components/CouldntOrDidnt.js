@@ -171,6 +171,16 @@ export function CouldntOrDidnt() {
               node: (
                 <div className="cd-result-card cd-result-empty">
                   <p className="cd-empty">{first === 'unsure' ? 'Answer the second question to see what to try.' : 'Pick an answer to see what to try.'}</p>
+                  {/* A preview of where the two answers lead, so the reserved space isn't blank. */}
+                  <div className="cd-preview" aria-hidden="true">
+                    {['choosing', 'teaching'].map((kind) => (
+                      <div key={kind} className={`cd-preview-item cd-result-${kind}`}>
+                        <p className="cd-result-kicker">{RESULTS[kind].kicker}</p>
+                        <p className="cd-preview-title">{RESULTS[kind].title}</p>
+                        <p className="cd-preview-lead">{RESULTS[kind].lead}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ),
             },
