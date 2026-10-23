@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getCluster } from '@/lib/clusters'
 import { APP_URL } from '@/lib/analytics'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
+import { withBasePath } from '@/lib/site'
 
 /** Registered as the `a` override for every markdown-syntax link inside article .mdx content
  *  (research citations, the cross-article series links). Without this, MDXRemote renders a plain
@@ -117,9 +118,7 @@ export function AuthorBio({ author }) {
   const { name, credentials } = splitAuthor(author)
   return (
     <div className="author-bio">
-      <div className="author-bio-avatar" aria-hidden="true">
-        {name.charAt(0)}
-      </div>
+      <img className="author-bio-avatar" src={withBasePath('/images/chris-gartside.jpg')} alt="" width="56" height="56" />
       <div className="author-bio-text">
         <p className="author-bio-name">{name}</p>
         {credentials && <p className="author-bio-credentials">{credentials}</p>}
