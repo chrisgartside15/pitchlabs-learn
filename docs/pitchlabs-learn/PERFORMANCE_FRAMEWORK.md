@@ -72,7 +72,7 @@ All events go through `trackEvent` in `lib/analytics.js` into GA4 `G-YFDWB5CGGG`
 | `tool_use` | `CouldntOrDidnt` (teach-it) | `tool: couldnt_or_didnt`, `action: result`, `result` (choosing / teaching) |
 | `tool_use` | `GameSplitter` (small-sided-games) | `tool: game_splitter`, `action: players`, `players` (sent once the count settles) |
 
-`resource` values: `blank_activity_sheet`, `blank_session_plan`, `switch_of_play_to_four_goals`, `coaching_interaction_menu`, `six_ways_to_step_in`, `coaching_tally_sheet`.
+`resource` values: `blank_activity_sheet`, `blank_session_plan`, `switch_of_play_to_four_goals`, `coaching_interaction_menu`, `six_ways_to_step_in`, `coaching_tally_sheet`, `play_back_to_go_forward` .
 
 Verified end to end on 2026-09-29 for the tally sheet and the splitter, by running dev with a dummy GA ID and reading `window.dataLayer`. That's a quick way to re-check any event without sending real hits.
 

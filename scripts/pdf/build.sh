@@ -13,7 +13,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
 APP="${PITCHLABS_APP:-$REPO/../app}"
 APP="$(cd "$APP" && pwd)"
-ALL=(activity-sheet session-plan switch-of-play interaction-menu six-ways-to-step-in tally-sheet)
+ALL=(activity-sheet session-plan switch-of-play play-back-to-go-forward interaction-menu six-ways-to-step-in tally-sheet)
 NAMES=("${@:-${ALL[@]}}")
 
 [ -d "$APP/node_modules/@react-pdf/renderer" ] || { echo "PitchLabs app node_modules not found at $APP" >&2; exit 1; }
