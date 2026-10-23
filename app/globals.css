@@ -187,6 +187,11 @@ nav.nav {
     width: 100%;
     justify-content: space-between;
   }
+  /* Taller tap area for the text links (they were 20px high); the vertical padding is offset by the row-gap above. */
+  .nav-links a:not(.nav-cta) {
+    padding: 0.55rem 0.25rem;
+    margin: -0.55rem 0;
+  }
 }
 
 .nav-links a.nav-cta:hover {
@@ -1095,17 +1100,11 @@ article .download-card-button:hover,
 
 .author-bio-avatar {
   flex: none;
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
   background: var(--brand-a14);
-  color: var(--brand-text);
-  font-family: var(--font-display-family);
-  font-weight: 700;
-  font-size: 1.1rem;
 }
 
 /* .author-bio's flexbox already centers this wrapper's geometric box against the avatar exactly
