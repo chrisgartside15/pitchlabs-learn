@@ -12,6 +12,7 @@ const PRINTABLES = {
   'activity-sheet': { fn: 'renderBlank', out: 'pitchlabs-activity-sheet', diagram: 'blank-box' },
   'session-plan': { fn: 'renderBlankSession', out: 'pitchlabs-session-plan' },
   'switch-of-play': { fn: 'renderSwitch', out: 'switch-of-play-to-four-goals', diagram: 'switch' },
+  'play-back-to-go-forward': { fn: 'renderPlayBack', out: 'play-back-to-go-forward', diagram: 'play-back' },
   'interaction-menu': { fn: 'renderMenu', out: 'coaching-interaction-menu' },
   'six-ways-to-step-in': { fn: 'renderStops', out: 'six-ways-to-step-in' },
   'tally-sheet': { fn: 'renderTally', out: 'coaching-tally-sheet' },
@@ -35,6 +36,9 @@ if (spec.diagram === 'blank-box') {
 } else if (spec.diagram === 'switch') {
   // The diagram as exported from PitchLabs (extracted from Chris's original activity PDF).
   diagramSrc = dataUri('image/jpeg', readFileSync(join(ASSETS, 'switch-of-play-diagram.jpg')));
+} else if (spec.diagram === 'play-back') {
+  // A frame from the Animate clip, centred on a 16:9 canvas.
+  diagramSrc = dataUri('image/jpeg', readFileSync(join(ASSETS, 'play-back-to-go-forward-diagram.jpg')));
 }
 
 const mod = await import(`./${name}.bundle.mjs`);

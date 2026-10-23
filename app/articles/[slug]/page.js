@@ -19,6 +19,7 @@ import { InvolvementChart } from '@/components/InvolvementChart'
 import { GameSplitter } from '@/components/GameSplitter'
 import { IfPublished } from '@/components/IfPublished'
 import { ShapeBoard } from '@/components/ShapeBoard'
+import { VideoClip } from '@/components/VideoClip'
 import { getCluster } from '@/lib/clusters'
 import { faqJsonLd } from '@/lib/faq'
 import { SITE_URL } from '@/lib/site'
@@ -43,6 +44,7 @@ const components = {
   InvolvementChart,
   GameSplitter,
   ShapeBoard,
+  VideoClip,
   IfPublished,
   a: MdxLink,
 }

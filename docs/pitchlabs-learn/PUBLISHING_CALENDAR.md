@@ -78,5 +78,6 @@ Nothing publishes without Chris's sign-off. Voice: `PITCHLABS_VOICE.md`.
 | `coaching-u6-to-u10` | Pillar: age and development | 2026-09-29 |
 | `how-to-plan-a-soccer-training-session` | Pillar: session design | 2026-09-29 |
 | `7v7-soccer-formations` | Pillar: formations | 2026-10-13 |
+| `competition-in-youth-soccer-training` | Coaching principles | 2026-10-22 |
 
 Dates are the real go-live dates; article frontmatter carries the staggered dates (decided 2026-09-29).

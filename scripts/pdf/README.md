@@ -5,7 +5,7 @@ The free printables offered through `<DownloadCard>` in the articles are built h
 ## Build
 
 ```bash
-scripts/pdf/build.sh                # all six
+scripts/pdf/build.sh                # all seven
 scripts/pdf/build.sh tally-sheet    # just one
 ```
 
@@ -25,6 +25,7 @@ Every build embeds a fresh creation date, so a rebuild shows all PDFs as changed
 | `activity-sheet.tsx` | `pitchlabs-activity-sheet` | Chaos article, planning pillar |
 | `session-plan.tsx` | `pitchlabs-session-plan` | Planning pillar |
 | `switch-of-play.tsx` | `switch-of-play-to-four-goals` | Chaos article, scanning article |
+| `play-back-to-go-forward.tsx` | `play-back-to-go-forward` | Is Winning Important in Youth Soccer? (competition-in-youth-soccer-training) |
 | `interaction-menu.tsx` | `coaching-interaction-menu` | How Much Should You Actually Say? |
 | `six-ways-to-step-in.tsx` | `six-ways-to-step-in` | How to Coach Without Stopping the Game |
 | `tally-sheet.tsx` | `coaching-tally-sheet` | How to See Your Own Coaching |
