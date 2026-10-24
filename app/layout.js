@@ -108,6 +108,12 @@ export default function RootLayout({ children }) {
             <TrackedCtaLink href={APP_URL} location="footer" className="footer-link">
               Build Sessions →
             </TrackedCtaLink>
+            <p className="footer-guest">
+              Want to write for PitchLabs Learn?{' '}
+              <a href="mailto:hello@usepitchlabs.com?subject=Writing for PitchLabs Learn" className="footer-link">
+                hello@usepitchlabs.com
+              </a>
+            </p>
           </div>
         </footer>
         {GA_MEASUREMENT_ID ? (
