@@ -19,7 +19,7 @@ The original 5-cluster plan (Session Planning, Coaching Principles, Age-Specific
 **Why:** Directly maps to the product (PitchLabs is a session-planning tool), broadened to include season/program-level sequencing, not just a single session.
 **Pillar:** How to Plan a Soccer Training Session: A Complete Guide — **not live.**
 **Supporting article directions:** learning objectives before drills, session structure/timing for youth sessions, small-sided formats (5v5/7v7) and why they exist, building a season-long curriculum. Note: "progressing an activity without stopping play" already has a published piece here ([How to Progress a Session Without Stopping the Game Every Two Minutes](/articles/progress-a-session-without-stopping-the-game)) — a future article should angle differently rather than re-cover the same ground.
-**Note:** Keep supporting articles anchored in Chris's actual age range (U6–U10) rather than drifting into general/older-age session planning where the credibility argument weakens.
+**Note (updated 2026-10-23: Chris's range is now U8–U12, see CLAUDE.md):** Keep supporting articles anchored in Chris's actual age range (was U6–U10 when written) rather than drifting into general/older-age session planning where the credibility argument weakens.
 
 ### Cluster 3: Age & Development (`age-development`) (highest-priority new cluster)
 **Why:** This is Chris's actual day job and the sharpest differentiation available. Almost no youth-soccer content is written by someone currently running a 200-player, 24-team pre-competitive program. Scoped to what changes structurally by age — formats, group sizes, session length — not decision-making, which stays in Coaching Principles.

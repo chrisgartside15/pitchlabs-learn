@@ -2,6 +2,16 @@
 
 **Reset 2026-10-14.** The previous calendar (launch log, per-article review history, lock records, old queue) is archived, unedited, at `docs/archive/PUBLISHING_CALENDAR_2026-09-to-10-14.md`. Other docs still cite it for "what was reviewed and why" on any live article. Treat the archive as history: don't update it.
 
+## Scope change (decided 2026-10-23, Chris)
+
+Learn is now written for coaches of **U8–U12** players, and Chris's first-person claims cover U8–U12 (they were U6–U10). He isn't qualified to write on older age groups and wants guest writers for those. Done 2026-10-23: `CLAUDE.md` and `PITCHLABS_VOICE.md` updated, site-wide "Written for coaches of U8–U12 players" line under every article's byline, homepage hero and meta descriptions, Age & Development cluster blurb. Live articles' bodies, frontmatter and downloads were **not** changed.
+
+Still to decide:
+- **The U6–U10 pillar** (`coaching-u6-to-u10`, locked) has U6–U10 in its title, slug, body and cluster link. A U8–U12 pillar would need Chris's coaching points for U11–U12, plus a redirect from the old slug so SEO isn't lost.
+- Small body mentions in locked articles (the pillar link title in three closing lines, "U6–U10" in `small-sided-games`). Cited studies of under-7s stay: they are research descriptions.
+- Printable tags that say "U8–U10" (Switch of Play, Play Back to Go Forward).
+- **Guest writers:** a line on the homepage or an about page needs a contact address from Chris.
+
 ## What Learn is for (decided 2026-10-14, Chris)
 
 **PitchLabs signups.** For the next 90 days an article earns its place by bringing qualified coaches toward the app. Authority, CPD and courses are a later layer (see Parked). Judge by CTA clicks and signups beside sessions, as `/admin/learn` already shows. No fixed publishing pace: a priority queue, dated only when an article is approved and live.

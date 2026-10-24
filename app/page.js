@@ -9,11 +9,11 @@ import { APP_URL } from '@/lib/analytics'
 
 export const metadata = {
   title: 'PitchLabs Learn - Coaching Education',
-  description: 'Practical, research-backed articles on soccer coaching. From session planning to tactical development, we help coaches build better training and better teams.',
+  description: 'Practical, research-backed articles on coaching U8–U12 soccer players, from session planning to how players learn.',
   alternates: { canonical: SITE_URL },
   openGraph: {
     title: 'PitchLabs Learn',
-    description: 'Practical, research-backed articles on soccer coaching.',
+    description: 'Practical, research-backed articles on coaching U8–U12 soccer players.',
     type: 'website',
     locale: 'en_US',
   },
@@ -35,7 +35,7 @@ export default function Home() {
         <TechEyebrow>Coaching Education</TechEyebrow>
         <h1>Practical Coaching, Explained</h1>
         <p>
-          Research-backed articles on soccer coaching — session planning, tactical development, and the reasoning behind both.
+          Research-backed articles on soccer coaching for U8–U12 players: session planning, how players learn, and the reasoning behind both.
         </p>
         <TrackedCtaLink
           href={APP_URL}

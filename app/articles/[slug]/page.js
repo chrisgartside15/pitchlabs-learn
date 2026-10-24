@@ -188,6 +188,7 @@ export default function ArticlePage({ params }) {
             {article.meta.author && <span>{article.meta.author}</span>}
             <span>{readingTime} min read</span>
           </div>
+          <p className="article-audience">Written for coaches of U8–U12 players.</p>
         </div>
 
         <div className="article-content">

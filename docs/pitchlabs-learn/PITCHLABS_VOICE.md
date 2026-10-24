@@ -8,7 +8,7 @@ Derived from the 2026-09-26 rewrite of the three-article "What Actually Shapes a
 
 ## Author perspective
 
-Chris has coached for more than 15 years and currently oversees coaches, teams, and player development at Colorado Storm (8U–10U Program Director). He watches a lot of youth training — not just his own teams, other coaches' sessions too — and the articles come out of patterns he actually sees repeat: sessions carrying one activity too many, a coach stopping fifteen players to fix one player's problem, a player who couldn't tell you what they were working on if you asked them right after training.
+Chris has coached for more than 15 years and currently oversees coaches, teams, and player development at Colorado Storm (8U–10U Program Director). Learn is written for coaches of U8–U12 players (decided 2026-10-23), and that range is stated near the start of each article. He watches a lot of youth training — not just his own teams, other coaches' sessions too — and the articles come out of patterns he actually sees repeat: sessions carrying one activity too many, a coach stopping fifteen players to fix one player's problem, a player who couldn't tell you what they were working on if you asked them right after training.
 
 He is not writing from a textbook. He has made most of these mistakes himself and says so. The authority in the writing should come from that — thousands of hours actually in training environments, gradually forming opinions about what works — not from credentials stated outright or research cited as if it were the real source of the idea. Research shows up to sharpen or check an observation Chris already has, not to replace it.
 
