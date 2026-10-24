@@ -32,10 +32,10 @@ export const metadata = {
   // in preview deployments, and a documented Next.js warning without this set at all).
   metadataBase: new URL(SITE_URL),
   title: 'PitchLabs Learn',
-  description: 'Soccer coaching guides and training session planning.',
+  description: 'Soccer coaching guides for U8–U12 players and training session planning.',
   openGraph: {
     title: 'PitchLabs Learn',
-    description: 'Soccer coaching guides and training session planning.',
+    description: 'Soccer coaching guides for U8–U12 players and training session planning.',
     url: SITE_URL,
     siteName: 'PitchLabs Learn',
   },

@@ -2,7 +2,7 @@
 
 ## Purpose & North Star
 
-PitchLabs Learn is a working coach's notebook: how Chris uses established coaching tools, where each one comes from, where it holds up, and how other coaches can adapt it to build their own way of thinking about coaching, at any age.
+PitchLabs Learn is a working coach's notebook: how Chris uses established coaching tools, where each one comes from, where it holds up, and how other coaches can adapt it to build their own way of thinking about coaching with U8–U12 players.
 
 It is also an owned acquisition channel for PitchLabs, a session-planning tool for individual soccer coaches. Reputation and SEO traffic are the mechanism; qualified signups to usepitchlabs.com are the outcome. The notebook framing and the acquisition goal are not in tension as long as the content is useful on its own.
 
@@ -23,18 +23,18 @@ Rules that follow from that:
 
 ## Scope (earlier docs call this "the wedge")
 
-**Topic scope is any age and any format.** The tools and the thinking apply from the youngest ages to adult, and how a tool changes with age is itself good content.
+**Topic scope is U8–U12 (decided 2026-10-23, Chris).** Learn is written for coaches of U8–U12 players, and every article should make that clear from the start. Chris is not qualified to write on older age groups. Older ages are welcome through guest writers who coach them, not through Chris writing outside his range. How a tool changes across U8–U12 is good content; how it changes at 14 or in the adult game is for a guest writer. Research on other ages can still be cited, but as source-based and labelled as such (for example, "the participants were 13").
 
 **Experience claims are limited to what Chris has actually done:**
 
-- **Young age-group coaching (U6–U10)**: 15+ years coaching, currently 8U–10U Program Director
-- **Small-sided formats (5v5 / 7v7)** at that age
+- **Youth coaching (U8–U12)**: 15+ years coaching, currently 8U–10U Program Director. (Chris confirmed U8–U12 as his range on 2026-10-23; earlier notes said U6–U10. The existing U6 to U10 pillar and the U6–U7 mentions in older articles pre-date this, see PUBLISHING_CALENDAR.md.)
+- **Small-sided formats (5v5 / 7v7)** at those ages
 - **Futsal**: Girls Futsal Programme Director (2021–2024), United Futsal Foundation Diploma
 - **Coach development / CPD**: Coach Developer Diploma, coach education workshops and mentoring for the club's coaching staff (confirm headcount before quoting a number publicly)
 
 Credentials: UEFA C, US Soccer National B License, Coach Developer Diploma, BA (Hons) Physical Education & School Sports.
 
-Writing outside that experience is fine when it is framed as source-based, not experience-based (for example, "here is what the research says about 14-year-olds; I haven't coached this"). What stays out regardless of search volume: generic drill lists, elite or professional-level analysis presented as if from experience, and topics that exist only because the keyword looks good.
+Writing outside that experience is fine only as short, source-based context (for example, "the participants were 13"). A full piece about older age groups is a guest-writer piece. What stays out regardless of search volume: generic drill lists, elite or professional-level analysis presented as if from experience, and topics that exist only because the keyword looks good.
 
 ## Editorial Principles
 
