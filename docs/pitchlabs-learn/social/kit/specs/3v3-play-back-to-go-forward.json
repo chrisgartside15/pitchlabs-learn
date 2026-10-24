@@ -1,0 +1,19 @@
+{
+  "type": "cover",
+  "eyebrow": "Small-sided games",
+  "big": "3v3",
+  "title": "Play Back\nto Go Forward",
+  "age": "8U–10U",
+  "meta": "30×20 yds",
+  "pitch": {
+    "width": 20, "length": 30, "goals": [5.5, 14.5],
+    "zones": [[0, 22, 20, 30]],
+    "lines": [[0, 22, 20, 22]],
+    "players": [
+      { "team": "red", "x": 11, "y": 4 }, { "team": "blue", "x": 13, "y": 6 },
+      { "team": "red", "x": 3.5, "y": 12.5 }, { "team": "blue", "x": 6, "y": 14.5, "ring": true, "ball": [40, 18] },
+      { "team": "red", "x": 16, "y": 13.5 }, { "team": "blue", "x": 10.5, "y": 26, "ring": true }
+    ],
+    "arrows": [ { "from": [7.6, 16.6], "to": [9.8, 23.6], "bend": -0.12 } ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "carousel",
+  "series": "The Fundamentals",
+  "slides": [
+    { "layout": "hook",
+      "title": "Drills didn’t win.\nNot even on\n*technique.*",
+      "sub": "What the head-to-head studies found." },
+    { "layout": "compare",
+      "kicker": "Game-based vs drill-based practice",
+      "title": "On *technique*, drills didn’t come out ahead.",
+      "bars": [ { "label": "No difference", "note": "Most studies", "share": 2 },
+                { "label": "Games ahead", "note": "About a third", "share": 1, "hit": true } ],
+      "empty": "Drills ahead: *none*",
+      "body": "On tactical skills, game-based practice came out ahead.",
+      "cite": "Bromilow et al., Sports Medicine – Open, 2025" },
+    { "layout": "statement",
+      "title": "A well-run activity and good coaching *aren’t the same thing.*",
+      "body": "An activity can be well designed and still just be rehearsal, with no real decision in it." },
+    { "layout": "stack",
+      "kicker": "A shorthand for any action",
+      "words": ["Perceive", "Decide", "Execute"],
+      "body": ["Not three steps in a row. The research behind STEP sees perceiving and acting as **one coupled process.**",
+               "But most training time still goes to *execute.*"] },
+    { "layout": "cards",
+      "title": "Two tools for shaping the *deciding*",
+      "cards": [ { "label": "Tool 1", "title": "STEP", "body": "Space, Task, Equipment, Players: change the game so the decision you want shows up." },
+                 { "label": "Tool 2", "title": "Coaching Intervention Wheel", "body": "Who you’re coaching, how you interact, and how you stop the game to say it." } ] },
+    { "layout": "signoff",
+      "title": "The Fundamentals of Soccer Coaching",
+      "body": "What the drills-versus-games research shows, why reading the game and acting on it develop together, and how it all changes with age." }
+  ]
+}

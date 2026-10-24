@@ -1,0 +1,102 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="kit.css"></head>
+<body><div id="root"></div>
+<script>
+/* Renders one frame from window.SPEC (set by render.mjs). ?i=N picks the carousel slide.
+   Text markup: *word* = Bib accent, **word** = white bold, \n = line break. */
+const MARK = `<svg viewBox="195 210 939 1610" xmlns="http://www.w3.org/2000/svg" aria-label="PitchLabs"><g fill="none" stroke="#F3F0E6" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"><path d="M225 1720V423H680A241 241 0 0 1 680 905H405V633"/><path d="M405 240H680A424 424 0 0 1 680 1088H407"/></g><g fill="#D7F25C"><circle cx="407" cy="1208" r="30"/><circle cx="407" cy="1328" r="30"/><circle cx="407" cy="1448" r="30"/><circle cx="407" cy="1568" r="30"/><circle cx="437.8" cy="1680.3" r="30"/><circle cx="546.5" cy="1720" r="30"/><circle cx="666.5" cy="1720" r="30"/><circle cx="786.5" cy="1720" r="30"/></g><path d="M898 1650L968 1720L898 1790" fill="none" stroke="#D7F25C" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const md = s => esc(s ?? '')
+  .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')
+  .replace(/\*(.+?)\*/g,'<span class="accent">$1</span>')
+  .replace(/\n/g,'<br>');
+
+const SPEC = window.SPEC;
+const root = document.getElementById('root');
+const i = +new URLSearchParams(location.search).get('i') || 0;
+const showSafe = new URLSearchParams(location.search).has('safe');
+
+/* ---------- carousel ---------- */
+const LAYOUTS = {
+  hook: s => `<h1 class="display h-hook">${md(s.title)}</h1>${s.sub?`<div class="gap-l"></div><p class="body">${md(s.sub)}</p>`:''}`,
+  statement: s => `${s.kicker?`<div class="mono kicker">${esc(s.kicker)}</div>`:''}<h2 class="display h-lg">${md(s.title)}</h2>${s.body?`<div class="gap-m"></div><p class="body">${md(s.body)}</p>`:''}`,
+  compare: s => `<div class="mono kicker">${esc(s.kicker)}</div><h2 class="display h-md">${md(s.title)}</h2><div class="gap-l"></div>
+    <div class="bars">${s.bars.map(b=>`<div class="bar ${b.hit?'hit':'mute'}" style="flex:${b.share}">${esc(b.label)}</div>`).join('')}</div>
+    <div class="legend">${s.bars.map(b=>`<span>${esc(b.note||'')}</span>`).join('')}</div>
+    ${s.empty?`<div class="gap-m"></div><div class="empty"><i></i><span>${md(s.empty)}</span></div>`:''}
+    ${s.body?`<div class="gap-m"></div><p class="body">${md(s.body)}</p>`:''}
+    ${s.cite?`<div class="gap-m"></div><div class="cite">${esc(s.cite)}</div>`:''}`,
+  stack: s => `<div class="mono kicker">${esc(s.kicker)}</div><div class="stack">${s.words.map((w,k)=>`<div class="${k===s.words.length-1?'on':''}">${esc(w)}</div>`).join('')}</div>
+    ${(s.body||[]).map(p=>`<div class="gap-m"></div><p class="body">${md(p)}</p>`).join('')}`,
+  cards: s => `<h2 class="display h-md">${md(s.title)}</h2><div class="gap-l"></div>
+    ${s.cards.map(c=>`<div class="card"><div class="mono">${esc(c.label)}</div><h3>${esc(c.title)}</h3><p>${md(c.body)}</p></div>`).join('')}`,
+  signoff: s => `<div class="mono kicker">${esc(s.kicker||'Read the full article')}</div><h2 class="display h-lg">${md(s.title)}</h2>
+    <div class="gap-m"></div><p class="body">${md(s.body)}</p><div class="gap-l"></div><div class="pill">${esc(s.cta||'Read it at usepitchlabs.com/learn →')}</div>`,
+};
+
+function carousel(){
+  const slides = SPEC.slides, s = slides[i], n = slides.length;
+  const last = i===n-1;
+  root.innerHTML = `<div class="canvas carousel">
+    <div class="top"><div class="mono series">${esc(SPEC.series)}</div><div class="mono count">${i+1} / ${n}</div></div>
+    <div class="content">${LAYOUTS[s.layout](s)}</div>
+    <div class="bottom">${MARK}${i===0?'<div class="mono swipe">Swipe →</div>':`<div class="url">${esc(SPEC.url||'usepitchlabs.com/learn')}</div>`}</div>
+  </div>`;
+}
+
+/* ---------- reel cover ---------- */
+/* Pitch in yards: x across (0..width), y down the pitch from the far end (0..length).
+   Drawn in perspective so it reads like the reel, but sized to stay inside the grid crop. */
+function pitchSVG(p){
+  const G = {top:990, bot:1560, cx:540, wTop:520, wBot:700};
+  const W = p.width, L = p.length;
+  const proj = (x,y)=>{ const v=y/L, t=v*G.wBot/((1-v)*G.wTop+v*G.wBot);
+    const w=G.wTop+(G.wBot-G.wTop)*t; return [G.cx+(x/W-.5)*w, G.top+(G.bot-G.top)*t]; };
+  const poly = pts => pts.map(q=>proj(...q).map(n=>n.toFixed(1)).join(',')).join(' ');
+  let o = '';
+  // goals, outside each end line
+  const goal = (gx,end)=>{ const gw=p.goalWidth||3.4, d=end?1.0:-1.2, y0=end?L:0;
+    return `<polygon points="${poly([[gx-gw/2,y0],[gx+gw/2,y0],[gx+gw/2,y0+d],[gx-gw/2,y0+d]])}" fill="none" stroke="#fff" stroke-width="3.8" stroke-linejoin="round"/>`; };
+  (p.goals||[W/2]).forEach(gx=>{ o+=goal(gx,false)+goal(gx,true); });
+  // turf stripes
+  const n=9; for(let k=0;k<n;k++){ const a=W*k/n,b=W*(k+1)/n; o+=`<polygon points="${poly([[a,0],[b,0],[b,L],[a,L]])}" fill="${k%2?'#2c6727':'#306e29'}"/>`; }
+  // zones: [x0,y0,x1,y1] in yards, Bib at 20%
+  (p.zones||[]).forEach(z=>{ o+=`<polygon points="${poly([[z[0],z[1]],[z[2],z[1]],[z[2],z[3]],[z[0],z[3]]])}" fill="#d7f25c" fill-opacity=".2"/>`; });
+  // dashed lines: [x0,y0,x1,y1]
+  (p.lines||[]).forEach(l=>{ const [a,b]=[proj(l[0],l[1]),proj(l[2],l[3])];
+    o+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${l[4]||'#c0e86b'}" stroke-width="3.5" stroke-dasharray="17 12"/>`; });
+  o+=`<polygon points="${poly([[0,0],[W,0],[W,L],[0,L]])}" fill="none" stroke="#fff" stroke-width="4.8" stroke-linejoin="round"/>`;
+  // the run: dotted Bib path with a solid head
+  (p.arrows||[]).forEach(a=>{ const A=proj(...a.from), B=proj(...a.to);
+    const mx=(A[0]+B[0])/2, my=(A[1]+B[1])/2, dx=B[0]-A[0], dy=B[1]-A[1], len=Math.hypot(dx,dy);
+    const bend=a.bend||0, C=[mx-dy/len*bend*len, my+dx/len*bend*len];
+    const tx=B[0]-C[0], ty=B[1]-C[1], tl=Math.hypot(tx,ty), ux=tx/tl, uy=ty/tl, h=40;
+    const base=[B[0]-ux*h, B[1]-uy*h];
+    o+=`<path d="M${A[0]} ${A[1]} Q ${C[0]} ${C[1]} ${base[0]} ${base[1]}" fill="none" stroke="#d7f25c" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 24.5"/>`;
+    o+=`<polygon points="${B[0]},${B[1]} ${base[0]-uy*20},${base[1]+ux*20} ${base[0]+uy*20},${base[1]-ux*20}" fill="#d7f25c"/>`; });
+  // players
+  const col={blue:'#3a81f4',red:'#ed4343'};
+  (p.players||[]).forEach(pl=>{ const [x,y]=proj(pl.x,pl.y);
+    o+=`<circle cx="${x}" cy="${y}" r="29" fill="${col[pl.team]}" stroke="#fff" stroke-width="4"/>`;
+    if(pl.ring) o+=`<circle cx="${x}" cy="${y}" r="50" fill="none" stroke="#d7f25c" stroke-width="7"/>`;
+    if(pl.ball){ const bx=x+(pl.ball[0]||42), by=y+(pl.ball[1]||18);
+      o+=`<g transform="translate(${bx} ${by})"><circle r="18" fill="#fff" stroke="#1a1a1a" stroke-width="3.5"/><circle r="6.5" fill="#1a1a1a"/></g>`; } });
+  return `<svg class="cv-pitch" width="1080" height="1920" viewBox="0 0 1080 1920">${o}</svg>`;
+}
+
+function cover(){
+  const c = SPEC;
+  root.innerHTML = `<div class="canvas cover">
+    <div class="cv-eyebrow">${esc(c.eyebrow)}</div>
+    <div class="cv-big">${esc(c.big)}</div>
+    <div class="cv-title">${md(c.title)}</div>
+    ${pitchSVG(c.pitch)}
+    <div class="cv-meta"><span>${esc(c.age)}</span> · ${esc(c.meta)} · PitchLabs</div>
+    ${showSafe?'<div class="safe" style="top:240px;height:1440px"></div>':''}
+  </div>`;
+}
+
+(SPEC.type==='cover'?cover:carousel)();
+document.fonts.ready.then(()=>document.body.dataset.ready='1');
+</script></body></html>
