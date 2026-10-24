@@ -94,7 +94,7 @@ export default function RootLayout({ children }) {
               {SHOW_TOOLS && <Link href="/tools">Tools</Link>}
               <Link href="/articles">Articles</Link>
               <TrackedCtaLink href={APP_URL} location="nav" className="nav-cta">
-                Build Sessions
+                Try PitchLabs free
               </TrackedCtaLink>
             </div>
           </nav>
@@ -106,7 +106,7 @@ export default function RootLayout({ children }) {
           <div className="footer-inner">
             <p>© {new Date().getFullYear()} PitchLabs. Coaching education for better training sessions.</p>
             <TrackedCtaLink href={APP_URL} location="footer" className="footer-link">
-              Build Sessions →
+              Try PitchLabs free →
             </TrackedCtaLink>
             <p className="footer-guest">
               Want to write for PitchLabs Learn?{' '}
