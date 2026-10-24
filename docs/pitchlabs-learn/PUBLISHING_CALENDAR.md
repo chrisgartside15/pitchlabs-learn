@@ -7,10 +7,11 @@
 Learn is now written for coaches of **U8–U12** players, and Chris's first-person claims cover U8–U12 (they were U6–U10). He isn't qualified to write on older age groups and wants guest writers for those. Done 2026-10-23: `CLAUDE.md` and `PITCHLABS_VOICE.md` updated, site-wide "Written for coaches of U8–U12 players" line under every article's byline, homepage hero and meta descriptions, Age & Development cluster blurb. Live articles' bodies, frontmatter and downloads were **not** changed.
 
 Still to decide:
-- **The U6–U10 pillar** (`coaching-u6-to-u10`, locked) has U6–U10 in its title, slug, body and cluster link. A U8–U12 pillar would need Chris's coaching points for U11–U12, plus a redirect from the old slug so SEO isn't lost.
-- Small body mentions in locked articles (the pillar link title in three closing lines, "U6–U10" in `small-sided-games`). Cited studies of under-7s stay: they are research descriptions.
+- ~~The U6–U10 pillar~~ **Done 2026-10-24:** replaced by `coaching-u8-to-u12` (locked), with a permanent redirect from `coaching-u6-to-u10` in `next.config.js` and the cluster `pillarSlug` updated. Chris approved the draft, including the U11–U12 lines.
+- The closing lines in `small-sided-games`, `competition-in-youth-soccer-training`, `7v7-soccer-formations` and `how-to-plan-a-soccer-training-session` still say "Coaching U6–U10" in their link text. The redirect keeps the links working; changing the text is a link-only edit to locked articles and needs Chris's OK.
+- Other small "U6–U10" body mentions in locked articles (for example in `small-sided-games`). Cited studies of under-7s stay: they are research descriptions.
 - Printable tags that say "U8–U10" (Switch of Play, Play Back to Go Forward).
-- **Guest writers:** a line on the homepage or an about page needs a contact address from Chris.
+- ~~Guest writers~~ **Done 2026-10-24:** footer line "Want to write for PitchLabs Learn?" with hello@usepitchlabs.com. Payment for guest writers: not decided; unpaid with byline and credentials is the usual start.
 
 ## What Learn is for (decided 2026-10-14, Chris)
 
@@ -85,7 +86,8 @@ Nothing publishes without Chris's sign-off. Voice: `PITCHLABS_VOICE.md`.
 | `first-touch-and-receiving` | Before the Decision, part 3 | 2026-09-29 |
 | `small-sided-games` | Session design | 2026-09-29 |
 | `see-your-own-coaching` | Coach development | 2026-09-29 |
-| `coaching-u6-to-u10` | Pillar: age and development | 2026-09-29 |
+| `coaching-u6-to-u10` | Redirects to `coaching-u8-to-u12` (2026-10-24) | 2026-09-29 |
+| `coaching-u8-to-u12` | Pillar: age and development (U8–U12) | 2026-10-24 |
 | `how-to-plan-a-soccer-training-session` | Pillar: session design | 2026-09-29 |
 | `7v7-soccer-formations` | Pillar: formations | 2026-10-13 |
 | `competition-in-youth-soccer-training` | Coaching principles | 2026-10-22 |
