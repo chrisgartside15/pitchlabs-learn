@@ -1,0 +1,95 @@
+/* PitchLabs social kit: one look for carousels (1080x1350) and reel covers (1080x1920).
+   Tokens come from the brand (v1.2). Change them here, never per slide. */
+@font-face{font-family:'Archivo';src:url(fonts/archivo.woff2) format('woff2');font-weight:100 900;font-stretch:62% 125%}
+@font-face{font-family:'JetBrains Mono';src:url(fonts/jetbrains-mono.woff2) format('woff2');font-weight:100 800}
+
+:root{
+  --chalk:#F3F0E6;      /* headlines */
+  --bib:#D7F25C;        /* the one bright colour: accent words, rules, CTA, the run */
+  --body:#B9C4BB;       /* body copy */
+  --label:#9AA59D;      /* mono labels, captions, citations */
+  --dim:#C3CCC4;        /* de-emphasised display words */
+  --card:#101e18; --card-line:#22332a; --card-top:#7d8f37;
+  --track-mute:#2a3c33;
+  --display:'Archivo',sans-serif; --mono:'JetBrains Mono',monospace;
+  --margin:80px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#08130f}
+.canvas{position:relative;overflow:hidden;font-family:var(--display);color:var(--chalk);
+  -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+
+/* Backgrounds */
+.carousel{width:1080px;height:1350px;
+  background:
+    radial-gradient(ellipse 760px 620px at 1080px 0px,rgba(48,78,34,.55),transparent 70%),
+    linear-gradient(180deg,#0b1813 0%,#09140f 100%)}
+.cover{width:1080px;height:1920px;
+  background:
+    radial-gradient(ellipse 540px 330px at 540px 20px,rgba(34,72,46,.78),rgba(30,64,41,.42) 45%,transparent 100%),
+    radial-gradient(ellipse 500px 330px at 540px 860px,rgba(22,44,30,.85),transparent 100%),
+    radial-gradient(ellipse 520px 190px at 540px 1700px,rgba(22,36,22,.8),transparent 100%),
+    linear-gradient(180deg,#0d2e21 0px,#0a251b 600px,#091e17 1000px,#0c1f14 1500px,#06130f 1900px)}
+
+/* Type roles */
+.display{font-weight:600;font-stretch:125%;letter-spacing:-0.005em;line-height:1.08}
+.mono{font-family:var(--mono);font-weight:600;text-transform:uppercase;letter-spacing:.16em}
+.accent{color:var(--bib)}
+b,.strong{color:#fff;font-weight:700}
+.body{font-size:38px;line-height:1.36;color:var(--body);font-weight:450;letter-spacing:-.005em}
+
+/* Carousel chrome (same on every slide) */
+.top{position:absolute;left:var(--margin);right:var(--margin);top:72px;display:flex;justify-content:space-between;align-items:center}
+.series{display:flex;align-items:center;gap:16px;font-size:24px;color:var(--bib)}
+.series::before{content:'';width:34px;height:3px;background:var(--bib)}
+.count{font-size:24px;color:var(--label);letter-spacing:.14em}
+.bottom{position:absolute;left:var(--margin);right:var(--margin);bottom:72px;display:flex;justify-content:space-between;align-items:flex-end}
+.bottom svg{height:64px;width:auto;display:block}
+.url{font-family:var(--mono);font-size:23px;color:var(--body);letter-spacing:.06em;line-height:1}
+.swipe{font-size:24px;color:var(--bib);letter-spacing:.14em;line-height:1}
+
+/* Carousel body: vertically centred in the space between chrome */
+.content{position:absolute;left:var(--margin);right:var(--margin);top:170px;bottom:190px;display:flex;flex-direction:column;justify-content:center}
+.kicker{font-size:23px;color:var(--label);margin-bottom:18px}
+.h-hook{font-size:96px}
+.h-lg{font-size:84px}
+.h-md{font-size:66px}
+.gap-s{height:28px}.gap-m{height:44px}.gap-l{height:64px}
+
+/* compare */
+.bars{display:flex;gap:4px;height:120px}
+.bar{border-radius:14px;display:flex;align-items:center;padding:0 28px;font-size:33px;font-weight:650;letter-spacing:-.01em}
+.bar.mute{background:var(--track-mute);color:var(--chalk)}
+.bar.hit{background:var(--bib);color:#0b1a12}
+.bar:first-child{border-top-right-radius:0;border-bottom-right-radius:0}
+.bar:last-child{border-top-left-radius:0;border-bottom-left-radius:0}
+.bar:only-child{border-radius:14px}
+.legend{display:flex;justify-content:space-between;margin-top:20px;font-size:23px;color:var(--label);font-family:var(--mono);letter-spacing:.04em}
+.empty{display:flex;align-items:center;gap:24px;font-size:34px}
+.empty i{width:120px;height:52px;border:2px dashed #4a5a50;border-radius:8px}
+.cite{font-family:var(--mono);font-size:22px;color:var(--label);letter-spacing:.02em}
+
+/* stack */
+.stack{border-left:3px solid var(--card-top);border-radius:6px;padding-left:44px}
+.stack div{font-size:112px;color:var(--dim);font-weight:600;font-stretch:125%;line-height:1.05}
+.stack div.on{color:var(--bib)}
+
+/* cards */
+.card{background:var(--card);border:1.5px solid var(--card-line);border-top:3px solid var(--card-top);border-radius:16px;padding:40px 44px 44px}
+.card+.card{margin-top:28px}
+.card .mono{font-size:23px;color:var(--bib)}
+.card h3{font-size:46px;font-weight:600;font-stretch:125%;margin:12px 0 18px;line-height:1.05}
+.card p{font-size:33px;line-height:1.36;color:var(--body)}
+
+/* sign-off CTA */
+.pill{display:inline-flex;align-self:flex-start;background:var(--bib);color:#0b1a12;border-radius:999px;padding:28px 42px;font-size:34px;font-weight:700;letter-spacing:-.01em}
+
+/* Reel cover */
+.cv-eyebrow{position:absolute;top:300px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:22px;font-size:31px;color:var(--bib);font-family:var(--display);font-weight:700;letter-spacing:.25em;text-transform:uppercase}
+.cv-eyebrow::before,.cv-eyebrow::after{content:'';width:56px;height:3px;background:var(--bib)}
+.cv-big{position:absolute;top:340px;left:0;right:0;text-align:center;font-size:400px;line-height:1;font-weight:650;font-stretch:124%;letter-spacing:-.04em;color:var(--bib);text-shadow:0 0 50px rgba(215,242,92,.38)}
+.cv-title{position:absolute;top:740px;left:40px;right:40px;text-align:center;font-size:80px;line-height:1.08;font-weight:500;font-stretch:124%}
+.cv-meta{position:absolute;top:1612px;left:0;right:0;text-align:center;font-size:34px;font-weight:500;color:var(--body);letter-spacing:.05em}
+.cv-meta span{color:var(--bib);font-weight:600}
+.cv-pitch{position:absolute;left:0;top:0}
+.safe{position:absolute;left:0;right:0;border:2px dashed rgba(255,80,80,.8);pointer-events:none}
