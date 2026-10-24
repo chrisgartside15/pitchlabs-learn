@@ -2212,6 +2212,14 @@ footer.footer {
   font-size: 0.85rem;
 }
 
+.footer-guest {
+  flex-basis: 100%;
+}
+
+.footer-guest .footer-link {
+  text-decoration: underline;
+}
+
 .footer-link {
   color: var(--fg-muted);
   text-decoration: none;
