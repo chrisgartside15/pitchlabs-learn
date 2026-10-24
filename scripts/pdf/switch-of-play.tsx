@@ -15,7 +15,7 @@ export async function renderSwitch(opts: { publicDir: string; paper: PdfPaper; l
     title: 'Switch of Play to Four Goals',
     templateName: null,
     durationMinutes: 15,
-    tags: ['U8–U10', 'Possession', 'Passing', '5–8 players', 'Medium Grid'],
+    tags: ['U8–U12', 'Possession', 'Passing', '5–8 players', 'Medium Grid'],
     players: '5–8',
     area: 'Medium Grid',
     objective:

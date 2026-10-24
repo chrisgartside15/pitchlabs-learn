@@ -10,7 +10,7 @@ Still to decide:
 - ~~The U6–U10 pillar~~ **Done 2026-10-24:** replaced by `coaching-u8-to-u12` (locked), with a permanent redirect from `coaching-u6-to-u10` in `next.config.js` and the cluster `pillarSlug` updated. Chris approved the draft, including the U11–U12 lines.
 - The closing lines in `small-sided-games`, `competition-in-youth-soccer-training`, `7v7-soccer-formations` and `how-to-plan-a-soccer-training-session` still say "Coaching U6–U10" in their link text. The redirect keeps the links working; changing the text is a link-only edit to locked articles and needs Chris's OK.
 - Other small "U6–U10" body mentions in locked articles (for example in `small-sided-games`). Cited studies of under-7s stay: they are research descriptions.
-- Printable tags that say "U8–U10" (Switch of Play, Play Back to Go Forward).
+- ~~Printable tags that say "U8–U10"~~ **Done 2026-10-24:** both sheets now say U8–U12 (rebuilt), and the descriptions in `scanning-and-receiving` and `why-your-practice-feels-like-chaos` match. Chris approved unlocking those articles and the four with old pillar links.
 - ~~Guest writers~~ **Done 2026-10-24:** footer line "Want to write for PitchLabs Learn?" with hello@usepitchlabs.com. Payment for guest writers: not decided; unpaid with byline and credentials is the usual start.
 
 ## What Learn is for (decided 2026-10-14, Chris)

@@ -14,7 +14,7 @@ export async function renderPlayBack(opts: { publicDir: string; paper: PdfPaper;
     title: 'Play Back to Go Forward',
     templateName: null,
     durationMinutes: 15,
-    tags: ['U8–U10', 'Possession', 'Passing', '6 players', 'Medium Grid'],
+    tags: ['U8–U12', 'Possession', 'Passing', '6 players', 'Medium Grid'],
     players: '6',
     area: 'Medium Grid',
     objective:
