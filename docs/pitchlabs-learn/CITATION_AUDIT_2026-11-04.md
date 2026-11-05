@@ -81,6 +81,15 @@ Source: an outside critique of the 13 articles (pasted by Chris), checked agains
 - **Voice scan (live articles):** no "worth sitting with", "here's the thing" or "the whole point". The filler-word count is inflated by the title "How Much Should You *Actually* Say?" in cross-links, and the real uses are few. The "isn't X, it's Y" construction appears about ten times across `fundamentals-of-soccer-coaching` (3), `7v7-soccer-formations`, `coach-without-stopping-the-game`, `scanning-and-receiving` and `teach-it-or-let-the-game-teach-it`. Em dashes run high only in `how-much-should-you-actually-say` (13) and `coach-without-stopping-the-game` (12). None was edited.
 - **Real-life angle:** the articles already carry a few real lines (the old mentor's five rabbits, "I watch a lot of other coaches' sessions"). Nothing further can be written without stories from Chris, per the no-invented-experience rule.
 
+## Sixth pass (2026-11-05), the last four sources checked at source
+
+| Source | How reached | Result | Action |
+|---|---|---|---|
+| Visek et al. 2015 | Full text PDF (author copy) | 142 players, 57 parents, 37 coaches, 81 determinants in 11 dimensions. Players were U9 to U16 (Table 1), not U19; U19 was the sampling plan. One mid-Atlantic US metropolitan area, soccer only. Dimension ratings: Positive Team Dynamics 4.22 (includes being a good sport), Trying Hard 4.19, Positive Coaching 4.13, then Learning and Improving 3.75 … Mental Bonuses 3.58 (ninth), Team Rituals 2.85, Swag 2.61. Winning sits in Mental Bonuses at 3.65; that group also holds "keeping a positive attitude" at 4.44. The item-level rank of winning is not in the paper, so press figures of 30th, 40th and 48th cannot be checked; the articles don't use one. | Fixed "U9 to U19" to "U9 to U16", named Mental Bonuses, added the one-area and single-item caveats (`competition-in-youth-soccer-training`, `coaching-u8-to-u12`). |
+| Guadagnoli & Lee 2004 | Abstract (Europe PMC) | Learning relates to information from performance, which should be optimised along functions relating task difficulty to skill. The abstract does not say "stalls at either extreme". | Reworded in `why-your-practice-feels-like-chaos` and `how-to-plan-a-soccer-training-session` to match. |
+| Pacheco et al. 2023 | Abstract (Crossref, OpenAlex) | Matches. Five Williams and Hodges (2005) myths; augmented information, focus of attention, demonstration, practice schedule; results "in most cases, not unanimous". | None. |
+| Partington et al. 2015 | Full text (Edge Hill copy) | All twelve coaches at one Premier League academy took part; only five completed three seasons because of staff turnover. CAIS in seasons one and three; inter-observer agreement 90%. | `see-your-own-coaching`: states twelve started, five finished. |
+
 ## Still not checked
 
 Partington 2014, Hintermann 2025, the Clemente umbrella review, Santos and Bergkamp appear only in the framework and audit notes, not in any live or draft article. Visek's item-level rank is not used. Nothing the articles currently say depends on them.
