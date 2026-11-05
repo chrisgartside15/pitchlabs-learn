@@ -122,6 +122,7 @@ export function AuthorBio({ author }) {
       <div className="author-bio-text">
         <p className="author-bio-name">{name}</p>
         {credentials && <p className="author-bio-credentials">{credentials}</p>}
+        <p className="author-bio-credentials">PitchLabs Learn is published by PitchLabs, a session-planning tool for coaches. The articles are written to be useful whether or not you use it.</p>
       </div>
     </div>
   )
