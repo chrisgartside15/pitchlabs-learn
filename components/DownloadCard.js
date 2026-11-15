@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { withBasePath } from '@/lib/site'
-import { trackEvent } from '@/lib/analytics'
+import { usePathname } from 'next/navigation'
+import { trackEvent, APP_URL } from '@/lib/analytics'
+import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 import { StarterCta } from '@/components/StarterCta'
 
 /**
@@ -36,6 +38,8 @@ export function DownloadCard({
   children,
 }) {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const articleSlug = (pathname || '').split('/').filter(Boolean).pop() || ''
   const triggerRef = useRef(null)
   const dialogRef = useRef(null)
   const files = [
@@ -119,6 +123,20 @@ export function DownloadCard({
         {starter && <StarterCta starter={starter} label={starterLabel} embedded />}
         {starter && <p className="download-card-or">Or print a blank copy</p>}
         <div className="download-card-actions">{downloadLinks('card')}</div>
+        {/* Starter cards already carry a PitchLabs button above; the others get one quiet line. */}
+        {!starter && (
+          <p className="download-card-bridge">
+            Want your own version?{' '}
+            <TrackedCtaLink
+              href={`${APP_URL}/graphics-builder`}
+              location="download_card_bridge"
+              articleSlug={articleSlug || undefined}
+              extraParams={{ resource }}
+            >
+              Build it in PitchLabs<span className="sr-only"> (opens in a new tab)</span> →
+            </TrackedCtaLink>
+          </p>
+        )}
       </div>
 
       {open && (

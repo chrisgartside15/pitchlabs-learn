@@ -4943,3 +4943,99 @@ article .starter-cta-button:focus-visible,
   color: var(--fg-muted);
   font-size: 0.85rem;
 }
+
+/* === Route back to the app, home tools, article contents, bridges (2026-11-15) === */
+.nav-links a.nav-site-link {
+  font-size: 0.8rem;
+  color: var(--fg-subtle);
+}
+
+.nav-links a.nav-site-link:hover {
+  color: var(--fg);
+}
+
+/* Phone header is already full at 375px: the footer carries these links there. */
+@media (max-width: 760px) {
+  .nav-links a.nav-site-link {
+    display: none;
+  }
+}
+
+.footer-inner p.footer-site-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+}
+
+.home-tools-section .tool-cards {
+  margin-top: 0;
+}
+
+.home-tools-section .read-link {
+  display: inline-block;
+}
+
+.article-toc {
+  margin: 0 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-1);
+}
+
+.article-toc summary {
+  cursor: pointer;
+  font-family: var(--font-mono-family);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.article-toc ol {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.article-toc li + li {
+  margin-top: 0.4rem;
+}
+
+.article-toc a {
+  color: var(--brand-text);
+  text-decoration: none;
+}
+
+.article-toc a:hover {
+  text-decoration: underline;
+}
+
+/* The header is sticky, so anchored headings stop below it. */
+.article-content h2 {
+  scroll-margin-top: 6rem;
+}
+
+.download-card-bridge,
+.tool-bridge,
+.sb-fairplay-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.download-card-bridge a,
+.tool-bridge a,
+.sb-fairplay-note a {
+  color: var(--brand-text);
+  text-decoration: none;
+}
+
+.download-card-bridge a:hover,
+.tool-bridge a:hover,
+.sb-fairplay-note a:hover {
+  text-decoration: underline;
+}

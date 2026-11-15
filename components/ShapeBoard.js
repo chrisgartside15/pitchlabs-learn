@@ -1344,6 +1344,15 @@ export function ShapeBoard({ embedded = false }) {
         </div>
       ) : (
         <div className="sb-plan">
+          {!embedded && (
+            <p className="sb-fairplay-note">
+              Planning fair playing time on match day? There is{' '}
+              <TrackedCtaLink href={`${APP_URL}/fairplay`} location="shape_board_fairplay">
+                FairPlay<span className="sr-only"> (opens in a new tab)</span>
+              </TrackedCtaLink>{' '}
+              for rotating players during the game.
+            </p>
+          )}
           <p className="sb-print-only sb-print-title">
             7v7 rotation · {s.notation} · {squad} players · {periods} periods · game {game}
           </p>
