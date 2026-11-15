@@ -3,9 +3,10 @@ import { getAllArticles, getArticlesByCluster, formatArticleDate } from '@/lib/a
 import { CLUSTERS } from '@/lib/clusters'
 import { TechEyebrow, PitchDivider } from '@/components/atmosphere'
 import { SeriesRecap, SERIES } from '@/components/SeriesRecap'
-import { SITE_URL } from '@/lib/site'
 import { TrackedCtaLink } from '@/components/TrackedCtaLink'
 import { APP_URL } from '@/lib/analytics'
+import { ToolCards } from '@/components/ToolCards'
+import { SITE_URL, SHOW_TOOLS } from '@/lib/site'
 
 export const metadata = {
   title: 'PitchLabs Learn - Coaching Education',
@@ -67,6 +68,19 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      {SHOW_TOOLS && (
+        <>
+          <PitchDivider className="section-divider" />
+          <section className="home-tools-section">
+            <h2 className="section-title">Free tools</h2>
+            <ToolCards />
+            <Link href="/tools" className="read-link">
+              See all free tools →
+            </Link>
+          </section>
+        </>
+      )}
 
       <PitchDivider className="section-divider" />
 

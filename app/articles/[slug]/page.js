@@ -23,6 +23,8 @@ import { VideoClip } from '@/components/VideoClip'
 import { getCluster } from '@/lib/clusters'
 import { faqJsonLd } from '@/lib/faq'
 import { SITE_URL } from '@/lib/site'
+import { ArticleToc } from '@/components/ArticleToc'
+import { TOC_MIN_HEADINGS, extractH2s, createIdMaker, childrenText } from '@/lib/toc'
 
 // Spacing/typography/color for these all now live in globals.css (`article h1`, `article a`,
 // etc.) so the article reads with the same brand tokens as the rest of the site — no need to
@@ -108,6 +110,23 @@ export default function ArticlePage({ params }) {
   const cluster = article.meta.cluster ? getCluster(article.meta.cluster) : null
   const readingTime = getReadingTimeMinutes(article.content)
 
+  // Contents list + heading ids, all generated here so no article file changes. The h2 override hands out ids in
+  // document order with the same rules extractH2s used, so each link lands on its heading. An id already on the
+  // heading is kept.
+  const tocHeadings = extractH2s(article.content)
+  const makeHeadingId = createIdMaker()
+  const articleComponents = {
+    ...components,
+    h2: ({ children, id, ...props }) => {
+      const generated = makeHeadingId(childrenText(children))
+      return (
+        <h2 id={id || generated} {...props}>
+          {children}
+        </h2>
+      )
+    },
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -191,8 +210,10 @@ export default function ArticlePage({ params }) {
           <p className="article-audience">Written for coaches of U8–U12 players.</p>
         </div>
 
+        {tocHeadings.length >= TOC_MIN_HEADINGS && <ArticleToc headings={tocHeadings} />}
+
         <div className="article-content">
-          <MDXRemote source={article.content} components={components} />
+          <MDXRemote source={article.content} components={articleComponents} />
         </div>
 
         {article.meta.cta && (

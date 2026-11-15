@@ -93,6 +93,12 @@ export default function RootLayout({ children }) {
               <Link href="/topics">Topics</Link>
               {SHOW_TOOLS && <Link href="/tools">Tools</Link>}
               <Link href="/articles">Articles</Link>
+              <TrackedCtaLink href={APP_URL} location="nav_home" className="nav-site-link">
+                PitchLabs
+              </TrackedCtaLink>
+              <TrackedCtaLink href={`${APP_URL}/pricing`} location="nav_pricing" className="nav-site-link">
+                Pricing
+              </TrackedCtaLink>
               <TrackedCtaLink href={APP_URL} location="nav" className="nav-cta">
                 Try PitchLabs free
               </TrackedCtaLink>
@@ -105,9 +111,17 @@ export default function RootLayout({ children }) {
         <footer className="footer">
           <div className="footer-inner">
             <p>© {new Date().getFullYear()} PitchLabs. Coaching education for better training sessions.</p>
-            <TrackedCtaLink href={APP_URL} location="footer" className="footer-link">
-              Try PitchLabs free →
-            </TrackedCtaLink>
+            <p className="footer-site-links">
+              <TrackedCtaLink href={APP_URL} location="footer_home" className="footer-link">
+                PitchLabs home
+              </TrackedCtaLink>
+              <TrackedCtaLink href={`${APP_URL}/pricing`} location="footer_pricing" className="footer-link">
+                Pricing
+              </TrackedCtaLink>
+              <TrackedCtaLink href={APP_URL} location="footer" className="footer-link">
+                Try PitchLabs free →
+              </TrackedCtaLink>
+            </p>
             <p className="footer-guest">
               Want to write for PitchLabs Learn?{' '}
               <a href="mailto:hello@usepitchlabs.com?subject=Writing for PitchLabs Learn" className="footer-link">

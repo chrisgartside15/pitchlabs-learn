@@ -52,6 +52,12 @@ export default function FormationBuilderPage() {
       </div>
 
       <ShapeBoard />
+      <p className="tool-bridge">
+        Want your own version?{' '}
+        <TrackedCtaLink href={`${APP_URL}/graphics-builder?field=7v7`} location="tool_formation_builder_bridge">
+          Build it in PitchLabs<span className="sr-only"> (opens in a new tab)</span> →
+        </TrackedCtaLink>
+      </p>
 
       <article className="tool-notes">
         <h2>How to use it</h2>
